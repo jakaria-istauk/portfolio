@@ -11,7 +11,7 @@ A modern, responsive portfolio website showcasing my work as a Full Stack Develo
 - **Interactive Components**: Smooth scrolling navigation and hover effects
 - **Project Showcase**: Filterable portfolio with live demos and source code links
 - **Skills Visualization**: Animated progress bars showing technical proficiencies
-- **Contact Form**: Functional contact form with validation
+- **Contact Form**: Functional contact form with PHP backend and validation
 - **Performance Optimized**: Built with Vite for fast loading and development
 - **Accessibility**: WCAG compliant with semantic HTML structure
 
@@ -33,12 +33,21 @@ src/
 │   ├── About.jsx          # Professional background
 │   ├── Skills.jsx         # Technical skills with progress bars
 │   ├── Projects.jsx       # Portfolio showcase with filters
-│   ├── Contact.jsx        # Contact form and information
+│   ├── Contact.jsx        # Contact form with PHP backend integration
 │   └── Footer.jsx         # Footer with social links
 ├── assets/               # Static assets
 ├── App.jsx              # Main application component
 ├── main.jsx             # Application entry point
 └── index.css            # Global styles and Tailwind imports
+
+api/
+├── contact.php           # PHP contact form handler
+├── config.php           # Default configuration
+├── config.local.example.php # Configuration template
+├── .htaccess           # Apache configuration
+├── test.php            # API testing script
+├── test.html           # Manual testing interface
+└── README.md           # API documentation
 ```
 
 ## 🚀 Getting Started
@@ -70,7 +79,16 @@ src/
    pnpm dev
    ```
 
-4. **Open your browser**
+4. **Set up the contact form backend (optional)**
+   ```bash
+   # Copy the configuration template
+   cp api/config.local.example.php api/config.local.php
+
+   # Edit the configuration with your SMTP settings
+   # See api/README.md and api/SMTP_SETUP.md for detailed instructions
+   ```
+
+5. **Open your browser**
    Navigate to `http://localhost:5173`
 
 ## 📜 Available Scripts
@@ -125,10 +143,52 @@ Update the following files with your information:
 - Responsive grid layout
 
 ### Contact Section
-- Contact form with validation
+- Functional contact form with PHP backend
+- Server-side validation and email sending
+- Rate limiting and security features
 - Multiple contact methods
 - Social media links
 - Professional email and location
+
+## 📧 Contact Form Setup
+
+The portfolio includes a fully functional contact form with PHP backend. To enable it:
+
+### Quick Setup
+1. **Copy configuration template**
+   ```bash
+   cp api/config.local.example.php api/config.local.php
+   ```
+
+2. **Configure SMTP and recipient**
+   ```php
+   // In api/config.local.php
+   'recipient_email' => 'your-email@domain.com',
+   'allowed_origins' => ['https://yourdomain.com'],
+
+   // SMTP settings (recommended)
+   'use_smtp' => true,
+   'smtp_host' => 'smtp.gmail.com',
+   'smtp_username' => 'your-email@gmail.com',
+   'smtp_password' => 'your-app-password',
+   ```
+
+3. **Deploy API folder**
+   Upload the `api/` folder to your web server alongside your built React app.
+
+4. **Test the setup**
+   Visit `yoursite.com/api/test.html` to test the contact form.
+
+### Development Testing
+```bash
+# Start PHP development server
+cd api
+php -S localhost:8000
+
+# Update Contact.jsx API URL to http://localhost:8000/contact.php
+```
+
+For detailed setup instructions, see [api/README.md](api/README.md).
 
 ## 🚀 Deployment
 

@@ -1,0 +1,35 @@
+# Security headers
+Header always set X-Content-Type-Options nosniff
+Header always set X-Frame-Options DENY
+Header always set X-XSS-Protection "1; mode=block"
+
+# CORS headers for API endpoints
+Header always set Access-Control-Allow-Methods "POST, OPTIONS"
+Header always set Access-Control-Allow-Headers "Content-Type"
+
+# Prevent access to sensitive files
+<Files "config.local.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "*.log">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "rate_limit_*">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Enable rewrite engine
+RewriteEngine On
+
+# Handle contact form requests
+RewriteRule ^contact/?$ contact.php [L,QSA]
+
+# Block direct access to PHP files except contact.php
+RewriteCond %{REQUEST_FILENAME} \.php$
+RewriteCond %{REQUEST_FILENAME} !contact\.php$
+RewriteRule . - [F,L]

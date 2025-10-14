@@ -9,6 +9,8 @@ const Contact = () => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState(null)
+  const [submitMessage, setSubmitMessage] = useState('')
+  const [errors, setErrors] = useState([])
 
   const handleChange = (e) => {
     setFormData({
@@ -20,16 +22,49 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
-    // Simulate form submission
-    setTimeout(() => {
+    setSubmitStatus(null)
+    setSubmitMessage('')
+    setErrors([])
+
+    try {
+      // API endpoint URL - adjust this based on your server setup
+      const apiUrl = '/api/contact.php' // For development with PHP server
+      // const apiUrl = 'http://localhost/your-project/api/contact.php' // Alternative for XAMPP/WAMP
+
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        setSubmitStatus('success')
+        setSubmitMessage(result.message)
+        setFormData({ name: '', email: '', subject: '', message: '' })
+
+        // Reset status after 5 seconds
+        setTimeout(() => {
+          setSubmitStatus(null)
+          setSubmitMessage('')
+        }, 5000)
+      } else {
+        setSubmitStatus('error')
+        setSubmitMessage(result.message)
+        if (result.errors) {
+          setErrors(result.errors)
+        }
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      setSubmitStatus('error')
+      setSubmitMessage('An error occurred while sending your message. Please try again.')
+    } finally {
       setIsSubmitting(false)
-      setSubmitStatus('success')
-      setFormData({ name: '', email: '', subject: '', message: '' })
-      
-      // Reset status after 3 seconds
-      setTimeout(() => setSubmitStatus(null), 3000)
-    }, 1000)
+    }
   }
 
   const contactInfo = [
@@ -177,7 +212,20 @@ const Contact = () => {
             
             {submitStatus === 'success' && (
               <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
-                Thank you! Your message has been sent successfully.
+                {submitMessage || 'Thank you! Your message has been sent successfully.'}
+              </div>
+            )}
+
+            {submitStatus === 'error' && (
+              <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                {submitMessage || 'An error occurred while sending your message. Please try again.'}
+                {errors.length > 0 && (
+                  <ul className="mt-2 list-disc list-inside">
+                    {errors.map((error, index) => (
+                      <li key={index}>{error}</li>
+                    ))}
+                  </ul>
+                )}
               </div>
             )}
 
