@@ -15,6 +15,9 @@ dist
 dist-ssr
 *.local
 
+# Astro
+.astro/
+
 # Compiled files
 *.zip
 

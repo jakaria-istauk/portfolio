@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Experience — Jakaria Istauk" path="/experience">
+  <section class="container head">
+    <p class="eyebrow">Experience</p>
+    <h1>Where I've built.</h1>
+    <p class="lead">Timeline from the experience collection — Phase 2 + Phase 3.</p>
+  </section>
+
+  <section class="container block">
+    <h2>Timeline</h2>
+    <p class="muted">Roles render here from <code>src/content/experience</code>.</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .head { padding-block: var(--sp-16) var(--sp-8); }
+  h1 { font-size: var(--fs-4xl); line-height: var(--lh-tight); letter-spacing: var(--tracking-tight); margin: 0 0 var(--sp-4); }
+  .lead { font-size: var(--fs-lg); color: var(--text-muted); max-width: 46ch; margin: 0; }
+  .block { padding-block: var(--sp-8); }
+  h2 { font-size: var(--fs-2xl); letter-spacing: var(--tracking-tight); padding-top: var(--sp-6); border-top: 1px solid var(--border); margin: 0 0 var(--sp-4); }
+  .muted { color: var(--text-muted); }
+  code { font-family: var(--ff-mono); font-size: var(--fs-sm); color: var(--accent); }
+</style>

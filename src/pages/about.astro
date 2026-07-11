@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About — Jakaria Istauk" path="/about">
+  <section class="container head">
+    <p class="eyebrow">About</p>
+    <h1>Engineer, contributor, sleeper, runner.</h1>
+    <p class="lead">Bio, education, community &amp; hobbies — populated in Phase 3.</p>
+  </section>
+
+  <section class="container block"><h2>Education</h2><p class="muted">Phase 3.</p></section>
+  <section class="container block"><h2>Community &amp; speaking</h2><p class="muted">Phase 3.</p></section>
+  <section class="container block"><h2>Hobbies</h2><p class="muted">Phase 3.</p></section>
+</BaseLayout>
+
+<style>
+  .head { padding-block: var(--sp-16) var(--sp-8); }
+  h1 { font-size: var(--fs-4xl); line-height: var(--lh-tight); letter-spacing: var(--tracking-tight); margin: 0 0 var(--sp-4); }
+  .lead { font-size: var(--fs-lg); color: var(--text-muted); max-width: 46ch; margin: 0; }
+  .block { padding-block: var(--sp-8); }
+  h2 { font-size: var(--fs-2xl); letter-spacing: var(--tracking-tight); padding-top: var(--sp-6); border-top: 1px solid var(--border); margin: 0 0 var(--sp-4); }
+  .muted { color: var(--text-muted); }
+</style>

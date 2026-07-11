@@ -1,0 +1,24 @@
+# Jakaria Istauk
+
+> WordPress engineer & plugin developer based in Bangladesh. Builds plugins used
+> on millions of sites and open-source developer tooling.
+
+## Positioning
+- Role: WordPress engineer, plugin developer
+- Focus: WordPress plugins, Elementor addons, developer tooling, open source
+- Key projects: Tablentor (1k+ installs), Essential Addons for Elementor (2M+ sites contrib), strata (OSS)
+
+## Pages
+- [Home](https://jakaria.com.bd/): positioning, featured work
+- [About](https://jakaria.com.bd/about): bio, education, community, hobbies
+- [Experience](https://jakaria.com.bd/experience): role timeline
+- [Projects](https://jakaria.com.bd/projects): plugins + open source
+- [Contact](https://jakaria.com.bd/contact): form + channels
+
+## Contact
+- Email: hello@jakaria.com.bd
+- GitHub: https://github.com/jakariaistauk
+- LinkedIn: https://www.linkedin.com/in/jakariaistauk
+- WordPress.org: https://profiles.wordpress.org/jakariaistauk
+
+Note: content expands in Phase 5 (AI-friendly layer). Domain placeholder pending confirmation.

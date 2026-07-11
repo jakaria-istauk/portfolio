@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Contact — Jakaria Istauk" path="/contact">
+  <section class="container head">
+    <p class="eyebrow">Contact</p>
+    <h1>Let's talk.</h1>
+    <p class="lead">Drop a message, or reach me on any channel below.</p>
+  </section>
+
+  <section class="container grid">
+    <!-- Static form → api/contact.php (unchanged PHP backend). JS validation island lands in Phase 3. -->
+    <form class="card form" action="/api/contact.php" method="POST">
+      <label>Name<input type="text" name="name" required autocomplete="name" /></label>
+      <label>Email<input type="email" name="email" required autocomplete="email" /></label>
+      <label>Message<textarea name="message" rows="5" required></textarea></label>
+      <button type="submit" class="btn primary">Send message →</button>
+    </form>
+
+    <aside class="channels">
+      <h2>Channels</h2>
+      <ul>
+        <li><a href="mailto:hello@jakaria.com.bd">hello@jakaria.com.bd</a></li>
+        <li><a href="https://github.com/jakariaistauk">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/jakariaistauk">LinkedIn</a></li>
+        <li><a href="https://profiles.wordpress.org/jakariaistauk">WordPress.org</a></li>
+      </ul>
+    </aside>
+  </section>
+</BaseLayout>
+
+<style>
+  .head { padding-block: var(--sp-16) var(--sp-8); }
+  h1 { font-size: var(--fs-4xl); line-height: var(--lh-tight); letter-spacing: var(--tracking-tight); margin: 0 0 var(--sp-4); }
+  .lead { font-size: var(--fs-lg); color: var(--text-muted); max-width: 46ch; margin: 0; }
+  .grid { display: grid; grid-template-columns: 2fr 1fr; gap: var(--sp-8); padding-block: var(--sp-8); align-items: start; }
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-8); }
+  .form { display: flex; flex-direction: column; gap: var(--sp-4); }
+  label { display: flex; flex-direction: column; gap: var(--sp-2); font-family: var(--ff-mono); font-size: var(--fs-xs); color: var(--text-muted); }
+  input, textarea {
+    font-family: var(--ff-sans); font-size: var(--fs-base); color: var(--text);
+    background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-sm);
+    padding: var(--sp-3); transition: border-color var(--dur) var(--ease);
+  }
+  input:focus, textarea:focus { outline: none; border-color: var(--accent); }
+  .form .btn { align-self: flex-start; margin-top: var(--sp-2); }
+  h2 { font-size: var(--fs-xl); margin: 0 0 var(--sp-4); }
+  .channels ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--sp-3); }
+  .channels a { font-family: var(--ff-mono); font-size: var(--fs-sm); color: var(--text-muted); }
+  .channels a:hover { color: var(--accent); }
+</style>

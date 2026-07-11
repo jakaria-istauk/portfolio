@@ -1,0 +1,60 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+  /** Path-relative slug used for canonical + og:url, e.g. "/about". */
+  path?: string;
+}
+
+const {
+  title,
+  description = 'Jakaria Istauk — WordPress engineer & plugin developer. Building Tablentor, contributing to Essential Addons for Elementor (2M+ sites), and open-source tooling.',
+  path = Astro.url.pathname,
+} = Astro.props;
+
+const siteName = 'Jakaria Istauk';
+const canonical = new URL(path, Astro.site).href;
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- OpenGraph / Twitter (expanded in Phase 4) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+  </head>
+  <body>
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Jakaria Istauk — WordPress Engineer & Plugin Developer">
+  <section class="container hero">
+    <p class="eyebrow">WordPress engineer · Bangladesh</p>
+    <h1>Jakaria Istauk</h1>
+    <p class="lead">
+      I build WordPress plugins used on millions of sites — Tablentor, Essential
+      Addons for Elementor — and open-source developer tooling.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="/projects">View work →</a>
+      <a class="btn ghost" href="/contact">Get in touch</a>
+    </div>
+  </section>
+
+  <section class="container block">
+    <h2>Featured work</h2>
+    <p class="muted">Featured projects land in Phase 3 (from the projects collection).</p>
+  </section>
+
+  <section class="container block">
+    <h2>By the numbers</h2>
+    <p class="muted">Installs · contributions · years — Phase 3.</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { padding-block: var(--sp-24) var(--sp-16); }
+  h1 {
+    font-size: var(--fs-5xl);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--tracking-tight);
+    font-weight: var(--fw-bold);
+    margin: 0 0 var(--sp-4);
+  }
+  .lead {
+    font-size: var(--fs-lg);
+    color: var(--text-muted);
+    max-width: 46ch;
+    margin: 0 0 var(--sp-6);
+  }
+  .cta { display: flex; gap: var(--sp-3); flex-wrap: wrap; }
+  .block { padding-block: var(--sp-8); }
+  h2 {
+    font-size: var(--fs-2xl);
+    line-height: var(--lh-snug);
+    letter-spacing: var(--tracking-tight);
+    padding-top: var(--sp-6);
+    border-top: 1px solid var(--border);
+    margin: 0 0 var(--sp-4);
+  }
+  .muted { color: var(--text-muted); }
+</style>

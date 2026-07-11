@@ -26,18 +26,20 @@ Do this before building. Full redesign needs a target look first.
 - [x] Verified in Chrome (both themes, toggle, console clean). Commit `9de947c`.
 - **Gate:** approve direction + tokens before Phase 2.
 
-## Phase 1 — Astro Setup (in-repo, side-by-side)
-- Scaffold Astro in current repo (avoid nuking working SPA until parity reached).
-- Deps: `astro`, `@astrojs/tailwind`, `@astrojs/sitemap`, `@astrojs/mdx`.
-- `astro.config.mjs`: `output: 'static'`, `site: 'https://<domain>'`, sitemap integration.
-- Port `tailwind.config.js` + design tokens from Phase 0.
-- Structure:
-  - `src/pages/` — index, about, experience, projects, contact
-  - `src/layouts/BaseLayout.astro` — html head, SEO, nav, footer slot
-  - `src/components/` — section + UI components (`.astro`)
-  - `src/content/` — collections (experience, projects)
-  - `public/` — favicon, `robots.txt`, `llms.txt`, OG images
-- Keep `api/` untouched. Build output → serve alongside `api/` on PHP host.
+## Phase 1 — Astro Setup (in-repo, side-by-side) ✅ COMPLETE
+- [x] Scaffold Astro in current repo (SPA untouched — vite scripts kept; astro on `dev:astro`/`build:astro`).
+- [x] Deps: `astro@5`, `@astrojs/tailwind@6`, `@astrojs/sitemap@3`, `@astrojs/mdx@4`.
+      (Astro 7 pinned down to 5 — `@astrojs/tailwind` caps at Astro 5 + keeps Tailwind 3 config.)
+- [x] `astro.config.mjs`: `output: 'static'`, `site: 'https://jakaria.com.bd'` (placeholder), sitemap + mdx.
+- [x] Ported tokens → `tailwind.config.js` (semantic CSS-var colors, neutral/iris ramps, type scale,
+      radius, shadow) + `src/styles/tokens.css` (copy) + `src/styles/global.css` (reset + primitives).
+- [x] Structure: `src/pages/` (5 pages), `src/layouts/BaseLayout.astro` (head+SEO+OG+canonical),
+      `src/components/` (`Nav.astro`, `Footer.astro`), `src/content/` (dir; schemas in Phase 2),
+      `public/robots.txt`, `public/llms.txt`.
+- [x] `api/` untouched. Contact page form POSTs to `/api/contact.php`.
+- [x] `astro build` → 5 pages + `sitemap-index.xml`. Verified in Chrome (dark theme, tokens, nav
+      active-state, fonts, footer, contact form; console clean). `.astro/` gitignored.
+- **Gate:** confirm production domain before Phase 7 (sitemap/canonical/robots/llms use placeholder).
 
 ## Phase 2 — Content Collections
 Structured, typed, AI-parseable. Source = `jakaria-cv-info.md`.

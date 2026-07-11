@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Projects — Jakaria Istauk" path="/projects">
+  <section class="container head">
+    <p class="eyebrow">Projects</p>
+    <h1>Plugins &amp; open source.</h1>
+    <p class="lead">
+      Tablentor (1k+ installs), Essential Addons for Elementor (2M+ contrib),
+      strata, and more — Phase 2 + Phase 3.
+    </p>
+  </section>
+
+  <section class="container block">
+    <h2>WordPress plugins</h2>
+    <p class="muted">Cards render from <code>src/content/projects</code>.</p>
+  </section>
+  <section class="container block">
+    <h2>Open source</h2>
+    <p class="muted">Phase 3.</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .head { padding-block: var(--sp-16) var(--sp-8); }
+  h1 { font-size: var(--fs-4xl); line-height: var(--lh-tight); letter-spacing: var(--tracking-tight); margin: 0 0 var(--sp-4); }
+  .lead { font-size: var(--fs-lg); color: var(--text-muted); max-width: 52ch; margin: 0; }
+  .block { padding-block: var(--sp-8); }
+  h2 { font-size: var(--fs-2xl); letter-spacing: var(--tracking-tight); padding-top: var(--sp-6); border-top: 1px solid var(--border); margin: 0 0 var(--sp-4); }
+  .muted { color: var(--text-muted); }
+  code { font-family: var(--ff-mono); font-size: var(--fs-sm); color: var(--accent); }
+</style>

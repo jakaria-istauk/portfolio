@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jakaria.com.bd/sitemap-index.xml

@@ -1,0 +1,45 @@
+---
+const year = 2026; // static build; bump on rebuild (Date.* unavailable at build determinism)
+const channels = [
+  { href: 'https://github.com/jakariaistauk', label: 'GitHub' },
+  { href: 'https://www.linkedin.com/in/jakariaistauk', label: 'LinkedIn' },
+  { href: 'https://profiles.wordpress.org/jakariaistauk', label: 'WordPress.org' },
+  { href: 'mailto:hello@jakaria.com.bd', label: 'Email' },
+];
+---
+
+<footer class="foot">
+  <div class="container inner">
+    <span class="mono">© {year} Jakaria Istauk</span>
+    <nav class="links" aria-label="Social">
+      {channels.map((c) => <a href={c.href} class="mono link">{c.label}</a>)}
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    border-top: 1px solid var(--border);
+    margin-top: var(--sp-32);
+  }
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    padding-block: var(--sp-8);
+  }
+  .mono {
+    font-family: var(--ff-mono);
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+  }
+  .links {
+    display: flex;
+    gap: var(--sp-4);
+  }
+  .link:hover {
+    color: var(--accent);
+  }
+</style>
