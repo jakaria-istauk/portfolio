@@ -6,6 +6,7 @@ blurb: >-
   An open-source project by Jakaria — see the repository for current scope and
   documentation.
 stack: [JavaScript]
+liveUrl: https://jakaria-istauk.github.io/strata/
 featured: true
 order: 3
 ---
