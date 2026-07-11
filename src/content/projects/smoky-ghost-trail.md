@@ -8,8 +8,8 @@ blurb: >-
 stack: [JavaScript, WebGL, CSS3]
 liveUrl: https://jakaria-istauk.github.io/smoky-ghost-cursor-trail
 repoUrl: https://github.com/jakaria-istauk/smoky-ghost-cursor-trail
-featured: true
-order: 3
+featured: false
+order: 4
 ---
 
 A powerful, lightweight WebGL-based ghost cursor-trail library that brings
