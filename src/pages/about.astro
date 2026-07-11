@@ -1,24 +1,232 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { skillCategories, learningTags } from '../data/skills.ts';
+
+const hobbies = [
+  {
+    icon: '😴',
+    title: 'Professional sleeper',
+    text: 'Master of horizontal life optimization — REM cycles, dream debugging, and peak recovery. Well-rested code is better code.',
+  },
+  {
+    icon: '🏃',
+    title: 'Running enthusiast',
+    text: 'Daily 3–4K runs, occasional trails, 10K personal best. Sometimes to clear my head, sometimes to escape a production bug.',
+    link: { text: 'Follow on Strava →', url: 'https://www.strava.com/athletes/154252698' },
+  },
+];
 ---
 
 <BaseLayout title="About — Jakaria Istauk" path="/about">
   <section class="container head">
     <p class="eyebrow">About</p>
     <h1>Engineer, contributor, sleeper, runner.</h1>
-    <p class="lead">Bio, education, community &amp; hobbies — populated in Phase 3.</p>
+    <p class="lead">
+      WordPress developer and open-source contributor based in Bangladesh —
+      building scalable plugins, clean interfaces, and user-first experiences.
+    </p>
   </section>
 
-  <section class="container block"><h2>Education</h2><p class="muted">Phase 3.</p></section>
-  <section class="container block"><h2>Community &amp; speaking</h2><p class="muted">Phase 3.</p></section>
-  <section class="container block"><h2>Hobbies</h2><p class="muted">Phase 3.</p></section>
+  <section class="container block bio">
+    <p>
+      I'm a dedicated WordPress developer with 6+ years building custom plugins,
+      optimizing sites, and contributing to the open-source ecosystem. My path
+      into tech started with a curiosity about problem-solving and how the web
+      connects people — which pulled me toward WordPress and full-stack work.
+    </p>
+    <p>
+      I focus on writing clean, efficient code and crafting digital experiences
+      that are user-focused, scalable, and visually refined. I regularly
+      contribute to the WordPress Core, Polyglots, and Photo Directory teams, and
+      enjoy being part of a global community built on collaboration.
+    </p>
+    <p>
+      When I'm not coding, I experiment with new tools, attend tech events, and
+      share what I learn. My aim: keep growing as a developer while helping teams
+      and individuals ship their ideas with smart, sustainable technology.
+    </p>
+  </section>
+
+  <section class="container block">
+    <h2>Skills</h2>
+    <div class="skills">
+      {
+        skillCategories.map((cat) => (
+          <div class="skill-cat">
+            <h3>{cat.title}</h3>
+            <ul>
+              {cat.skills.map((s) => (
+                <li>{s.name}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+    <div class="learning">
+      <h3>Always learning</h3>
+      <ul class="tags">
+        {learningTags.map((t) => <li>{t}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="container block">
+    <h2>Community &amp; open source</h2>
+    <p class="muted body-max">
+      Active WordPress.org contributor across the Core, Polyglots, and Photo
+      Directory teams. I ship open-source tooling and participate in the global
+      developer community — see my
+      <a href="https://profiles.wordpress.org/jakariaistauk" target="_blank" rel="noopener noreferrer"
+        >WordPress.org profile</a
+      > and <a href="https://github.com/jakariaistauk" target="_blank" rel="noopener noreferrer">GitHub</a>.
+    </p>
+  </section>
+
+  <section class="container block">
+    <h2>Life beyond code</h2>
+    <div class="hobbies">
+      {
+        hobbies.map((h) => (
+          <div class="hobby">
+            <span class="ic" aria-hidden="true">
+              {h.icon}
+            </span>
+            <h3>{h.title}</h3>
+            <p>{h.text}</p>
+            {h.link && (
+              <a href={h.link.url} target="_blank" rel="noopener noreferrer">
+                {h.link.text}
+              </a>
+            )}
+          </div>
+        ))
+      }
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .head { padding-block: var(--sp-16) var(--sp-8); }
-  h1 { font-size: var(--fs-4xl); line-height: var(--lh-tight); letter-spacing: var(--tracking-tight); margin: 0 0 var(--sp-4); }
-  .lead { font-size: var(--fs-lg); color: var(--text-muted); max-width: 46ch; margin: 0; }
-  .block { padding-block: var(--sp-8); }
-  h2 { font-size: var(--fs-2xl); letter-spacing: var(--tracking-tight); padding-top: var(--sp-6); border-top: 1px solid var(--border); margin: 0 0 var(--sp-4); }
-  .muted { color: var(--text-muted); }
+  .head {
+    padding-block: var(--sp-16) var(--sp-8);
+  }
+  h1 {
+    font-size: var(--fs-4xl);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--tracking-tight);
+    margin: 0 0 var(--sp-4);
+  }
+  .lead {
+    font-size: var(--fs-lg);
+    color: var(--text-muted);
+    max-width: 52ch;
+    margin: 0;
+  }
+  .block {
+    padding-block: var(--sp-8);
+  }
+  h2 {
+    font-size: var(--fs-2xl);
+    letter-spacing: var(--tracking-tight);
+    padding-top: var(--sp-6);
+    border-top: 1px solid var(--border);
+    margin: 0 0 var(--sp-6);
+  }
+  .bio {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+    max-width: 66ch;
+    color: var(--text-muted);
+  }
+  .bio p {
+    margin: 0;
+  }
+  .body-max {
+    max-width: 66ch;
+  }
+  .muted {
+    color: var(--text-muted);
+  }
+  .muted a:hover {
+    color: var(--accent);
+  }
+  .skills {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--sp-6);
+  }
+  .skill-cat h3 {
+    font-family: var(--ff-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 var(--sp-3);
+  }
+  .skill-cat ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    color: var(--text);
+  }
+  .learning {
+    margin-top: var(--sp-8);
+  }
+  .learning h3 {
+    font-family: var(--ff-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin: 0 0 var(--sp-3);
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-2);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .tags li {
+    font-family: var(--ff-mono);
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: var(--r-full);
+    padding: 2px var(--sp-3);
+  }
+  .hobbies {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--sp-6);
+  }
+  .hobby {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: var(--sp-8);
+  }
+  .hobby .ic {
+    font-size: var(--fs-3xl);
+    display: block;
+    margin-bottom: var(--sp-3);
+  }
+  .hobby h3 {
+    font-size: var(--fs-lg);
+    margin: 0 0 var(--sp-2);
+  }
+  .hobby p {
+    color: var(--text-muted);
+    margin: 0 0 var(--sp-3);
+  }
+  .hobby a {
+    font-family: var(--ff-mono);
+    font-size: var(--fs-sm);
+    color: var(--accent);
+  }
 </style>

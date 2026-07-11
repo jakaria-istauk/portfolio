@@ -1,0 +1,144 @@
+---
+// Phase 3 — project card. Consumes one `projects` collection entry.
+export interface Props {
+  name: string;
+  role?: string;
+  blurb: string;
+  installs?: string;
+  contributions?: string;
+  stack?: string[];
+  liveUrl?: string;
+  repoUrl?: string;
+  type: 'plugin' | 'oss' | 'app';
+}
+const { name, role, blurb, installs, contributions, stack = [], liveUrl, repoUrl, type } =
+  Astro.props;
+const metric = contributions ?? (installs ? `${installs} installs` : undefined);
+const typeLabel = type === 'plugin' ? 'WP plugin' : type === 'oss' ? 'Open source' : 'App';
+---
+
+<article class="card">
+  <header class="top">
+    <h3>{name}</h3>
+    <span class="badge">{typeLabel}</span>
+  </header>
+  {role && <p class="role">{role}</p>}
+  <p class="blurb">{blurb}</p>
+
+  {metric && <p class="metric">{metric}</p>}
+
+  {
+    stack.length > 0 && (
+      <ul class="stack" aria-label="Tech stack">
+        {stack.map((s) => (
+          <li>{s}</li>
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    (liveUrl || repoUrl) && (
+      <footer class="links">
+        {liveUrl && (
+          <a href={liveUrl} target="_blank" rel="noopener noreferrer">
+            Live →
+          </a>
+        )}
+        {repoUrl && (
+          <a href={repoUrl} target="_blank" rel="noopener noreferrer">
+            Source →
+          </a>
+        )}
+      </footer>
+    )
+  }
+</article>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: var(--sp-8);
+    transition:
+      border-color var(--dur) var(--ease),
+      transform var(--dur) var(--ease);
+  }
+  .card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--sp-4);
+  }
+  h3 {
+    font-size: var(--fs-xl);
+    letter-spacing: var(--tracking-tight);
+    margin: 0;
+  }
+  .badge {
+    flex-shrink: 0;
+    font-family: var(--ff-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--tracking-mono);
+    color: var(--text-faint);
+    border: 1px solid var(--border);
+    border-radius: var(--r-full);
+    padding: 2px var(--sp-2);
+  }
+  .role {
+    font-family: var(--ff-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--tracking-mono);
+    color: var(--accent);
+    margin: 0;
+  }
+  .blurb {
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .metric {
+    font-family: var(--ff-mono);
+    font-size: var(--fs-sm);
+    color: var(--text);
+    margin: 0;
+  }
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-2);
+    list-style: none;
+    padding: 0;
+    margin: var(--sp-1) 0 0;
+  }
+  .stack li {
+    font-family: var(--ff-mono);
+    font-size: var(--fs-xs);
+    color: var(--text-faint);
+    background: var(--bg-elev);
+    border-radius: var(--r-sm);
+    padding: 2px var(--sp-2);
+  }
+  .links {
+    display: flex;
+    gap: var(--sp-4);
+    margin-top: auto;
+    padding-top: var(--sp-2);
+  }
+  .links a {
+    font-family: var(--ff-mono);
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+    transition: color var(--dur) var(--ease);
+  }
+  .links a:hover {
+    color: var(--accent);
+  }
+</style>

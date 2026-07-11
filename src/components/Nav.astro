@@ -12,7 +12,16 @@ const current = Astro.url.pathname.replace(/\/$/, '') || '/';
 <header class="bar">
   <div class="container inner">
     <a href="/" class="brand">jakaria.dev</a>
-    <nav class="links" aria-label="Primary">
+    <button
+      class="toggle"
+      id="nav-toggle"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      aria-controls="nav-links"
+    >
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="links" id="nav-links" aria-label="Primary">
       {
         links.map((l) => (
           <a
@@ -27,6 +36,23 @@ const current = Astro.url.pathname.replace(/\/$/, '') || '/';
     </nav>
   </div>
 </header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const links = document.getElementById('nav-links');
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    links?.classList.toggle('open', !open);
+  });
+  // Close after navigating (mobile).
+  links?.querySelectorAll('a').forEach((a) =>
+    a.addEventListener('click', () => {
+      toggle?.setAttribute('aria-expanded', 'false');
+      links.classList.remove('open');
+    }),
+  );
+</script>
 
 <style>
   .bar {
@@ -64,13 +90,51 @@ const current = Astro.url.pathname.replace(/\/$/, '') || '/';
   .link.active {
     color: var(--accent);
   }
-  /* Mobile menu island lands in Phase 3; simple wrap for now. */
+
+  /* Hamburger toggle — hidden on desktop. */
+  .toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    cursor: pointer;
+  }
+  .toggle span {
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    margin-inline: auto;
+    background: var(--text);
+    transition: transform var(--dur) var(--ease);
+  }
+
   @media (max-width: 560px) {
-    .links {
-      gap: var(--sp-3);
+    .toggle {
+      display: flex;
     }
-    .link:first-child {
+    .links {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: var(--sp-4);
+      padding: var(--sp-6) var(--gutter);
+      background: var(--bg-elev);
+      border-bottom: 1px solid var(--border);
       display: none;
+    }
+    .links.open {
+      display: flex;
+    }
+    .link {
+      font-size: var(--fs-sm);
     }
   }
 </style>

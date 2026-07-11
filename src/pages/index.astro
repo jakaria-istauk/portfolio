@@ -1,14 +1,35 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const featured = (await getCollection('projects', (p) => p.data.featured)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const stats = [
+  { value: '2M+', label: 'Active installs (EAE)' },
+  { value: '6+', label: 'Years engineering' },
+  { value: '4+', label: 'Plugins & OSS shipped' },
+];
 ---
 
-<BaseLayout title="Jakaria Istauk — WordPress Engineer & Plugin Developer">
+<BaseLayout title="Jakaria Istauk — WordPress Engineer & Plugin Developer" path="/">
   <section class="container hero">
+    <img
+      class="avatar"
+      src="https://gravatar.com/userimage/174366260/7cc7894f71fba0868a8548451d14f28a.jpeg?size=256"
+      alt="Jakaria Istauk"
+      width="88"
+      height="88"
+      loading="eager"
+    />
     <p class="eyebrow">WordPress engineer · Bangladesh</p>
     <h1>Jakaria Istauk</h1>
     <p class="lead">
       I build WordPress plugins used on millions of sites — Tablentor, Essential
-      Addons for Elementor — and open-source developer tooling.
+      Addons for Elementor — and open-source developer tooling. Backend logic to
+      frontend polish.
     </p>
     <div class="cta">
       <a class="btn primary" href="/projects">View work →</a>
@@ -18,17 +39,51 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <section class="container block">
     <h2>Featured work</h2>
-    <p class="muted">Featured projects land in Phase 3 (from the projects collection).</p>
+    <div class="grid">
+      {
+        featured.map((p) => (
+          <ProjectCard
+            name={p.data.name}
+            role={p.data.role}
+            blurb={p.data.blurb}
+            installs={p.data.installs}
+            contributions={p.data.contributions}
+            stack={p.data.stack}
+            liveUrl={p.data.liveUrl}
+            repoUrl={p.data.repoUrl}
+            type={p.data.type}
+          />
+        ))
+      }
+    </div>
+    <p class="more"><a href="/projects">All projects →</a></p>
   </section>
 
   <section class="container block">
     <h2>By the numbers</h2>
-    <p class="muted">Installs · contributions · years — Phase 3.</p>
+    <dl class="stats">
+      {
+        stats.map((s) => (
+          <div>
+            <dt>{s.value}</dt>
+            <dd>{s.label}</dd>
+          </div>
+        ))
+      }
+    </dl>
   </section>
 </BaseLayout>
 
 <style>
-  .hero { padding-block: var(--sp-24) var(--sp-16); }
+  .hero {
+    padding-block: var(--sp-24) var(--sp-16);
+  }
+  .avatar {
+    border-radius: var(--r-full);
+    border: 1px solid var(--border);
+    margin-bottom: var(--sp-6);
+    display: block;
+  }
   h1 {
     font-size: var(--fs-5xl);
     line-height: var(--lh-tight);
@@ -39,18 +94,57 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .lead {
     font-size: var(--fs-lg);
     color: var(--text-muted);
-    max-width: 46ch;
+    max-width: 52ch;
     margin: 0 0 var(--sp-6);
   }
-  .cta { display: flex; gap: var(--sp-3); flex-wrap: wrap; }
-  .block { padding-block: var(--sp-8); }
+  .cta {
+    display: flex;
+    gap: var(--sp-3);
+    flex-wrap: wrap;
+  }
+  .block {
+    padding-block: var(--sp-8);
+  }
   h2 {
     font-size: var(--fs-2xl);
     line-height: var(--lh-snug);
     letter-spacing: var(--tracking-tight);
     padding-top: var(--sp-6);
     border-top: 1px solid var(--border);
-    margin: 0 0 var(--sp-4);
+    margin: 0 0 var(--sp-6);
   }
-  .muted { color: var(--text-muted); }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--sp-6);
+  }
+  .more {
+    margin: var(--sp-6) 0 0;
+  }
+  .more a {
+    font-family: var(--ff-mono);
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+  }
+  .more a:hover {
+    color: var(--accent);
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--sp-6);
+    margin: 0;
+  }
+  .stats dt {
+    font-size: var(--fs-4xl);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--tracking-tight);
+    color: var(--accent);
+  }
+  .stats dd {
+    margin: var(--sp-1) 0 0;
+    font-family: var(--ff-mono);
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+  }
 </style>

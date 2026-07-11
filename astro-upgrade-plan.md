@@ -54,19 +54,24 @@ Structured, typed, AI-parseable. Source = About/Projects/Skills JSX + plan
 - [x] `astro sync` + `astro build` clean (schemas validate all entries).
 - **Note:** strata repoUrl omitted (unverified). Confirm before Phase 3.
 
-## Phase 3 — Pages & Component Build (redesign)
+## Phase 3 — Pages & Component Build (redesign) ✅ COMPLETE
 Build `.astro` components to the Phase 0 design. Mostly static.
-- **Islands (interactivity) — only where needed:**
-  - Header mobile menu → tiny `<script>` or Astro island.
-  - Contact form → static HTML form POSTing to `api/contact.php`; JS island for
-    validation + success/error states (keep current PHP contract).
+- **Islands (interactivity):**
+  - [x] Header mobile menu → hamburger toggle `<script>` in `Nav.astro` (a11y: aria-expanded/controls).
+  - [x] Contact form → JS island `fetch`-POSTs **JSON** to `api/contact.php`
+        (contract confirmed: JSON body, fields name/email/**subject**/message; returns
+        `{success,message,errors}`). Client validation mirrors `api/config.php` lengths;
+        success/error status states. Added missing `subject` field.
 - Pages:
-  - `/` — Hero, positioning, featured projects, CTA.
-  - `/about` — bio, education, community/speaking, hobbies.
-  - `/experience` — timeline from `experience` collection.
-  - `/projects` — plugins (Tablentor 1k+ installs, EAE 2M+ contrib) + OSS (strata, etc.).
-  - `/contact` — form + all channels.
-- Kill React/Vite deps once parity confirmed.
+  - [x] `/` — Hero (headshot, positioning, CTA), featured projects (collection), by-the-numbers stats.
+  - [x] `/about` — bio, skills (`data/skills.ts`), community/open source, hobbies (sleeper/runner+Strava).
+  - [x] `/experience` — timeline from `experience` collection (date fmt YYYY-MM→Mon YYYY, null→Present).
+  - [x] `/projects` — plugins + OSS from collection via shared `ProjectCard.astro`.
+  - [x] `/contact` — JSON form island + all channels.
+- [x] New shared component: `src/components/ProjectCard.astro`.
+- [x] `astro build` clean — 5 pages + sitemap. Islands inline into HTML.
+- **Note:** strata still has no repoUrl (card renders without Source link). React/Vite deps
+  not yet removed — do after full parity/QA (Phase 7).
 
 ## Phase 4 — SEO & Structured Data
 - Per-page `<title>` + meta description via `BaseLayout` props.

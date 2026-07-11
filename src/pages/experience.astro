@@ -1,26 +1,152 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const roles = (await getCollection('experience')).sort((a, b) => b.data.order - a.data.order);
+
+const MONTHS = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
+// "YYYY-MM" → "Mon YYYY"; null → "Present".
+function fmt(d: string | null): string {
+  if (!d) return 'Present';
+  const [y, m] = d.split('-');
+  return `${MONTHS[Number(m) - 1]} ${y}`;
+}
 ---
 
 <BaseLayout title="Experience — Jakaria Istauk" path="/experience">
   <section class="container head">
     <p class="eyebrow">Experience</p>
     <h1>Where I've built.</h1>
-    <p class="lead">Timeline from the experience collection — Phase 2 + Phase 3.</p>
+    <p class="lead">
+      Six years shipping WordPress software — from client solutions to a plugin
+      running on 2M+ sites.
+    </p>
   </section>
 
   <section class="container block">
-    <h2>Timeline</h2>
-    <p class="muted">Roles render here from <code>src/content/experience</code>.</p>
+    <ol class="timeline">
+      {
+        roles.map((r) => (
+          <li class="item">
+            <div class="dates">
+              {fmt(r.data.startDate)} — {fmt(r.data.endDate)}
+            </div>
+            <div class="body">
+              <h2>{r.data.title}</h2>
+              <p class="company">
+                {r.data.companyUrl ? (
+                  <a href={r.data.companyUrl} target="_blank" rel="noopener noreferrer">
+                    {r.data.company}
+                  </a>
+                ) : (
+                  r.data.company
+                )}
+                {r.data.location && <span class="loc"> · {r.data.location}</span>}
+              </p>
+              <p class="summary">{r.data.summary}</p>
+              {r.data.highlights.length > 0 && (
+                <ul class="highlights">
+                  {r.data.highlights.map((h) => (
+                    <li>{h}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
   </section>
 </BaseLayout>
 
 <style>
-  .head { padding-block: var(--sp-16) var(--sp-8); }
-  h1 { font-size: var(--fs-4xl); line-height: var(--lh-tight); letter-spacing: var(--tracking-tight); margin: 0 0 var(--sp-4); }
-  .lead { font-size: var(--fs-lg); color: var(--text-muted); max-width: 46ch; margin: 0; }
-  .block { padding-block: var(--sp-8); }
-  h2 { font-size: var(--fs-2xl); letter-spacing: var(--tracking-tight); padding-top: var(--sp-6); border-top: 1px solid var(--border); margin: 0 0 var(--sp-4); }
-  .muted { color: var(--text-muted); }
-  code { font-family: var(--ff-mono); font-size: var(--fs-sm); color: var(--accent); }
+  .head {
+    padding-block: var(--sp-16) var(--sp-8);
+  }
+  h1 {
+    font-size: var(--fs-4xl);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--tracking-tight);
+    margin: 0 0 var(--sp-4);
+  }
+  .lead {
+    font-size: var(--fs-lg);
+    color: var(--text-muted);
+    max-width: 52ch;
+    margin: 0;
+  }
+  .block {
+    padding-block: var(--sp-8);
+  }
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .item {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    gap: var(--sp-8);
+    padding-block: var(--sp-8);
+    border-top: 1px solid var(--border);
+  }
+  @media (max-width: 640px) {
+    .item {
+      grid-template-columns: 1fr;
+      gap: var(--sp-3);
+    }
+  }
+  .dates {
+    font-family: var(--ff-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--tracking-mono);
+    color: var(--accent);
+    padding-top: var(--sp-1);
+  }
+  h2 {
+    font-size: var(--fs-xl);
+    letter-spacing: var(--tracking-tight);
+    margin: 0 0 var(--sp-1);
+  }
+  .company {
+    font-family: var(--ff-mono);
+    font-size: var(--fs-sm);
+    color: var(--text);
+    margin: 0 0 var(--sp-3);
+  }
+  .company a:hover {
+    color: var(--accent);
+  }
+  .loc {
+    color: var(--text-faint);
+  }
+  .summary {
+    color: var(--text-muted);
+    margin: 0 0 var(--sp-4);
+    max-width: 60ch;
+  }
+  .highlights {
+    margin: 0;
+    padding-left: var(--sp-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    color: var(--text-muted);
+  }
+  .highlights li {
+    max-width: 60ch;
+  }
 </style>

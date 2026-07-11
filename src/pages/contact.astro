@@ -1,5 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const channels = [
+  { href: 'mailto:hello@jakaria.com.bd', label: 'hello@jakaria.com.bd' },
+  { href: 'https://github.com/jakariaistauk', label: 'GitHub' },
+  { href: 'https://www.linkedin.com/in/jakariaistauk', label: 'LinkedIn' },
+  { href: 'https://profiles.wordpress.org/jakariaistauk', label: 'WordPress.org' },
+  { href: 'https://www.strava.com/athletes/154252698', label: 'Strava' },
+];
 ---
 
 <BaseLayout title="Contact — Jakaria Istauk" path="/contact">
@@ -10,44 +18,192 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </section>
 
   <section class="container grid">
-    <!-- Static form → api/contact.php (unchanged PHP backend). JS validation island lands in Phase 3. -->
-    <form class="card form" action="/api/contact.php" method="POST">
-      <label>Name<input type="text" name="name" required autocomplete="name" /></label>
-      <label>Email<input type="email" name="email" required autocomplete="email" /></label>
-      <label>Message<textarea name="message" rows="5" required></textarea></label>
+    <!--
+      Static HTML form. The JS island below POSTs a JSON body to
+      /api/contact.php (its unchanged PHP contract: JSON in → {success,message,errors}).
+      Fields + client rules mirror api/config.php (name 2–100, subject 3–200, message 10–5000).
+    -->
+    <form class="card form" id="contact-form" novalidate>
+      <label>
+        Name
+        <input type="text" name="name" required minlength="2" maxlength="100" autocomplete="name" />
+      </label>
+      <label>
+        Email
+        <input type="email" name="email" required autocomplete="email" />
+      </label>
+      <label>
+        Subject
+        <input type="text" name="subject" required minlength="3" maxlength="200" />
+      </label>
+      <label>
+        Message
+        <textarea name="message" rows="5" required minlength="10" maxlength="5000"></textarea>
+      </label>
       <button type="submit" class="btn primary">Send message →</button>
+      <p class="status" id="form-status" role="status" aria-live="polite" hidden></p>
     </form>
 
     <aside class="channels">
       <h2>Channels</h2>
       <ul>
-        <li><a href="mailto:hello@jakaria.com.bd">hello@jakaria.com.bd</a></li>
-        <li><a href="https://github.com/jakariaistauk">GitHub</a></li>
-        <li><a href="https://www.linkedin.com/in/jakariaistauk">LinkedIn</a></li>
-        <li><a href="https://profiles.wordpress.org/jakariaistauk">WordPress.org</a></li>
+        {
+          channels.map((c) => (
+            <li>
+              <a href={c.href}>{c.label}</a>
+            </li>
+          ))
+        }
       </ul>
     </aside>
   </section>
 </BaseLayout>
 
-<style>
-  .head { padding-block: var(--sp-16) var(--sp-8); }
-  h1 { font-size: var(--fs-4xl); line-height: var(--lh-tight); letter-spacing: var(--tracking-tight); margin: 0 0 var(--sp-4); }
-  .lead { font-size: var(--fs-lg); color: var(--text-muted); max-width: 46ch; margin: 0; }
-  .grid { display: grid; grid-template-columns: 2fr 1fr; gap: var(--sp-8); padding-block: var(--sp-8); align-items: start; }
-  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
-  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-8); }
-  .form { display: flex; flex-direction: column; gap: var(--sp-4); }
-  label { display: flex; flex-direction: column; gap: var(--sp-2); font-family: var(--ff-mono); font-size: var(--fs-xs); color: var(--text-muted); }
-  input, textarea {
-    font-family: var(--ff-sans); font-size: var(--fs-base); color: var(--text);
-    background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-sm);
-    padding: var(--sp-3); transition: border-color var(--dur) var(--ease);
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = document.getElementById('form-status') as HTMLParagraphElement | null;
+
+  function show(msg: string, kind: 'ok' | 'err') {
+    if (!status) return;
+    status.textContent = msg;
+    status.dataset.kind = kind;
+    status.hidden = false;
   }
-  input:focus, textarea:focus { outline: none; border-color: var(--accent); }
-  .form .btn { align-self: flex-start; margin-top: var(--sp-2); }
-  h2 { font-size: var(--fs-xl); margin: 0 0 var(--sp-4); }
-  .channels ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--sp-3); }
-  .channels a { font-family: var(--ff-mono); font-size: var(--fs-sm); color: var(--text-muted); }
-  .channels a:hover { color: var(--accent); }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    btn.disabled = true;
+    const original = btn.textContent;
+    btn.textContent = 'Sending…';
+
+    try {
+      const res = await fetch('/api/contact.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json().catch(() => ({}));
+
+      if (res.ok && json.success) {
+        show(json.message || 'Message sent — thanks!', 'ok');
+        form.reset();
+      } else {
+        const errs = Array.isArray(json.errors) ? json.errors.join(' ') : '';
+        show(errs || json.message || 'Something went wrong. Please try again.', 'err');
+      }
+    } catch {
+      show('Network error. Please try again or email me directly.', 'err');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = original;
+    }
+  });
+</script>
+
+<style>
+  .head {
+    padding-block: var(--sp-16) var(--sp-8);
+  }
+  h1 {
+    font-size: var(--fs-4xl);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--tracking-tight);
+    margin: 0 0 var(--sp-4);
+  }
+  .lead {
+    font-size: var(--fs-lg);
+    color: var(--text-muted);
+    max-width: 46ch;
+    margin: 0;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--sp-8);
+    padding-block: var(--sp-8);
+    align-items: start;
+  }
+  @media (max-width: 720px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: var(--sp-8);
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    font-family: var(--ff-mono);
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+  }
+  input,
+  textarea {
+    font-family: var(--ff-sans);
+    font-size: var(--fs-base);
+    color: var(--text);
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    padding: var(--sp-3);
+    transition: border-color var(--dur) var(--ease);
+  }
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .form .btn {
+    align-self: flex-start;
+    margin-top: var(--sp-2);
+  }
+  .status {
+    margin: 0;
+    font-family: var(--ff-mono);
+    font-size: var(--fs-sm);
+  }
+  .status[data-kind='ok'] {
+    color: var(--c-success);
+  }
+  .status[data-kind='err'] {
+    color: var(--c-danger);
+  }
+  h2 {
+    font-size: var(--fs-xl);
+    margin: 0 0 var(--sp-4);
+  }
+  .channels ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+  .channels a {
+    font-family: var(--ff-mono);
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+  }
+  .channels a:hover {
+    color: var(--accent);
+  }
 </style>
