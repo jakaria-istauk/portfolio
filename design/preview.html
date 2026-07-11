@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design Direction — Jakaria Istauk Portfolio (Phase 0)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./tokens.css">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: var(--ff-sans); line-height: var(--lh-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: var(--container); margin: 0 auto; padding: var(--sp-12) var(--gutter) var(--sp-32); }
+  .eyebrow { font-family: var(--ff-mono); font-size: var(--fs-xs); letter-spacing: var(--tracking-wide);
+    text-transform: uppercase; color: var(--accent); margin: 0 0 var(--sp-2); }
+  h1 { font-size: var(--fs-5xl); line-height: var(--lh-tight); letter-spacing: var(--tracking-tight);
+    font-weight: var(--fw-bold); margin: 0 0 var(--sp-4); }
+  h2 { font-size: var(--fs-2xl); line-height: var(--lh-snug); letter-spacing: var(--tracking-tight);
+    margin: var(--sp-24) 0 var(--sp-6); padding-top: var(--sp-6); border-top: 1px solid var(--border); }
+  h3 { font-size: var(--fs-lg); margin: var(--sp-8) 0 var(--sp-3); }
+  p.lead { font-size: var(--fs-lg); color: var(--text-muted); max-width: 46ch; }
+  .grid { display: grid; gap: var(--sp-4); }
+  /* theme toggle */
+  .bar { position: sticky; top: 0; z-index: 9; display: flex; gap: var(--sp-3); align-items: center;
+    background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px);
+    padding: var(--sp-3) var(--gutter); border-bottom: 1px solid var(--border); }
+  .bar .brand { font-family: var(--ff-mono); font-size: var(--fs-sm); color: var(--text-muted); }
+  .bar .spacer { flex: 1; }
+  button.tog { font-family: var(--ff-mono); font-size: var(--fs-xs); cursor: pointer;
+    background: var(--bg-card); color: var(--text); border: 1px solid var(--border);
+    border-radius: var(--r-full); padding: var(--sp-2) var(--sp-4); transition: var(--dur) var(--ease); }
+  button.tog:hover { border-color: var(--accent); color: var(--accent); }
+  /* swatches */
+  .swatches { grid-template-columns: repeat(auto-fill, minmax(96px,1fr)); }
+  .sw { border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--border); background: var(--bg-card); }
+  .sw .chip { height: 56px; }
+  .sw .lbl { font-family: var(--ff-mono); font-size: 10px; padding: var(--sp-2); color: var(--text-muted); }
+  /* type ramp */
+  .type-row { display: flex; align-items: baseline; gap: var(--sp-4); border-bottom: 1px solid var(--border); padding: var(--sp-3) 0; }
+  .type-row .tag { font-family: var(--ff-mono); font-size: var(--fs-xs); color: var(--text-faint); width: 84px; flex: none; }
+  /* token cards */
+  .cards { grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); }
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-md); padding: var(--sp-4); }
+  .card .mono { font-family: var(--ff-mono); font-size: var(--fs-xs); color: var(--text-muted); }
+  .demo-radius { height: 44px; background: var(--accent); margin-bottom: var(--sp-3); }
+  .demo-shadow { height: 44px; background: var(--bg-elev); border: 1px solid var(--border); margin-bottom: var(--sp-3); border-radius: var(--r-sm); }
+  .btn { display: inline-flex; align-items: center; gap: var(--sp-2); font-family: var(--ff-mono);
+    font-size: var(--fs-sm); border-radius: var(--r-full); padding: var(--sp-3) var(--sp-6);
+    text-decoration: none; transition: var(--dur) var(--ease); cursor: pointer; border: 1px solid transparent; }
+  .btn.primary { background: var(--accent); color: var(--on-accent); }
+  .btn.primary:hover { box-shadow: var(--sh-glow); }
+  .btn.ghost { border-color: var(--border); color: var(--text); }
+  .btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
+  /* wireframes */
+  .wf { background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-lg);
+    padding: var(--sp-6); margin-bottom: var(--sp-6); }
+  .wf .cap { font-family: var(--ff-mono); font-size: var(--fs-xs); color: var(--accent);
+    text-transform: uppercase; letter-spacing: var(--tracking-wide); margin-bottom: var(--sp-4); }
+  .box { background: var(--bg-card); border: 1px dashed var(--border); border-radius: var(--r-sm);
+    color: var(--text-faint); font-family: var(--ff-mono); font-size: var(--fs-xs);
+    display: flex; align-items: center; justify-content: center; padding: var(--sp-4); min-height: 40px; }
+  .row { display: flex; gap: var(--sp-3); margin-bottom: var(--sp-3); }
+  .row > * { flex: 1; }
+  .wf-nav { display:flex; justify-content:space-between; align-items:center; margin-bottom: var(--sp-4); }
+  .wf-nav .links { display:flex; gap: var(--sp-3); }
+  .tall { min-height: 120px; }
+</style>
+</head>
+<body>
+<div class="bar">
+  <span class="brand">jakaria.dev — design system v0</span>
+  <span class="spacer"></span>
+  <button class="tog" id="tog">◑ toggle theme</button>
+</div>
+
+<div class="wrap">
+  <p class="eyebrow">Phase 0 · Design Direction</p>
+  <h1>Modern minimal<br>dev-portfolio.</h1>
+  <p class="lead">Dark-first. One accent hue. Monospace eyebrows &amp; labels. Generous whitespace, strong modular type scale (1.250). References: linear.app, leerob.io.</p>
+  <div style="display:flex;gap:var(--sp-3);margin-top:var(--sp-6)">
+    <a class="btn primary">View work →</a>
+    <a class="btn ghost">Get in touch</a>
+  </div>
+
+  <!-- PALETTE -->
+  <h2>Color — neutral ramp</h2>
+  <div class="grid swatches" id="neutral"></div>
+  <h2>Color — accent (iris) &amp; status</h2>
+  <div class="grid swatches" id="accent"></div>
+
+  <!-- TYPE -->
+  <h2>Type scale — Inter + JetBrains Mono</h2>
+  <div id="typeRamp"></div>
+
+  <!-- SPACING / RADIUS / SHADOW -->
+  <h2>Radius</h2>
+  <div class="grid cards" id="radius"></div>
+  <h2>Elevation / shadow</h2>
+  <div class="grid cards" id="shadow"></div>
+
+  <!-- WIREFRAMES -->
+  <h2>Low-fi wireframes — 5 pages</h2>
+
+  <div class="wf">
+    <div class="cap">/ — Home</div>
+    <div class="wf-nav"><div class="box" style="flex:none;width:120px">logo</div><div class="links"><div class="box">about</div><div class="box">work</div><div class="box">contact</div></div></div>
+    <div class="box tall">Hero — name, one-line positioning, dual CTA</div>
+    <div class="row"><div class="box tall">Featured project 1</div><div class="box tall">Featured project 2</div></div>
+    <div class="box">Selected stats — installs, contribs, years</div>
+    <div class="box">CTA band → /contact</div>
+  </div>
+
+  <div class="wf">
+    <div class="cap">/about</div>
+    <div class="row"><div class="box tall" style="flex:2">Bio — narrative, positioning</div><div class="box tall">Headshot</div></div>
+    <div class="row"><div class="box">Education</div><div class="box">Community / speaking</div><div class="box">Hobbies</div></div>
+  </div>
+
+  <div class="wf">
+    <div class="cap">/experience</div>
+    <div class="box">Intro line</div>
+    <div class="row"><div class="box" style="flex:none;width:120px">2023—now</div><div class="box tall">Role · Company · bullets</div></div>
+    <div class="row"><div class="box" style="flex:none;width:120px">2021—23</div><div class="box tall">Role · Company · bullets</div></div>
+    <div class="row"><div class="box" style="flex:none;width:120px">…</div><div class="box tall">timeline continues</div></div>
+  </div>
+
+  <div class="wf">
+    <div class="cap">/projects</div>
+    <div class="box">Filter: plugins · OSS</div>
+    <div class="row"><div class="box tall">Tablentor · 1k+</div><div class="box tall">EAE · 2M+ contrib</div><div class="box tall">strata (OSS)</div></div>
+    <div class="row"><div class="box tall">card</div><div class="box tall">card</div><div class="box tall">card</div></div>
+  </div>
+
+  <div class="wf">
+    <div class="cap">/contact</div>
+    <div class="row"><div class="box tall" style="flex:2">Form → POST api/contact.php<br>(name · email · message · submit)</div><div class="box tall">Channels: email, GitHub, LinkedIn, WP.org</div></div>
+  </div>
+
+  <p class="eyebrow" style="margin-top:var(--sp-16)">Gate — approve direction + tokens before Phase 2</p>
+</div>
+
+<script>
+  const NEUTRAL = ['0','50','100','200','300','400','500','600','700','800','900','950'];
+  const ACCENT = [['accent-300','accent'],['accent-400','accent'],['accent-500','accent'],['accent-600','accent'],['accent-700','accent'],['success','status'],['warning','status'],['danger','status']];
+  const TYPE = [['5xl','61 / Bold'],['4xl','49'],['3xl','39'],['2xl','31'],['xl','25'],['lg','20'],['base','16 body'],['sm','14'],['xs','12 mono']];
+  const RADIUS = ['sm','md','lg','xl','full'];
+  const SHADOW = ['sm','md','lg','glow'];
+
+  const css = getComputedStyle(document.documentElement);
+  const n = document.getElementById('neutral');
+  NEUTRAL.forEach(k => n.insertAdjacentHTML('beforeend',
+    `<div class="sw"><div class="chip" style="background:var(--c-neutral-${k})"></div><div class="lbl">neutral-${k}</div></div>`));
+  const a = document.getElementById('accent');
+  ACCENT.forEach(([k]) => a.insertAdjacentHTML('beforeend',
+    `<div class="sw"><div class="chip" style="background:var(--c-${k})"></div><div class="lbl">${k}</div></div>`));
+  const tr = document.getElementById('typeRamp');
+  TYPE.forEach(([k,note]) => tr.insertAdjacentHTML('beforeend',
+    `<div class="type-row"><span class="tag">fs-${k}</span><span style="font-size:var(--fs-${k});${k==='xs'?'font-family:var(--ff-mono)':''}">Jakaria Istauk — ${note}</span></div>`));
+  const rd = document.getElementById('radius');
+  RADIUS.forEach(k => rd.insertAdjacentHTML('beforeend',
+    `<div class="card"><div class="demo-radius" style="border-radius:var(--r-${k})"></div><div class="mono">r-${k}</div></div>`));
+  const sh = document.getElementById('shadow');
+  SHADOW.forEach(k => sh.insertAdjacentHTML('beforeend',
+    `<div class="card"><div class="demo-shadow" style="box-shadow:var(--sh-${k})"></div><div class="mono">sh-${k}</div></div>`));
+
+  document.getElementById('tog').onclick = () => {
+    const r = document.documentElement;
+    r.setAttribute('data-theme', r.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  };
+</script>
+</body>
+</html>
