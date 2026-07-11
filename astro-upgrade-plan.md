@@ -16,13 +16,14 @@ the existing `api/contact.php` backend keeps working unchanged.
 
 ---
 
-## Phase 0 — Design Direction (redesign)
+## Phase 0 — Design Direction (redesign) ✅ COMPLETE
 Do this before building. Full redesign needs a target look first.
-- Pick visual direction: **modern minimal dev-portfolio** — dark-first, mono accents,
-  generous whitespace, strong type scale. Confirm with 1–2 reference sites.
-- Define tokens: color palette (light + dark), type scale, spacing, radius, shadow.
-  Encode as CSS custom properties + Tailwind theme extend.
-- Rough wireframe per page (low-fi). Get sign-off before component build.
+- [x] Pick visual direction: **modern minimal dev-portfolio** — dark-first, mono accents,
+  generous whitespace, strong type scale. Refs: linear.app, leerob.io.
+- [x] Define tokens: color palette (light + dark), type scale, spacing, radius, shadow.
+  → `design/tokens.css` (CSS custom properties, source of truth).
+- [x] Rough wireframe per page (low-fi). → `design/preview.html` (5 pages + token showcase).
+- [x] Verified in Chrome (both themes, toggle, console clean). Commit `9de947c`.
 - **Gate:** approve direction + tokens before Phase 2.
 
 ## Phase 1 — Astro Setup (in-repo, side-by-side)
