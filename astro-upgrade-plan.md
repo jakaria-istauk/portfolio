@@ -41,12 +41,18 @@ Do this before building. Full redesign needs a target look first.
       active-state, fonts, footer, contact form; console clean). `.astro/` gitignored.
 - **Gate:** confirm production domain before Phase 7 (sitemap/canonical/robots/llms use placeholder).
 
-## Phase 2 — Content Collections
-Structured, typed, AI-parseable. Source = `jakaria-cv-info.md`.
-- `src/content/config.ts` — zod schemas.
-- `experience` collection — one entry per role (company, title, dates, bullets).
-- `projects` collection — plugins + OSS repos (name, role, installs, stack, links, blurb).
-- Optional `skills` data as a `.ts`/`.json` module.
+## Phase 2 — Content Collections ✅ COMPLETE
+Structured, typed, AI-parseable. Source = About/Projects/Skills JSX + plan
+(`jakaria-cv-info.md` not present in repo).
+- [x] `src/content.config.ts` (Astro 5 Content Layer API + glob loader) — zod schemas.
+- [x] `experience` collection — one entry per role (title, company, dates, summary,
+      highlights, order): wpdeveloper, codexpert, agemark.
+- [x] `projects` collection — plugins + OSS (name, type, role, installs/contributions,
+      stack, links, blurb, featured, order): Essential Addons (2M+), Tablentor (1k+),
+      Smoky Ghost Trail, strata.
+- [x] `skills` as typed `.ts` module → `src/data/skills.ts` (categories + learning tags).
+- [x] `astro sync` + `astro build` clean (schemas validate all entries).
+- **Note:** strata repoUrl omitted (unverified). Confirm before Phase 3.
 
 ## Phase 3 — Pages & Component Build (redesign)
 Build `.astro` components to the Phase 0 design. Mostly static.
