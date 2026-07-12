@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1200px; height: 630px; }
+      body {
+        font-family: -apple-system, 'Helvetica Neue', sans-serif;
+        background:
+          radial-gradient(120% 120% at 88% -10%, #1a1d24 0%, #0a0b0e 55%);
+        color: #eceef1;
+        padding: 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+      }
+      .glow {
+        position: absolute; top: -180px; right: -120px;
+        width: 520px; height: 520px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(129,140,248,0.30), transparent 65%);
+        filter: blur(20px);
+      }
+      .eyebrow {
+        font-family: 'SF Mono', Menlo, monospace;
+        font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase;
+        color: #818cf8;
+      }
+      h1 { font-size: 92px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.0; }
+      .role { font-size: 40px; font-weight: 500; color: #b6bcc6; margin-top: 20px; }
+      .row { display: flex; align-items: center; justify-content: space-between; }
+      .stats { display: flex; gap: 48px; }
+      .stat .n { font-size: 40px; font-weight: 700; color: #a5b4fc; }
+      .stat .l { font-size: 22px; color: #8b93a1; margin-top: 4px; }
+      .url {
+        font-family: 'SF Mono', Menlo, monospace;
+        font-size: 26px; color: #8b93a1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="glow"></div>
+    <div class="eyebrow">WordPress Engineer · Bangladesh</div>
+    <div>
+      <h1>Jakaria Istauk</h1>
+      <div class="role">Plugin developer &amp; open-source contributor</div>
+    </div>
+    <div class="row">
+      <div class="stats">
+        <div class="stat"><div class="n">2M+</div><div class="l">sites reached</div></div>
+        <div class="stat"><div class="n">Plugins</div><div class="l">Elementor · Gutenberg</div></div>
+        <div class="stat"><div class="n">OSS</div><div class="l">developer tooling</div></div>
+      </div>
+      <div class="url">jakaria.com.bd</div>
+    </div>
+  </body>
+</html>

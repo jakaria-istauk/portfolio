@@ -6,9 +6,33 @@ import ProjectCard from '../components/ProjectCard.astro';
 const all = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const plugins = all.filter((p) => p.data.type === 'plugin');
 const oss = all.filter((p) => p.data.type !== 'plugin');
+
+// One structured node per project. Plugins/apps → SoftwareApplication;
+// other OSS → CreativeWork. Authored/maintained by the site Person.
+const origin = new URL(Astro.site!).origin;
+const projectLd = all.map((p) => ({
+  '@type': p.data.type === 'oss' ? 'CreativeWork' : 'SoftwareApplication',
+  name: p.data.name,
+  description: p.data.blurb,
+  ...(p.data.type !== 'oss'
+    ? { applicationCategory: 'WordPress plugin', operatingSystem: 'WordPress' }
+    : {}),
+  ...(p.data.stack.length ? { keywords: p.data.stack.join(', ') } : {}),
+  ...(p.data.liveUrl ? { url: p.data.liveUrl } : {}),
+  ...(p.data.repoUrl ? { codeRepository: p.data.repoUrl } : {}),
+  author: { '@id': `${origin}/#person` },
+}));
+
+const description =
+  'WordPress plugins running on millions of sites, plus open-source developer tooling — Tablentor, Essential Addons for Elementor, strata, and more, authored or maintained by Jakaria Istauk.';
 ---
 
-<BaseLayout title="Projects — Jakaria Istauk" path="/projects">
+<BaseLayout
+  title="Projects — Jakaria Istauk"
+  description={description}
+  path="/projects"
+  jsonLd={projectLd}
+>
   <section class="container head">
     <p class="eyebrow">Projects</p>
     <h1>Plugins &amp; open source.</h1>

@@ -2,22 +2,90 @@
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { site, pageLabels } from '../data/site';
 
 export interface Props {
   title: string;
   description?: string;
   /** Path-relative slug used for canonical + og:url, e.g. "/about". */
   path?: string;
+  /** Page-specific OG image (path-absolute); falls back to site default. */
+  ogImage?: string;
+  ogImageAlt?: string;
+  /** og:type — "website" (default) or "profile" for the home/about pages. */
+  ogType?: string;
+  /** Extra JSON-LD nodes to merge into the page @graph (e.g. project entities). */
+  jsonLd?: Record<string, unknown>[];
 }
 
 const {
   title,
-  description = 'Jakaria Istauk — WordPress engineer & plugin developer. Building Tablentor, contributing to Essential Addons for Elementor (2M+ sites), and open-source tooling.',
+  description = site.description,
   path = Astro.url.pathname,
+  ogImage = site.ogImage,
+  ogImageAlt = site.ogImageAlt,
+  ogType = 'website',
+  jsonLd = [],
 } = Astro.props;
 
-const siteName = 'Jakaria Istauk';
+const siteName = site.name;
 const canonical = new URL(path, Astro.site).href;
+const ogImageUrl = new URL(ogImage, Astro.site).href;
+const origin = new URL(Astro.site!).origin;
+
+// --- JSON-LD @graph ---------------------------------------------------------
+// Stable @id anchors let nodes reference each other across pages.
+const personId = `${origin}/#person`;
+const websiteId = `${origin}/#website`;
+
+const person = {
+  '@type': 'Person',
+  '@id': personId,
+  name: site.name,
+  jobTitle: site.jobTitle,
+  description: site.description,
+  url: `${origin}/`,
+  email: `mailto:${site.email}`,
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: site.location.country,
+    addressLocality: site.location.locality,
+  },
+  sameAs: [...site.sameAs],
+};
+
+const website = {
+  '@type': 'WebSite',
+  '@id': websiteId,
+  url: `${origin}/`,
+  name: siteName,
+  description: site.description,
+  inLanguage: 'en',
+  publisher: { '@id': personId },
+};
+
+// Breadcrumb trail derived from the path (Home → …segments).
+const segments = path.replace(/^\/|\/$/g, '').split('/').filter(Boolean);
+const crumbs = [{ label: pageLabels[''], href: `${origin}/` }];
+let acc = origin;
+for (const seg of segments) {
+  acc += `/${seg}`;
+  crumbs.push({ label: pageLabels[seg] ?? seg, href: acc });
+}
+const breadcrumb = {
+  '@type': 'BreadcrumbList',
+  itemListElement: crumbs.map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: c.label,
+    item: c.href,
+  })),
+};
+
+const graph = {
+  '@context': 'https://schema.org',
+  '@graph': [person, website, breadcrumb, ...jsonLd],
+};
 ---
 
 <!doctype html>
@@ -28,17 +96,30 @@ const canonical = new URL(path, Astro.site).href;
     <link rel="icon" href="/favicon.ico" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="author" content={siteName} />
     <link rel="canonical" href={canonical} />
 
-    <!-- OpenGraph / Twitter (expanded in Phase 4) -->
-    <meta property="og:type" content="website" />
+    <!-- OpenGraph -->
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
+
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(graph)} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

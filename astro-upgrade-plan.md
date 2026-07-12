@@ -73,13 +73,18 @@ Build `.astro` components to the Phase 0 design. Mostly static.
 - **Note:** strata still has no repoUrl (card renders without Source link). React/Vite deps
   not yet removed — do after full parity/QA (Phase 7).
 
-## Phase 4 — SEO & Structured Data
-- Per-page `<title>` + meta description via `BaseLayout` props.
-- OpenGraph + Twitter card tags; generate/point to OG image.
-- Canonical URLs. `@astrojs/sitemap`. `robots.txt`.
-- Semantic HTML, heading hierarchy, alt text.
-- **JSON-LD:** `Person` (Jakaria — role, location, sameAs socials), `WebSite`,
-  `BreadcrumbList`, `SoftwareApplication`/`CreativeWork` for plugins.
+## Phase 4 — SEO & Structured Data ✅ COMPLETE
+- [x] Per-page `<title>` + unique meta description via `BaseLayout` props (all 5 pages).
+- [x] OpenGraph + Twitter card tags (image/width/height/alt, `og:type` profile on home+about).
+- [x] OG image: real 1200×630 `public/og.png` (branded card, headless-Chrome render of
+      `design/og-card.html` — edit that + re-screenshot to regenerate).
+- [x] Canonical URLs. `@astrojs/sitemap`. `robots.txt` (pre-existing).
+- [x] Semantic HTML — single `<h1>` per page verified; avatar alt text present.
+- [x] **JSON-LD** `@graph` in `BaseLayout` off shared `src/data/site.ts`: `Person`
+      (role, location, email, sameAs socials), `WebSite`, per-page `BreadcrumbList`
+      (path-derived), + `SoftwareApplication`/`CreativeWork` per project on `/projects`.
+      Cross-linked via stable `@id` anchors; validated (parses, entity types correct).
+- **Note:** all absolute URLs use placeholder `jakaria.com.bd` — confirm domain (Phase 7 gate).
 
 ## Phase 5 — AI-Friendly Layer
 - `public/llms.txt` — machine summary: name, role, location, expertise, key projects,
