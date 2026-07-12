@@ -1,24 +1,59 @@
 # Jakaria Istauk
 
 > WordPress engineer & plugin developer based in Bangladesh. Builds plugins used
-> on millions of sites and open-source developer tooling.
+> on millions of sites and open-source developer tooling. Core contributor to
+> Essential Addons for Elementor (2M+ active installs).
 
 ## Positioning
-- Role: WordPress engineer, plugin developer
+- Name: Jakaria Istauk
+- Role: WordPress Engineer & Plugin Developer
+- Location: Bangladesh (works remote)
 - Focus: WordPress plugins, Elementor addons, developer tooling, open source
-- Key projects: Tablentor (1k+ installs), Essential Addons for Elementor (2M+ sites contrib), strata (OSS)
+- Core strengths: PHP, WordPress, REST APIs, MySQL, Git
+- Contact: hello@jakaria.com.bd
+
+## Experience
+- **WordPress Developer** — WPDeveloper, Inc (Mar 2022 – Present, remote).
+  Core contributor on Essential Addons for Elementor (2M+ installs): ships
+  widgets/features, optimizes performance, maintains backward compatibility
+  across a large install base.
+- **Software Engineer** — Codexpert, Inc (Aug 2019 – Feb 2022).
+  Delivered client-specific WordPress solutions via custom plugins and child
+  themes; improved performance and maintainability.
+- **Junior Software Architect** — Agemark Technology Ltd. (Feb 2019 – Jul 2019).
+  Designed software architecture across web, mobile, and desktop applications.
+
+## Key Projects
+- **Essential Addons for Elementor** (plugin, core contributor) — the most
+  popular Elementor add-on, 2M+ active installs. Stack: PHP, JavaScript, jQuery,
+  Elementor, WordPress. https://essential-addons.com
+- **Tablentor** (plugin, author) — WordPress table-builder for Elementor;
+  responsive, styleable data tables without code. 1,000+ installs.
+  Stack: PHP, JavaScript, Elementor, WordPress.
+- **strata** (open source, author) — open-source project; see repo for scope.
+  Stack: JavaScript. https://jakaria-istauk.github.io/strata/
+- **Smoky Ghost Trail** (open source, author) — lightweight WebGL cursor-trail
+  library for any DOM element. Stack: JavaScript, WebGL, CSS3.
+  https://github.com/jakaria-istauk/smoky-ghost-cursor-trail
+
+## Skills
+- Backend: WordPress, PHP, REST APIs, MySQL, PostgreSQL, Node.js
+- Frontend: JavaScript, HTML/CSS, React, Tailwind CSS, Vue.js, TypeScript
+- Tools: Git, Figma, Docker, AWS, Jest, Webpack
+- Learning: GraphQL, Next.js, AI, n8n, React Native, Laravel, Python, Express.js, MongoDB
 
 ## Pages
-- [Home](https://jakaria.com.bd/): positioning, featured work
-- [About](https://jakaria.com.bd/about): bio, education, community, hobbies
-- [Experience](https://jakaria.com.bd/experience): role timeline
+- [Home](https://jakaria.com.bd/): positioning, featured work, by-the-numbers stats
+- [About](https://jakaria.com.bd/about): bio, skills, community/open source, hobbies
+- [Experience](https://jakaria.com.bd/experience): full role timeline
 - [Projects](https://jakaria.com.bd/projects): plugins + open source
-- [Contact](https://jakaria.com.bd/contact): form + channels
+- [Contact](https://jakaria.com.bd/contact): contact form + all channels
 
 ## Contact
 - Email: hello@jakaria.com.bd
 - GitHub: https://github.com/jakariaistauk
 - LinkedIn: https://www.linkedin.com/in/jakariaistauk
 - WordPress.org: https://profiles.wordpress.org/jakariaistauk
+- Strava: https://www.strava.com/athletes/154252698
 
-Note: content expands in Phase 5 (AI-friendly layer). Domain placeholder pending confirmation.
+Note: absolute URLs use placeholder domain jakaria.com.bd pending confirmation.

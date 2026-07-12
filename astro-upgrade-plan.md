@@ -86,11 +86,14 @@ Build `.astro` components to the Phase 0 design. Mostly static.
       Cross-linked via stable `@id` anchors; validated (parses, entity types correct).
 - **Note:** all absolute URLs use placeholder `jakaria.com.bd` — confirm domain (Phase 7 gate).
 
-## Phase 5 — AI-Friendly Layer
-- `public/llms.txt` — machine summary: name, role, location, expertise, key projects,
-  contact. Mirror `jakaria-cv-info.md` positioning.
-- Clean semantic headings + concise summaries per section.
-- JSON-LD (Phase 4) doubles as AI-readable facts.
+## Phase 5 — AI-Friendly Layer ✅ COMPLETE
+- [x] `public/llms.txt` — full machine summary off content collections + skills:
+      positioning, experience (3 roles w/ dates), key projects (stack/installs/URLs),
+      skills by category + learning tags, page map, contact channels. Copies to `dist/`.
+- [x] Clean semantic headings verified — single `<h1>` per page, `<h2>`/`<h3>`
+      nesting, `<section>` per block across all 5 pages.
+- [x] JSON-LD (Phase 4) doubles as AI-readable facts.
+- **Note:** llms.txt absolute URLs use placeholder `jakaria.com.bd` (Phase 7 gate).
 
 ## Phase 6 — Perf & A11y
 - Astro `<Image>` for optimized/responsive images (AVIF/WebP), lazy load below fold.
