@@ -95,11 +95,23 @@ Build `.astro` components to the Phase 0 design. Mostly static.
 - [x] JSON-LD (Phase 4) doubles as AI-readable facts.
 - **Note:** llms.txt absolute URLs use placeholder `jakaria.com.bd` (Phase 7 gate).
 
-## Phase 6 — Perf & A11y
-- Astro `<Image>` for optimized/responsive images (AVIF/WebP), lazy load below fold.
-- Zero/near-zero JS on static pages (islands only).
-- Keyboard nav, focus states, color contrast (both themes).
-- Lighthouse: target 95+ across the board.
+## Phase 6 — Perf & A11y ✅ COMPLETE
+- [x] Astro `<Image>` for the hero headshot — pulled gravatar local to `src/assets/headshot.png`,
+      emits WebP `srcset` (1x/2x via `densities`), fixed `width`/`height` (no CLS), `loading=eager`
+      + `fetchpriority=high` (LCP). Added `sharp` as a direct dep + `pnpm-workspace.yaml`
+      `onlyBuiltDependencies` (pnpm wouldn't resolve Astro's transitive sharp).
+- [x] Zero JS shipped on static pages — only Nav toggle + contact form islands inline into HTML
+      (`dist/` has no `.js` bundles).
+- [x] Keyboard nav / focus: skip-to-content link (`#main`) + existing `:focus-visible` ring;
+      `prefers-reduced-motion` guard in `global.css`.
+- [x] Color contrast: dark `--text-faint` → new `--c-neutral-450 #868d9b` (badges/stack tags were
+      3.19–3.55:1, now ≥4.5:1 on all dark bgs); light `--text-faint` → neutral-500 (was 3.09:1 on white).
+- [x] Non-render-blocking Google Fonts (`media=print`/`onload` swap + `<noscript>` fallback).
+- [x] Fixed 404: copied `favicon.ico` into `public/` (BaseLayout referenced `/favicon.ico`).
+- [x] **Lighthouse (desktop, static preview): all 5 pages 100/100/100/100** (perf home 100; a11y,
+      best-practices, SEO 100 across `/`, `/about`, `/projects`, `/contact`, `/experience`).
+- **Note:** light theme is currently dormant (`<html data-theme="dark">` hardcoded, no toggle) —
+      light tokens fixed anyway for when a toggle lands.
 
 ## Phase 7 — QA, Build, Deploy
 - `astro build` → static `dist/`.

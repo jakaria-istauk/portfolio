@@ -1,7 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import headshot from '../assets/headshot.png';
 
 const featured = (await getCollection('projects', (p) => p.data.featured)).sort(
   (a, b) => a.data.order - b.data.order,
@@ -20,13 +22,15 @@ const stats = [
   ogType="profile"
 >
   <section class="container hero">
-    <img
+    <Image
       class="avatar"
-      src="https://gravatar.com/userimage/174366260/7cc7894f71fba0868a8548451d14f28a.jpeg?size=256"
+      src={headshot}
       alt="Jakaria Istauk"
-      width="88"
-      height="88"
+      width={88}
+      height={88}
+      densities={[1, 2]}
       loading="eager"
+      fetchpriority="high"
     />
     <p class="eyebrow">WordPress engineer · Bangladesh</p>
     <h1>Jakaria Istauk</h1>

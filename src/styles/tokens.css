@@ -14,6 +14,7 @@
   --c-neutral-200: #d9dde2;
   --c-neutral-300: #b6bcc6;
   --c-neutral-400: #8b93a1;
+  --c-neutral-450: #868d9b;  /* AA-safe faint text on dark (≥4.5:1 on neutral-800..950) */
   --c-neutral-500: #646c7c;
   --c-neutral-600: #454b58;
   --c-neutral-700: #2c313b;
@@ -94,7 +95,7 @@
   --border:    var(--c-neutral-700);
   --text:      var(--c-neutral-100);
   --text-muted:var(--c-neutral-400);
-  --text-faint:var(--c-neutral-500);
+  --text-faint:var(--c-neutral-450);
   --accent:    var(--c-accent-400);
   --accent-strong: var(--c-accent-500);
   --on-accent: var(--c-neutral-950);
@@ -108,7 +109,7 @@
   --border:    var(--c-neutral-200);
   --text:      var(--c-neutral-900);
   --text-muted:var(--c-neutral-500);
-  --text-faint:var(--c-neutral-400);
+  --text-faint:var(--c-neutral-500);
   --accent:    var(--c-accent-600);
   --accent-strong: var(--c-accent-700);
   --on-accent: var(--c-neutral-0);
@@ -118,7 +119,7 @@
   :root:not([data-theme]) {
     --bg: var(--c-neutral-0); --bg-elev: var(--c-neutral-50); --bg-card: var(--c-neutral-0);
     --border: var(--c-neutral-200); --text: var(--c-neutral-900);
-    --text-muted: var(--c-neutral-500); --text-faint: var(--c-neutral-400);
+    --text-muted: var(--c-neutral-500); --text-faint: var(--c-neutral-500);
     --accent: var(--c-accent-600); --accent-strong: var(--c-accent-700); --on-accent: var(--c-neutral-0);
   }
 }
