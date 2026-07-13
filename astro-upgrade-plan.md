@@ -113,12 +113,26 @@ Build `.astro` components to the Phase 0 design. Mostly static.
 - **Note:** light theme is currently dormant (`<html data-theme="dark">` hardcoded, no toggle) —
       light tokens fixed anyway for when a toggle lands.
 
-## Phase 7 — QA, Build, Deploy
-- `astro build` → static `dist/`.
-- Deploy layout on PHP host: static site at web root + `api/` reachable at `/api/`.
-  Verify contact form E2E hits `api/contact.php` and sends mail.
-- Validate: sitemap, robots, JSON-LD (Rich Results test), OG (social debuggers), mobile.
-- Post-launch: submit sitemap, monitor indexing.
+## Phase 7 — QA, Build, Deploy ✅ COMPLETE (build/QA); deploy = handoff
+- [x] **Domain gate resolved:** confirmed `jakaria.com.bd` (matches real email). No URL rewrites;
+      removed the "unconfirmed" note from `astro.config.mjs`.
+- [x] **SPA removed** (deferred from Phase 3): deleted all `.jsx` (App/main + 8 components),
+      `index.html`, `vite.config.js`, `src/index.css`; pruned react/react-dom/vite/@vitejs +
+      react eslint plugins from `package.json`; eslint config now JS-only. Astro is the sole build:
+      `dev`/`build`/`preview` scripts now run `astro`.
+- [x] `pnpm build` clean → static `dist/` (5 pages + sitemap). **Zero JS bundles** shipped
+      (only Nav toggle + contact form islands inline into HTML).
+- [x] **Validated dist:** sitemap-index + sitemap-0 (5 URLs, correct domain); robots.txt;
+      llms.txt; JSON-LD parses on all 5 pages (Person/WebSite/BreadcrumbList + SoftwareApplication/
+      CreativeWork on /projects); OG tags + `og.png`; favicon (removed stale `vite.svg`).
+- [x] **Fixed canonical/sitemap mismatch:** canonical + og:url now carry a trailing slash
+      (`/about/`) to match the directory-format served URLs and the sitemap — no duplicate-URL signal.
+- [x] Live QA in Chrome (preview): mobile (390px) + desktop (1280px) render clean, nav intact,
+      console clean (only vite HMR).
+- **Deploy (user handoff — needs prod host):** upload `dist/` to web root + keep `api/` at `/api/`
+      (contact page POSTs JSON to `/api/contact.php`). Then verify contact form E2E sends mail;
+      validate JSON-LD (Rich Results test) + OG (social debuggers) against the live URL;
+      submit sitemap, monitor indexing.
 
 ---
 
@@ -136,6 +150,6 @@ Build `.astro` components to the Phase 0 design. Mostly static.
   Phase 4–5: 1 day · Phase 6: 0.5 day · Phase 7: 0.5 day. **~6–7 days.**
 
 ## Open Items
-- Confirm production domain (`jakaria.com.bd` vs jamiluddin.com) for `site` + canonical.
+- ~~Confirm production domain~~ → **jakaria.com.bd** (confirmed Phase 7).
 - Confirm Codexpert end date gap (`jakaria-cv-info.md` note).
 - Provide/approve OG image + headshot.

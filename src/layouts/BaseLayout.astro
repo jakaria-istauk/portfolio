@@ -29,7 +29,10 @@ const {
 } = Astro.props;
 
 const siteName = site.name;
-const canonical = new URL(path, Astro.site).href;
+// Normalize to a trailing slash so canonical/og:url match the sitemap and the
+// directory-format served URLs (e.g. /about/), avoiding duplicate-URL signals.
+const canonicalPath = path.endsWith('/') ? path : `${path}/`;
+const canonical = new URL(canonicalPath, Astro.site).href;
 const ogImageUrl = new URL(ogImage, Astro.site).href;
 const origin = new URL(Astro.site!).origin;
 

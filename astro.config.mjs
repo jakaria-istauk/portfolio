@@ -4,8 +4,7 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 
-// NOTE: production domain unconfirmed (jakaria.com.bd vs jamiluddin.com — see plan Open Items).
-// Placeholder below drives sitemap + canonical URLs. Update before Phase 7 deploy.
+// Production domain confirmed: jakaria.com.bd (Phase 7 gate). Drives sitemap + canonical URLs.
 export default defineConfig({
   site: 'https://jakaria.com.bd',
   output: 'static',
