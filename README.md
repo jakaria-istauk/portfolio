@@ -262,6 +262,19 @@ That builds and pushes to `gh-pages`, and GitHub Pages serves the result at
 The script refuses to run with uncommitted changes, so every deploy matches a
 commit you can point at. Commit your work first, then deploy.
 
+### Manual upload (jakaria.com.bd)
+
+```bash
+npm run package
+```
+
+Builds for a domain root and writes `jakaria-portfolio-dist.zip`. Upload its
+*contents* to the web root — the files themselves, not a `dist` folder.
+
+Do not zip `dist/` by hand after running `npm run deploy`: that build is
+pathed for `/portfolio/` and every asset 404s when served from a root. The
+package script rebuilds for the root and refuses to zip a project-page build.
+
 ### Custom domain
 
 A project page is served from `/portfolio/`, so the build is given a matching
