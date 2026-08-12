@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="JI monogram">
+  <rect width="64" height="64" rx="14" fill="#0b0b0e" />
+  <g
+    transform="translate(2 0)"
+    fill="none"
+    stroke="#f2f1ef"
+    stroke-width="10"
+    stroke-linecap="round"
+  >
+    <!-- j: stem with a hook that turns back under the i -->
+    <path d="M27 28V43a9 9 0 0 1-9 9" />
+    <!-- i -->
+    <path d="M42 28v22" />
+  </g>
+  <g transform="translate(2 0)" fill="#f2f1ef">
+    <circle cx="27" cy="14" r="5.5" />
+    <circle cx="42" cy="14" r="5.5" />
+  </g>
+</svg>
