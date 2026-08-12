@@ -5,20 +5,26 @@ const About = () => {
     {
       title: 'WordPress Developer',
       company: 'WPDeveloper, Inc',
-      period: 'March 2022 - Present',
-      description: 'Contributed to the development and maintenance of Essential Addons for Elementor, implementing new features, optimizing performance, and ensuring seamless integration with the Elementor ecosystem.'
+      period: 'Mar 2022 - Jul 2026',
+      description: 'Built features, performance and security work for Essential Addons for Elementor (2M+ installs), maintaining backward compatibility across a large plugin codebase. Also built internal Node.js/TypeScript products, including a book management platform and a Figma-to-Elementor template conversion service.'
     },
     {
-      title: 'Software Engineer',
+      title: 'Jr. Software Engineer',
       company: 'Codexpert, Inc',
       period: 'Aug 2019 - Feb 2022',
-      description: 'Developed and customized WordPress plugins and child themes to deliver client-specific solutions, enhancing functionality and performance across multiple websites.'
+      description: 'Sole engineer on several full-stack PHP, WordPress and JavaScript products: a WooCommerce builder for Elementor, a WooCommerce affiliate marketing plugin, per-role widget access control, and a 2Checkout payment gateway integration.'
     },
     {
-      title: 'Junior Software Architect',
+      title: 'Jr. Software Architect',
       company: 'Agemark Technology Ltd.',
       period: 'Feb 2019 - Jul 2019',
-      description: 'Designed and implemented software architecture for a range of projects, including web applications, mobile applications, and desktop applications.'
+      description: 'Application architecture, data models and backend services.'
+    },
+    {
+      title: 'Web Developer & Trainer',
+      company: 'Binary Pathshala',
+      period: 'Jan 2017 - May 2019',
+      description: 'Built websites and templates from design mockups, and trained students in web development and programming — including writing the curriculum.'
     }
   ]
 
@@ -36,7 +42,7 @@ const About = () => {
             </div>
             
             <div className="space-y-4 text-gray-700 leading-relaxed">
-              <p>I'm a dedicated WordPress developer with over 6 years of experience building custom plugins, optimizing websites, and contributing to the open-source ecosystem. My journey in tech began with a deep curiosity about problem-solving and how the web connects people — which naturally led me to specialize in WordPress and full-stack web development.</p>
+              <p>I'm a WordPress and full-stack engineer with 9 years of experience building custom plugins and themes, integrating third-party APIs, and contributing to the open-source ecosystem. My journey in tech began with a deep curiosity about problem-solving and how the web connects people — which naturally led me to specialize in WordPress and full-stack web development.</p>
 
               <p>I focus on writing clean, efficient code and creating digital experiences that are user-focused, scalable, and visually refined. I regularly contribute to the WordPress Core, Polyglots, and Photo Directory teams, and enjoy being part of a global community that thrives on collaboration and shared knowledge.</p>
 
@@ -48,16 +54,16 @@ const About = () => {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4 pt-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary-600">50+</div>
-                <div className="text-sm text-gray-600">Projects Completed</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary-600">6+</div>
+                <div className="text-2xl font-bold text-primary-600">9+</div>
                 <div className="text-sm text-gray-600">Years Experience</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary-600">25+</div>
-                <div className="text-sm text-gray-600">Happy Clients</div>
+                <div className="text-2xl font-bold text-primary-600">2M+</div>
+                <div className="text-sm text-gray-600">Sites Running My Code</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-primary-600">5</div>
+                <div className="text-sm text-gray-600">WordPress Core Releases</div>
               </div>
             </div>
           </div>

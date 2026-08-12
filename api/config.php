@@ -8,7 +8,7 @@
 
 return [
     // Email configuration
-    'recipient_email' => getenv('CONTACT_EMAIL') ?: 'hello@jakaria.com.bd',
+    'recipient_email' => getenv('CONTACT_EMAIL') ?: 'jakariamd35@gmail.com',
     'from_name' => 'Portfolio Contact Form',
     'subject_prefix' => '[Portfolio Contact] ',
     

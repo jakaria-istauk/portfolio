@@ -149,12 +149,13 @@ const Hero = () => {
             </h1>
             
             <h2 className="text-xl sm:text-2xl lg:text-3xl text-gray-600 mb-8 font-light">
-              Full Stack Developer
+              WordPress &amp; Full-Stack Engineer
             </h2>
             
             <p className="text-lg text-gray-700 mb-12 max-w-2xl mx-auto leading-relaxed">
-              I'm a WordPress developer and open-source contributor based in Bangladesh.
-              I specialize in building scalable plugins, clean interfaces, and user-first experiences — from the backend logic to the frontend polish
+              WordPress and full-stack engineer with 9 years of experience, based in Dhaka, Bangladesh.
+              I build custom plugins and themes, integrate third-party APIs, and ship React and Node.js products —
+              from the backend logic to the frontend polish. WordPress Core contributor across five releases.
             </p>
 
             {/* CTA Buttons */}

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+const EMAIL = 'jakariamd35@gmail.com'
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -7,10 +9,8 @@ const Contact = () => {
     subject: '',
     message: ''
   })
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState(null)
-  const [submitMessage, setSubmitMessage] = useState('')
-  const [errors, setErrors] = useState([])
+  const [copied, setCopied] = useState(false)
 
   const handleChange = (e) => {
     setFormData({
@@ -19,51 +19,35 @@ const Contact = () => {
     })
   }
 
-  const handleSubmit = async (e) => {
+  // The site is hosted statically, so there is no server to post to.
+  // Compose the message in the visitor's own mail client instead — that way
+  // they keep a copy of what they sent and can reply in the same thread.
+  const handleSubmit = (e) => {
     e.preventDefault()
-    setIsSubmitting(true)
-    setSubmitStatus(null)
-    setSubmitMessage('')
-    setErrors([])
 
+    const body = [
+      formData.message,
+      '',
+      '—',
+      `${formData.name} <${formData.email}>`
+    ].join('\n')
+
+    const mailto =
+      `mailto:${EMAIL}` +
+      `?subject=${encodeURIComponent(formData.subject)}` +
+      `&body=${encodeURIComponent(body)}`
+
+    window.location.href = mailto
+    setSubmitStatus('composed')
+  }
+
+  const copyEmail = async () => {
     try {
-      // API endpoint URL - adjust this based on your server setup
-      const apiUrl = '/api/contact.php' // For development with PHP server
-      // const apiUrl = 'http://localhost/your-project/api/contact.php' // Alternative for XAMPP/WAMP
-
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-      })
-
-      const result = await response.json()
-
-      if (result.success) {
-        setSubmitStatus('success')
-        setSubmitMessage(result.message)
-        setFormData({ name: '', email: '', subject: '', message: '' })
-
-        // Reset status after 5 seconds
-        setTimeout(() => {
-          setSubmitStatus(null)
-          setSubmitMessage('')
-        }, 5000)
-      } else {
-        setSubmitStatus('error')
-        setSubmitMessage(result.message)
-        if (result.errors) {
-          setErrors(result.errors)
-        }
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error)
-      setSubmitStatus('error')
-      setSubmitMessage('An error occurred while sending your message. Please try again.')
-    } finally {
-      setIsSubmitting(false)
+      await navigator.clipboard.writeText(EMAIL)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      setCopied(false)
     }
   }
 
@@ -75,19 +59,9 @@ const Contact = () => {
         </svg>
       ),
       title: 'Email',
-      value: 'hello@jakaria.com.bd',
-      link: 'mailto:hello@jakaria.com.bd'
+      value: EMAIL,
+      link: `mailto:${EMAIL}`
     },
-    // {
-    //   icon: (
-    //     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    //       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-    //     </svg>
-    //   ),
-    //   title: 'Phone',
-    //   value: '+1 (555) 123-4567',
-    //   link: 'tel:+15551234567'
-    // },
     {
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -208,24 +182,32 @@ const Contact = () => {
 
           {/* Contact Form */}
           <div className="bg-white rounded-xl shadow-lg p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Send a Message</h3>
-            
-            {submitStatus === 'success' && (
-              <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
-                {submitMessage || 'Thank you! Your message has been sent successfully.'}
-              </div>
-            )}
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Send a Message</h3>
+            <p className="text-sm text-gray-500 mb-6">
+              This opens the message in your own mail app, so you keep a copy of
+              what you sent.
+            </p>
 
-            {submitStatus === 'error' && (
-              <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-                {submitMessage || 'An error occurred while sending your message. Please try again.'}
-                {errors.length > 0 && (
-                  <ul className="mt-2 list-disc list-inside">
-                    {errors.map((error, index) => (
-                      <li key={index}>{error}</li>
-                    ))}
-                  </ul>
-                )}
+            {submitStatus === 'composed' && (
+              <div className="mb-6 p-4 bg-green-50 border border-green-300 text-green-800 rounded-lg text-sm">
+                <p className="font-medium mb-1">Your mail app should be open now.</p>
+                <p>
+                  Nothing happened? Write to{' '}
+                  <a
+                    href={`mailto:${EMAIL}`}
+                    className="underline font-medium"
+                  >
+                    {EMAIL}
+                  </a>{' '}
+                  directly.{' '}
+                  <button
+                    type="button"
+                    onClick={copyEmail}
+                    className="underline font-medium"
+                  >
+                    {copied ? 'Copied' : 'Copy address'}
+                  </button>
+                </p>
               </div>
             )}
 
@@ -297,14 +279,9 @@ const Contact = () => {
 
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className={`w-full py-3 px-6 rounded-lg font-medium transition-all duration-200 ${
-                  isSubmitting
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-primary-600 hover:bg-primary-700 transform hover:-translate-y-1 shadow-lg hover:shadow-xl'
-                } text-white`}
+                className="w-full py-3 px-6 rounded-lg font-medium transition-all duration-200 bg-primary-600 hover:bg-primary-700 transform hover:-translate-y-1 shadow-lg hover:shadow-xl text-white"
               >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                Send Message
               </button>
             </form>
           </div>

@@ -6,7 +6,6 @@ const Footer = () => {
   const quickLinks = [
     { name: 'Home', href: '#home' },
     { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
     { name: 'Projects', href: '#projects' },
     { name: 'Contact', href: '#contact' }
   ]
@@ -50,7 +49,7 @@ const Footer = () => {
     },
     {
       name: 'Email',
-      url: 'mailto:hello@jakaria.com.bd',
+      url: 'mailto:jakariamd35@gmail.com',
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -80,9 +79,9 @@ const Footer = () => {
             <div className="lg:col-span-2">
               <h3 className="text-2xl font-bold mb-4">Jakaria Istauk</h3>
               <p className="text-gray-300 mb-6 max-w-md leading-relaxed">
-                Full Stack Developer passionate about creating beautiful, 
-                functional web applications that make a difference. Let's build 
-                something amazing together.
+                WordPress and full-stack engineer building custom plugins, themes
+                and web applications. WordPress Core contributor. Let's build
+                something together.
               </p>
               <div className="flex space-x-4">
                 {socialLinks.map((social, index) => (
@@ -128,10 +127,10 @@ const Footer = () => {
                 <p>Dhaka, Bangladesh</p>
                 <p>
                   <a 
-                    href="mailto:hello@jakaria.com.bd"
+                    href="mailto:jakariamd35@gmail.com"
                     className="hover:text-white transition-colors duration-200"
                   >
-                    hello@jakaria.com.bd
+                    jakariamd35@gmail.com
                   </a>
                 </p>
                 {/* <p>

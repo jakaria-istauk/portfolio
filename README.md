@@ -231,7 +231,7 @@ This project is open source and available under the [MIT License](LICENSE).
 - 💼 WordPress Developer at WPDeveloper, Inc
 - 🔧 6+ years of experience in web development
 - 🌟 Open-source contributor to WordPress Core, Polyglots, and Photo Directory
-- 📧 Contact: hello@jakaria.com.bd
+- 📧 Contact: jakariamd35@gmail.com
 
 ## 🙏 Acknowledgments
 
@@ -245,4 +245,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ⭐ **Star this repository if you found it helpful!**
 
-📧 **Questions?** Feel free to reach out via [email](mailto:hello@jakaria.com.bd) or [LinkedIn](https://www.linkedin.com/in/jakariaistauk)
+📧 **Questions?** Feel free to reach out via [email](mailto:jakariamd35@gmail.com) or [LinkedIn](https://www.linkedin.com/in/jakariaistauk)
