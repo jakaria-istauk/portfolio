@@ -1,5 +1,5 @@
 import React from 'react'
-import { FIGURES, PROFILE } from './data'
+import { CV, FIGURES, PROFILE } from './data'
 import useReveal from './useReveal'
 
 const FACTS = [
@@ -29,7 +29,17 @@ const Hero = () => {
         </strong>
       </p>
 
-      <div className="hero__meta settle" style={{ animationDelay: '0.42s' }}>
+      <div className="hero__actions settle" style={{ animationDelay: '0.42s' }}>
+        <a className="button button--solid" href={CV.file} download={CV.filename}>
+          Download CV
+          <span aria-hidden="true">↓</span>
+        </a>
+        <a className="button" href="#work">
+          See the work
+        </a>
+      </div>
+
+      <div className="hero__meta settle" style={{ animationDelay: '0.5s' }}>
         {FACTS.map((fact) => (
           <span className="label" key={fact}>
             {fact}

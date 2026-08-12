@@ -1,5 +1,10 @@
 export const EMAIL = 'jakariamd35@gmail.com'
 
+export const CV = {
+  file: '/Jakaria_Istauk_CV.pdf',
+  filename: 'Jakaria_Istauk_CV.pdf',
+}
+
 export const PROFILE = {
   name: 'Mohammad Jakaria Istauk',
   role: 'WordPress & Full-Stack Engineer',

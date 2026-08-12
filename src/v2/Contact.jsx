@@ -19,7 +19,7 @@ const Contact = () => {
     message: '',
   })
   const [composed, setComposed] = useState(false)
-  const [copied, setCopied] = useState(false)
+  const [copyState, setCopyState] = useState('idle')
 
   const update = (event) =>
     setForm({ ...form, [event.target.name]: event.target.value })
@@ -36,15 +36,44 @@ const Contact = () => {
     setComposed(true)
   }
 
+  // Clipboard access is refused often enough — an unfocused tab, an older
+  // browser, a blocked permission — that a silent failure would read as a
+  // dead button. Fall back, then say so if there is nothing left to try.
   const copyEmail = async () => {
+    const settle = (state) => {
+      setCopyState(state)
+      setTimeout(() => setCopyState('idle'), 2500)
+    }
+
     try {
       await navigator.clipboard.writeText(EMAIL)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      settle('copied')
+      return
     } catch {
-      setCopied(false)
+      // fall through to the manual path
+    }
+
+    try {
+      const scratch = document.createElement('textarea')
+      scratch.value = EMAIL
+      scratch.setAttribute('readonly', '')
+      scratch.style.position = 'fixed'
+      scratch.style.opacity = '0'
+      document.body.appendChild(scratch)
+      scratch.select()
+      const ok = document.execCommand('copy')
+      document.body.removeChild(scratch)
+      settle(ok ? 'copied' : 'failed')
+    } catch {
+      settle('failed')
     }
   }
+
+  const copyLabel = {
+    idle: 'Copy address',
+    copied: 'Copied',
+    failed: 'Copy blocked — select it above',
+  }[copyState]
 
   return (
     <section className="section" id="contact" ref={ref}>
@@ -85,9 +114,10 @@ const Contact = () => {
             {composed && (
               <div className="notice" role="status">
                 <strong>Your mail app should be open.</strong>
-                Nothing happened? Write to {EMAIL} directly.{' '}
+                Nothing happened? Write to{' '}
+                <a href={`mailto:${EMAIL}`}>{EMAIL}</a> directly.{' '}
                 <button type="button" onClick={copyEmail}>
-                  {copied ? 'Copied' : 'Copy address'}
+                  {copyLabel}
                 </button>
               </div>
             )}
@@ -142,7 +172,7 @@ const Contact = () => {
               />
             </label>
 
-            <button className="submit" type="submit">
+            <button className="button button--solid" type="submit">
               Open in mail app
             </button>
           </form>

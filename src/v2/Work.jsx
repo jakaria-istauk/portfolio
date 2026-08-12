@@ -52,7 +52,7 @@ const Card = ({ project }) => (
 
 const Work = () => {
   const [filter, setFilter] = useState('everything')
-  const ref = useReveal()
+  const ref = useReveal(filter)
 
   const shown =
     filter === 'everything'

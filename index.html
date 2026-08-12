@@ -8,6 +8,23 @@
     <meta name="keywords" content="wordpress developer, wordpress plugin development, custom wordpress theme, elementor, woocommerce, full stack developer, react, node.js, typescript, php, portfolio" />
     <meta name="author" content="Jakaria Istauk" />
     <title>Jakaria Istauk — WordPress &amp; Full-Stack Engineer</title>
+    <script>
+      // Runs before first paint so a stored light theme never flashes dark.
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme')
+          if (stored === 'light' || stored === 'dark') {
+            document.documentElement.dataset.theme = stored
+            return
+          }
+        } catch (e) {}
+        document.documentElement.dataset.theme = window.matchMedia(
+          '(prefers-color-scheme: light)'
+        ).matches
+          ? 'light'
+          : 'dark'
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>
