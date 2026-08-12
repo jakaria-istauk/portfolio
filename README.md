@@ -246,3 +246,30 @@ This project is open source and available under the [MIT License](LICENSE).
 ⭐ **Star this repository if you found it helpful!**
 
 📧 **Questions?** Feel free to reach out via [email](mailto:jakariamd35@gmail.com) or [LinkedIn](https://www.linkedin.com/in/jakariaistauk)
+
+## Deploying
+
+The site is published from the `gh-pages` branch, which holds build output
+only — never edit it by hand.
+
+```bash
+npm run deploy
+```
+
+That builds and pushes to `gh-pages`, and GitHub Pages serves the result at
+<https://jakaria-istauk.github.io/portfolio/> within a minute or so.
+
+The script refuses to run with uncommitted changes, so every deploy matches a
+commit you can point at. Commit your work first, then deploy.
+
+### Custom domain
+
+A project page is served from `/portfolio/`, so the build is given a matching
+base path. To serve the site from the root of a domain instead:
+
+```bash
+BASE_PATH=/ npm run deploy
+```
+
+Add the domain to `public/CNAME` (one line, no protocol) so it survives each
+deploy, and point the DNS at GitHub Pages.
