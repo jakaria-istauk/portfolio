@@ -1,7 +1,12 @@
 export const EMAIL = 'jakariamd35@gmail.com'
 
+// Vite rewrites asset URLs it finds in index.html, but not ones written as
+// strings in JavaScript. Prefixing here keeps them correct under any base.
+const asset = (path) =>
+  `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
+
 export const CV = {
-  file: '/Jakaria_Istauk_CV.pdf',
+  file: asset('/Jakaria_Istauk_CV.pdf'),
   filename: 'Jakaria_Istauk_CV.pdf',
 }
 
@@ -42,7 +47,7 @@ export const PROJECTS = [
     title: 'Essential Addons for Elementor',
     description:
       'The most-installed Elementor addon. I work across the widget library, performance, security hardening and backward compatibility for a codebase non-technical site builders depend on daily.',
-    image: '/screenshots/essential-addons.webp',
+    image: asset('/screenshots/essential-addons.webp'),
     categories: ['wordpress'],
     meta: [
       { key: 'Active installs', value: '2 million+', signal: true },
@@ -62,7 +67,7 @@ export const PROJECTS = [
     title: 'BookClub',
     description:
       'A shared library for a distributed team: catalogue, borrow and return flows, ratings, and title suggestions, behind domain-restricted sign-in. Built end to end — data model, REST API, and interface.',
-    image: '/screenshots/bookclub.webp',
+    image: asset('/screenshots/bookclub.webp'),
     note: 'Sign-in is restricted to verified company domains.',
     categories: ['full-stack'],
     meta: [
@@ -77,7 +82,7 @@ export const PROJECTS = [
     title: 'Strata',
     description:
       'A database admin client you host yourself. Browse data, run SQL and manage schema from a React app over a thin PHP and PDO JSON API. Credentials never leave the browser, and it ships as a zip — no Node, no Composer.',
-    image: '/screenshots/strata.webp',
+    image: asset('/screenshots/strata.webp'),
     categories: ['full-stack', 'interface'],
     meta: [
       { key: 'Latest release', value: 'v1.2.2' },
@@ -94,7 +99,7 @@ export const PROJECTS = [
     title: 'Tablentor',
     description:
       'A table builder for Elementor, published on WordPress.org. Custom widget, live editor controls, responsive output and import/export — built to plugin review standards and maintained through Core updates.',
-    image: '/screenshots/tablentor.webp',
+    image: asset('/screenshots/tablentor.webp'),
     categories: ['wordpress'],
     meta: [
       { key: 'Active installs', value: '1,000+', signal: true },
@@ -111,7 +116,7 @@ export const PROJECTS = [
     title: 'HajjFlow',
     description:
       'A Hajj ritual planner written in Bengali. Offline-capable and mobile-first, and an exercise in setting a non-Latin script so it stays readable at every size.',
-    image: '/screenshots/hajjflow.webp',
+    image: asset('/screenshots/hajjflow.webp'),
     categories: ['interface'],
     meta: [
       { key: 'Language', value: 'Bengali' },
@@ -128,7 +133,7 @@ export const PROJECTS = [
     title: 'Smoky Ghost Trail',
     description:
       'A WebGL cursor-trail library that attaches to any element on a page. Shader-based, no dependencies, and small enough to read in one sitting.',
-    image: '/screenshots/smoky.webp',
+    image: asset('/screenshots/smoky.webp'),
     categories: ['interface'],
     meta: [
       { key: 'Dependencies', value: 'None' },
