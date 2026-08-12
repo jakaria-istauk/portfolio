@@ -123,7 +123,7 @@ export const Rail = () => (
 export const Footer = () => (
   <footer className="footer">
     <div className="shell footer__inner">
-      <p>Built in {PROFILE.location}.</p>
+      <p>© {new Date().getFullYear()} {PROFILE.name}</p>
 
       <div className="footer__links">
         <a href={CV.file} download={CV.filename}>
