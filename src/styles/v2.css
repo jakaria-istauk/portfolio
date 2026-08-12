@@ -286,6 +286,8 @@ button {
 .rail__nav {
   display: flex;
   gap: clamp(0.75rem, 2.5vw, 1.75rem);
+  margin-left: auto;
+  margin-right: clamp(0.75rem, 2.5vw, 1.75rem);
 }
 
 .rail__link {
@@ -301,32 +303,84 @@ button {
   color: var(--text);
 }
 
-@media (max-width: 40rem) {
-  .rail__link[data-optional='true'] {
-    display: none;
+/* Below this width the mark, theme control and Resume already fill the row,
+   so the section links wrap onto a second line rather than disappearing. */
+@media (max-width: 44rem) {
+  .rail__inner {
+    height: auto;
+    flex-wrap: wrap;
+    padding-block: 0.5rem;
+    row-gap: 0;
+  }
+
+  .rail__nav {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+    margin: 0.4rem 0 0;
+    padding-top: 0.4rem;
+    border-top: 1px solid var(--line);
   }
 }
 
-.theme-toggle {
+.themes {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+}
+
+.themes__option {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  border: 1px solid var(--line);
+  width: 1.75rem;
+  height: 1.75rem;
   border-radius: 50%;
-  color: var(--text-soft);
-  transition: color 0.25s, border-color 0.25s;
+  color: var(--text-faint);
+  transition: color 0.2s, background-color 0.2s;
 }
 
-.theme-toggle:hover {
+.themes__option:hover {
   color: var(--text);
-  border-color: var(--text);
 }
 
-.theme-toggle svg {
-  width: 0.95rem;
-  height: 0.95rem;
+.themes__option[aria-pressed='true'] {
+  background: var(--text);
+  color: var(--surface);
+}
+
+.themes__option svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+/* Resume sits in the rail as an action, not another nav link. */
+.rail__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--text);
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.rail__cta:hover {
+  background: var(--text);
+  color: var(--surface);
+}
+
+@media (max-width: 30rem) {
+  .rail__cta {
+    padding-inline: 0.7rem;
+  }
 }
 
 /* ---------------------------------------------------------------
@@ -781,10 +835,16 @@ button {
   max-width: 40ch;
 }
 
+.form {
+  border: 1px solid var(--line);
+  background: var(--surface-raised);
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
 .field {
   display: grid;
-  gap: 0.4rem;
-  margin-top: 1.4rem;
+  gap: 0.45rem;
+  margin-top: 1.25rem;
 }
 
 .field__label {
@@ -799,24 +859,34 @@ button {
 .field textarea {
   font: inherit;
   font-size: var(--step-0);
+  line-height: 1.5;
   color: var(--text);
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid var(--line);
-  padding: 0.6rem 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 0.7rem 0.85rem;
   width: 100%;
-  transition: border-color 0.25s;
+  transition: border-color 0.2s, background-color 0.2s;
 }
 
 .field textarea {
   resize: vertical;
-  min-height: 7rem;
+  min-height: 8.5rem;
+}
+
+.field input:hover,
+.field textarea:hover {
+  border-color: var(--text-faint);
 }
 
 .field input:focus,
 .field textarea:focus {
-  border-bottom-color: var(--text);
+  border-color: var(--text);
   outline: none;
+}
+
+.field input:user-invalid,
+.field textarea:user-invalid {
+  border-color: var(--signal);
 }
 
 .field input::placeholder,
@@ -826,7 +896,7 @@ button {
 
 .pair {
   display: grid;
-  gap: 0 2rem;
+  gap: 0 1rem;
   grid-template-columns: minmax(0, 1fr);
 }
 
@@ -837,7 +907,15 @@ button {
 }
 
 .form .button {
-  margin-top: 2rem;
+  margin-top: 1.75rem;
+  width: 100%;
+  justify-content: center;
+}
+
+@media (min-width: 34rem) {
+  .form .button {
+    width: auto;
+  }
 }
 
 .notice {

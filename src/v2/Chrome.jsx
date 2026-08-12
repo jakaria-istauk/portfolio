@@ -8,17 +8,17 @@ const NAV = [
 ]
 
 const SunIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-    <circle cx="12" cy="12" r="4.5" />
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+    <circle cx="12" cy="12" r="4.2" />
     <path
       strokeLinecap="round"
-      d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"
+      d="M12 2.6v2.1M12 19.3v2.1M2.6 12h2.1M19.3 12h2.1M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M18.7 5.3l-1.5 1.5M6.8 17.2l-1.5 1.5"
     />
   </svg>
 )
 
 const MoonIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
     <path
       strokeLinejoin="round"
       d="M20 13.4A8.2 8.2 0 1 1 10.6 4a6.6 6.6 0 0 0 9.4 9.4Z"
@@ -26,39 +26,70 @@ const MoonIcon = () => (
   </svg>
 )
 
-// The theme is applied to <html> before React mounts (see index.html), so this
-// only has to read what is already there and keep it in sync from here on.
-const ThemeToggle = () => {
-  const [theme, setTheme] = useState('dark')
+const SystemIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+    <rect x="3" y="4.5" width="18" height="12.5" rx="1.6" />
+    <path strokeLinecap="round" d="M9 20.5h6" />
+  </svg>
+)
 
-  useEffect(() => {
-    setTheme(document.documentElement.dataset.theme || 'dark')
-  }, [])
+const MODES = [
+  { value: 'light', label: 'Light', icon: <SunIcon /> },
+  { value: 'dark', label: 'Dark', icon: <MoonIcon /> },
+  { value: 'system', label: 'System', icon: <SystemIcon /> },
+]
 
-  const toggle = () => {
-    const next = theme === 'dark' ? 'light' : 'dark'
-    document.documentElement.dataset.theme = next
-    try {
-      localStorage.setItem('theme', next)
-    } catch {
-      // Private browsing can refuse storage; the toggle still works this visit.
-    }
-    setTheme(next)
+// `system` means no data-theme attribute at all, which hands the decision back
+// to the prefers-color-scheme rules in the stylesheet. index.html applies the
+// stored choice before first paint; this only keeps it in sync afterwards.
+const applyTheme = (mode) => {
+  if (mode === 'system') {
+    delete document.documentElement.dataset.theme
+  } else {
+    document.documentElement.dataset.theme = mode
   }
 
-  const label =
-    theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+  try {
+    localStorage.setItem('theme', mode)
+  } catch {
+    // Private browsing can refuse storage; the choice still holds this visit.
+  }
+}
+
+const ThemeControl = () => {
+  const [mode, setMode] = useState('system')
+
+  useEffect(() => {
+    let stored = null
+    try {
+      stored = localStorage.getItem('theme')
+    } catch {
+      stored = null
+    }
+    setMode(stored === 'light' || stored === 'dark' ? stored : 'system')
+  }, [])
+
+  const choose = (next) => {
+    applyTheme(next)
+    setMode(next)
+  }
 
   return (
-    <button
-      type="button"
-      className="theme-toggle"
-      onClick={toggle}
-      aria-label={label}
-      title={label}
-    >
-      {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
-    </button>
+    <div className="themes" role="group" aria-label="Colour theme">
+      {MODES.map(({ value, label, icon }) => (
+        <button
+          key={value}
+          type="button"
+          className="themes__option"
+          aria-pressed={mode === value}
+          aria-label={`${label} theme`}
+          title={`${label} theme`}
+          onClick={() => choose(value)}
+        >
+          {icon}
+        </button>
+      ))}
+    </div>
   )
 }
 
@@ -69,24 +100,21 @@ export const Rail = () => (
         Jakaria Istauk
       </a>
 
-      <div className="rail__right">
-        <nav className="rail__nav" aria-label="Sections">
-          {NAV.map((item) => (
-            <a className="rail__link" key={item.href} href={item.href}>
-              {item.label}
-            </a>
-          ))}
-          <a
-            className="rail__link"
-            href={CV.file}
-            download={CV.filename}
-            data-optional="true"
-          >
-            CV
+      <nav className="rail__nav" aria-label="Sections">
+        {NAV.map((item) => (
+          <a className="rail__link" key={item.href} href={item.href}>
+            {item.label}
           </a>
-        </nav>
+        ))}
+      </nav>
 
-        <ThemeToggle />
+      <div className="rail__right">
+        <ThemeControl />
+
+        <a className="rail__cta" href={CV.file} download={CV.filename}>
+          Resume
+          <span aria-hidden="true">↓</span>
+        </a>
       </div>
     </div>
   </div>
@@ -99,7 +127,7 @@ export const Footer = () => (
 
       <div className="footer__links">
         <a href={CV.file} download={CV.filename}>
-          Download CV
+          Download resume
         </a>
         <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
         <a href={PROFILE.github} target="_blank" rel="noreferrer">

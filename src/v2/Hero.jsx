@@ -31,7 +31,7 @@ const Hero = () => {
 
       <div className="hero__actions settle" style={{ animationDelay: '0.42s' }}>
         <a className="button button--solid" href={CV.file} download={CV.filename}>
-          Download CV
+          Download resume
           <span aria-hidden="true">↓</span>
         </a>
         <a className="button" href="#work">

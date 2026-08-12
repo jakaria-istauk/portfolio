@@ -9,20 +9,16 @@
     <meta name="author" content="Jakaria Istauk" />
     <title>Jakaria Istauk — WordPress &amp; Full-Stack Engineer</title>
     <script>
-      // Runs before first paint so a stored light theme never flashes dark.
+      // Runs before first paint so a stored theme never flashes the other one.
+      // No attribute means "system": the stylesheet's prefers-color-scheme
+      // rules decide, and they keep deciding if the setting changes mid-visit.
       (function () {
         try {
           var stored = localStorage.getItem('theme')
           if (stored === 'light' || stored === 'dark') {
             document.documentElement.dataset.theme = stored
-            return
           }
         } catch (e) {}
-        document.documentElement.dataset.theme = window.matchMedia(
-          '(prefers-color-scheme: light)'
-        ).matches
-          ? 'light'
-          : 'dark'
       })()
     </script>
   </head>
