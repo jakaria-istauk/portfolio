@@ -6,12 +6,12 @@ const Changelog = () => {
   const ref = useReveal()
 
   return (
-    <section className="section" id="history" ref={ref}>
+    <section className="section" id="experience" ref={ref}>
       <div className="shell">
         <div className="section__head">
-          <h2 className="section__title">Changelog</h2>
+          <h2 className="section__title">Experience</h2>
           <p className="section__note">
-            Where the nine years went, most recent first.
+            Where the nine years went.
           </p>
         </div>
 
@@ -29,26 +29,27 @@ const Changelog = () => {
         </div>
 
         <div className="releases rise">
-          <div className="releases__head">
-            <h3 className="releases__title">Shipped in WordPress itself</h3>
+          <h3 className="releases__title">Shipped in WordPress itself</h3>
+
+          <div>
             <p className="releases__note">
               Core contributions credited in five releases. Also a Bengali
               translation editor for the Polyglots, Core and Photos teams.
             </p>
-          </div>
 
-          <div className="tags">
-            {RELEASES.map((version) => (
-              <a
-                className="tag"
-                key={version}
-                href={`https://wordpress.org/documentation/wordpress-version/version-${version}/`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {version}
-              </a>
-            ))}
+            <div className="tags">
+              {RELEASES.map((version) => (
+                <a
+                  className="tag"
+                  key={version}
+                  href={`https://wordpress.org/documentation/wordpress-version/version-${version}/`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {version}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>

@@ -49,15 +49,15 @@ const Contact = () => {
   return (
     <section className="section" id="contact" ref={ref}>
       <div className="shell">
-        <div className="section__head">
-          <h2 className="section__title">Get in touch</h2>
-        </div>
-
         <div className="contact">
           <div className="rise">
-            <p className="contact__lede">
-              Open to senior WordPress and full-stack roles, and to the kind of
-              problem that needs someone to own it end to end.
+            <span className="label">Get in touch</span>
+            <h2 className="contact__lede">
+              Open to senior WordPress and full-stack roles.
+            </h2>
+            <p className="contact__sub">
+              And to the kind of problem that needs someone to own it end to
+              end.
             </p>
 
             <div className="contact__list">
@@ -77,9 +77,7 @@ const Contact = () => {
           </div>
 
           <form className="form rise" onSubmit={compose}>
-            <h3 className="section__title" style={{ fontSize: 'var(--step-1)' }}>
-              Write a message
-            </h3>
+            <h3 className="form__title">Write a message</h3>
             <p className="form__hint">
               Opens in your own mail app, so you keep a copy of what you sent.
             </p>

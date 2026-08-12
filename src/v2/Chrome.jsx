@@ -3,7 +3,7 @@ import { EMAIL, PROFILE } from './data'
 
 const NAV = [
   { label: 'Work', href: '#work' },
-  { label: 'Changelog', href: '#history' },
+  { label: 'Experience', href: '#experience' },
   { label: 'Contact', href: '#contact' },
 ]
 
@@ -39,10 +39,7 @@ export const Rail = () => (
 export const Footer = () => (
   <footer className="footer">
     <div className="shell footer__inner">
-      <p>
-        Built in {PROFILE.location}. Set in Bricolage Grotesque, Newsreader and
-        IBM Plex Mono.
-      </p>
+      <p>Built in {PROFILE.location}. Set in Bodoni Moda.</p>
 
       <div className="footer__links">
         <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
