@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "deploy": "bash scripts/deploy.sh",
+    "deploy:ftp": "bash scripts/ftp-publish.sh",
     "package": "bash scripts/package.sh"
   },
   "dependencies": {
