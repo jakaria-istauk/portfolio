@@ -9,7 +9,9 @@
 #   FTP_USERNAME  FTP account user
 #   FTP_PASSWORD  FTP account password
 # Optional repository variable:
-#   FTP_SERVER_DIR  remote path, with a trailing slash. Defaults to public_html/
+#   FTP_SERVER_DIR  remote path, with a trailing slash. Defaults to ./, because
+#                   this host drops the FTP user straight into the web root —
+#                   a public_html/ value would nest the site one level deep.
 name: FTP Deploy
 
 on:
@@ -35,7 +37,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           local-dir: ./
-          server-dir: ${{ vars.FTP_SERVER_DIR || 'public_html/' }}
+          server-dir: ${{ vars.FTP_SERVER_DIR || './' }}
           # Repo plumbing has no place in the web root, and the server's own
           # config.local.php holds SMTP credentials: excluded files are neither
           # uploaded nor deleted, so the live one survives every deploy.
