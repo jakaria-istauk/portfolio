@@ -1,0 +1,47 @@
+# Uploads an already-built site to the FTP host.
+#
+# This workflow never builds. `npm run deploy:ftp` builds locally and pushes the
+# output to the ftp-deploy branch; this job only transfers that branch's files.
+# GitHub Pages is unaffected — it still comes from the gh-pages branch.
+#
+# Required repository secrets:
+#   FTP_SERVER    hostname, e.g. ftp.jakaria.com.bd (no ftp:// prefix)
+#   FTP_USERNAME  FTP account user
+#   FTP_PASSWORD  FTP account password
+# Optional repository variable:
+#   FTP_SERVER_DIR  remote path, with a trailing slash. Defaults to public_html/
+name: FTP Deploy
+
+on:
+  push:
+    branches: [ftp-deploy]
+  workflow_dispatch:
+
+concurrency:
+  group: ftp-deploy
+  cancel-in-progress: false
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Upload via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./
+          server-dir: ${{ vars.FTP_SERVER_DIR || 'public_html/' }}
+          # Repo plumbing has no place in the web root, and the server's own
+          # config.local.php holds SMTP credentials: excluded files are neither
+          # uploaded nor deleted, so the live one survives every deploy.
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/api/config.local.php
+            **/.DS_Store

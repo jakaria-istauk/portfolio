@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0b0b0e" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Mohammad Jakaria Istauk - WordPress &amp; Full-Stack Engineer with 9 years of experience. Custom WordPress plugins and themes, React and Node.js products, and WordPress Core contributions across five releases." />
+    <meta name="keywords" content="wordpress developer, wordpress plugin development, custom wordpress theme, elementor, woocommerce, full stack developer, react, node.js, typescript, php, portfolio" />
+    <meta name="author" content="Jakaria Istauk" />
+    <title>Jakaria Istauk — WordPress &amp; Full-Stack Engineer</title>
+    <script>
+      // Runs before first paint so a stored theme never flashes the other one.
+      // No attribute means "system": the stylesheet's prefers-color-scheme
+      // rules decide, and they keep deciding if the setting changes mid-visit.
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme')
+          if (stored === 'light' || stored === 'dark') {
+            document.documentElement.dataset.theme = stored
+          }
+        } catch (e) {}
+      })()
+    </script>
+    <script type="module" crossorigin src="/assets/index.js"></script>
+    <link rel="stylesheet" href="/assets/index.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    
+  </body>
+</html>
