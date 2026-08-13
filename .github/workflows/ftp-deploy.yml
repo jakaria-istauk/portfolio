@@ -38,12 +38,9 @@ jobs:
           protocol: ftps
           local-dir: ./
           server-dir: ${{ vars.FTP_SERVER_DIR || './' }}
-          # Repo plumbing has no place in the web root, and the server's own
-          # config.local.php holds SMTP credentials: excluded files are neither
-          # uploaded nor deleted, so the live one survives every deploy.
+          # Repo plumbing has no place in the web root.
           exclude: |
             **/.git*
             **/.git*/**
             **/.github/**
-            **/api/config.local.php
             **/.DS_Store

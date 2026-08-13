@@ -7,8 +7,8 @@
 #   BASE_PATH=/sub/ npm run deploy:ftp       → build for a subdirectory
 #
 # The build happens here, locally. The action only transfers files, so the
-# branch must contain the exact tree the web root should end up with:
-# dist/ contents at the top level, plus api/ for the PHP contact endpoint.
+# branch must contain the exact tree the web root should end up with: the
+# contents of dist/ at the top level, nothing more.
 #
 # ftp-deploy holds build output only. It has no shared history with the source
 # branch and is rewritten on every publish — never commit source to it.
@@ -59,12 +59,6 @@ fi
 # Replace the branch contents wholesale: stale files should not survive.
 find "$WORKTREE" -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
 cp -R dist/. "$WORKTREE"/
-
-# The PHP contact endpoint lives next to the static build on the FTP host.
-# config.local.php stays on the server only — it holds SMTP credentials and is
-# excluded from the transfer, so it is never uploaded and never deleted.
-mkdir -p "$WORKTREE/api"
-cp api/config.php api/contact.php api/config.local.example.php "$WORKTREE/api"/
 
 # The workflow file has to exist on the branch that triggers it.
 mkdir -p "$WORKTREE/.github/workflows"

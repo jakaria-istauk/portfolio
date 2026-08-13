@@ -1,288 +1,155 @@
-# 🚀 Mohammad Jakaria Istauk - Portfolio
+# Portfolio - Mohammad Jakaria Istauk
 
-A modern, responsive portfolio website showcasing my work as a Full Stack Developer specializing in WordPress development and open-source contributions.
+Personal portfolio site for a WordPress and full-stack engineer. A React single
+page application built with Vite and deployed as static files, with no backend
+of its own.
 
-![Portfolio Preview](https://images.unsplash.com/photo-1537111261224-6fa49cecda2f?q=80&w=1170&auto=format&fit=crop)
+- Live: [jakaria.com.bd](https://jakaria.com.bd)
+- Mirror: [jakaria-istauk.github.io/portfolio](https://jakaria-istauk.github.io/portfolio/)
 
-## ✨ Features
+## Stack
 
-- **Modern Design**: Clean, professional interface with smooth animations
-- **Responsive Layout**: Optimized for all devices and screen sizes
-- **Interactive Components**: Smooth scrolling navigation and hover effects
-- **Project Showcase**: Filterable portfolio with live demos and source code links
-- **Skills Visualization**: Animated progress bars showing technical proficiencies
-- **Contact Form**: Functional contact form with PHP backend and validation
-- **Performance Optimized**: Built with Vite for fast loading and development
-- **Accessibility**: WCAG compliant with semantic HTML structure
+| Layer | Choice |
+| --- | --- |
+| UI | React 19 |
+| Build | Vite 4 |
+| Styling | Tailwind CSS 3 with a hand written stylesheet in `src/styles/v2.css` |
+| Linting | ESLint 9 with the React Hooks and Refresh plugins |
 
-## 🛠️ Tech Stack
+## Requirements
 
-- **Frontend**: React 19.1.0
-- **Build Tool**: Vite 4.5.3
-- **Styling**: Tailwind CSS 3.4.0
-- **Code Quality**: ESLint with React hooks and refresh plugins
-- **Package Manager**: npm/pnpm
+- Node.js 18 or newer (developed on 22)
+- npm
 
-## 📁 Project Structure
+## Getting started
+
+```bash
+git clone git@github.com:jakaria-istauk/portfolio.git
+cd portfolio
+npm install
+npm run dev
+```
+
+The dev server prints a local URL, by default <http://localhost:5173>.
+
+## Scripts
+
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Vite dev server with hot module replacement |
+| `npm run build` | Production build into `dist/` |
+| `npm run preview` | Serve the built `dist/` locally |
+| `npm run lint` | ESLint over the project |
+| `npm run deploy` | Build and publish to the `gh-pages` branch |
+| `npm run deploy:ftp` | Build and publish to the `ftp-deploy` branch, which a GitHub Action uploads over FTP |
+| `npm run package` | Build for a domain root and zip it for a manual upload |
+
+## Project structure
 
 ```
 src/
-├── components/
-│   ├── Header.jsx          # Navigation with smooth scroll
-│   ├── Hero.jsx           # Landing section with CTA
-│   ├── About.jsx          # Professional background
-│   ├── Skills.jsx         # Technical skills with progress bars
-│   ├── Projects.jsx       # Portfolio showcase with filters
-│   ├── Contact.jsx        # Contact form with PHP backend integration
-│   └── Footer.jsx         # Footer with social links
-├── assets/               # Static assets
-├── App.jsx              # Main application component
-├── main.jsx             # Application entry point
-└── index.css            # Global styles and Tailwind imports
+├── main.jsx             Entry point
+├── App.jsx              Section composition
+├── styles/v2.css        Global styles and Tailwind layers
+└── v2/
+    ├── Chrome.jsx       Side rail navigation and footer
+    ├── Hero.jsx         Intro, figures, CV download
+    ├── Work.jsx         Selected projects
+    ├── Changelog.jsx    Contribution timeline
+    ├── Contact.jsx      Contact form, composes a mailto message
+    ├── data.js          All site content: profile, projects, figures, links
+    └── useReveal.js     Intersection observer hook for scroll reveals
 
-api/
-├── contact.php           # PHP contact form handler
-├── config.php           # Default configuration
-├── config.local.example.php # Configuration template
-├── .htaccess           # Apache configuration
-├── test.php            # API testing script
-├── test.html           # Manual testing interface
-└── README.md           # API documentation
+public/                  Static files copied verbatim into the build
+scripts/                 Deployment scripts
+.github/workflows/       FTP upload workflow
 ```
 
-## 🚀 Getting Started
+Site content lives in [src/v2/data.js](src/v2/data.js). Edit that file rather
+than the components when updating projects, figures, or links.
 
-### Prerequisites
+## Base path
 
-- Node.js (v16 or higher)
-- npm or pnpm
+GitHub project pages serve from `/portfolio/`, a custom domain serves from `/`.
+[vite.config.js](vite.config.js) reads `BASE_PATH` to pick between them and
+defaults to `/`. The deploy scripts set it as needed, so you rarely set it by
+hand.
 
-### Installation
+Asset URLs written as JavaScript strings are not rewritten by Vite. Use the
+`asset()` helper in [src/v2/data.js](src/v2/data.js) so they stay correct under
+any base path.
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/jakaria-istauk/my-portfolio.git
-   cd my-portfolio
-   ```
+## Contact form
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   # or
-   pnpm install
-   ```
+There is no server behind the form. [src/v2/Contact.jsx](src/v2/Contact.jsx)
+assembles the fields into a `mailto:` message and hands it to the visitor's own
+mail client, so they keep a copy of what they sent and replies land in a thread
+they already have. The site stays fully static, with no endpoint to secure or
+keep alive.
 
-3. **Start development server**
-   ```bash
-   npm run dev
-   # or
-   pnpm dev
-   ```
+## Deployment
 
-4. **Set up the contact form backend (optional)**
-   ```bash
-   # Copy the configuration template
-   cp api/config.local.example.php api/config.local.php
+Both targets build locally. Neither builds in CI, so what ships is exactly what
+you tested. Both scripts refuse to run with uncommitted changes, so every
+deploy corresponds to a commit you can point at.
 
-   # Edit the configuration with your SMTP settings
-   # See api/README.md and api/SMTP_SETUP.md for detailed instructions
-   ```
+### FTP host (jakaria.com.bd)
 
-5. **Open your browser**
-   Navigate to `http://localhost:5173`
-
-## 📜 Available Scripts
-
-- `npm run dev` - Start development server with hot reload
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build locally
-- `npm run lint` - Run ESLint for code quality checks
-
-## 🎨 Customization
-
-### Personal Information
-Update the following files with your information:
-- `src/components/Hero.jsx` - Name, title, and bio
-- `src/components/About.jsx` - Professional experience and background
-- `src/components/Skills.jsx` - Technical skills and proficiency levels
-- `src/components/Projects.jsx` - Portfolio projects and demos
-- `src/components/Contact.jsx` - Contact information and social links
-
-### Styling
-- Tailwind CSS classes can be customized in `tailwind.config.js`
-- Global styles are in `src/index.css`
-- Component-specific styles use Tailwind utility classes
-
-### Content
-- Replace placeholder images with your own
-- Update project links and descriptions
-- Modify the color scheme by updating Tailwind configuration
-
-## 🌟 Key Sections
-
-### Hero Section
-- Professional introduction with profile image
-- Call-to-action buttons for projects and contact
-- Smooth scroll indicators
-- Palestine support banner (customizable)
-
-### About Section
-- Professional background and experience
-- Work history with detailed descriptions
-- Personal philosophy and approach
-
-### Skills Section
-- Categorized technical skills (Frontend, Backend, Tools)
-- Animated progress bars showing proficiency levels
-- Technologies currently learning
-
-### Projects Section
-- Filterable portfolio showcase
-- Live demo and source code links
-- Technology tags for each project
-- Responsive grid layout
-
-### Contact Section
-- Functional contact form with PHP backend
-- Server-side validation and email sending
-- Rate limiting and security features
-- Multiple contact methods
-- Social media links
-- Professional email and location
-
-## 📧 Contact Form Setup
-
-The portfolio includes a fully functional contact form with PHP backend. To enable it:
-
-### Quick Setup
-1. **Copy configuration template**
-   ```bash
-   cp api/config.local.example.php api/config.local.php
-   ```
-
-2. **Configure SMTP and recipient**
-   ```php
-   // In api/config.local.php
-   'recipient_email' => 'your-email@domain.com',
-   'allowed_origins' => ['https://yourdomain.com'],
-
-   // SMTP settings (recommended)
-   'use_smtp' => true,
-   'smtp_host' => 'smtp.gmail.com',
-   'smtp_username' => 'your-email@gmail.com',
-   'smtp_password' => 'your-app-password',
-   ```
-
-3. **Deploy API folder**
-   Upload the `api/` folder to your web server alongside your built React app.
-
-4. **Test the setup**
-   Visit `yoursite.com/api/test.html` to test the contact form.
-
-### Development Testing
 ```bash
-# Start PHP development server
-cd api
-php -S localhost:8000
-
-# Update Contact.jsx API URL to http://localhost:8000/contact.php
+npm run deploy:ftp
 ```
 
-For detailed setup instructions, see [api/README.md](api/README.md).
+Builds for the domain root, then pushes the contents of `dist/` to the
+`ftp-deploy` branch. Pushing that branch triggers
+[.github/workflows/ftp-deploy.yml](.github/workflows/ftp-deploy.yml), which
+uploads the tree over FTPS and does nothing else.
 
-## 🚀 Deployment
+Repository secrets the workflow needs:
 
-### Build for Production
-```bash
-npm run build
-```
+| Name | Value |
+| --- | --- |
+| `FTP_SERVER` | Hostname only, no `ftp://` prefix |
+| `FTP_USERNAME` | FTP account user |
+| `FTP_PASSWORD` | FTP account password |
 
-### Deploy to Netlify
-1. Connect your GitHub repository to Netlify
-2. Set build command: `npm run build`
-3. Set publish directory: `dist`
+Optional repository variable `FTP_SERVER_DIR` sets the remote path, with a
+trailing slash. It defaults to `./` because this host drops the FTP user
+straight into the web root.
 
-### Deploy to Vercel
-1. Install Vercel CLI: `npm i -g vercel`
-2. Run: `vercel`
-3. Follow the prompts
+The action records what it has already uploaded in
+`.ftp-deploy-sync-state.json` in the web root. Deleting that file forces a full
+re-upload on the next run.
 
-### Deploy to GitHub Pages
-1. Install gh-pages: `npm install --save-dev gh-pages`
-2. Add to package.json scripts: `"deploy": "gh-pages -d dist"`
-3. Run: `npm run build && npm run deploy`
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit changes: `git commit -m 'Add amazing feature'`
-4. Push to branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 👨‍💻 About the Developer
-
-**Mohammad Jakaria Istauk**
-- 🌍 Based in Bangladesh
-- 💼 WordPress Developer at WPDeveloper, Inc
-- 🔧 6+ years of experience in web development
-- 🌟 Open-source contributor to WordPress Core, Polyglots, and Photo Directory
-- 📧 Contact: jakariamd35@gmail.com
-
-## 🙏 Acknowledgments
-
-- Design inspiration from modern portfolio trends
-- Icons from Heroicons
-- Images from Unsplash
-- Built with React and Vite
-- Styled with Tailwind CSS
-
----
-
-⭐ **Star this repository if you found it helpful!**
-
-📧 **Questions?** Feel free to reach out via [email](mailto:jakariamd35@gmail.com) or [LinkedIn](https://www.linkedin.com/in/jakariaistauk)
-
-## Deploying
-
-The site is published from the `gh-pages` branch, which holds build output
-only — never edit it by hand.
+### GitHub Pages
 
 ```bash
 npm run deploy
 ```
 
-That builds and pushes to `gh-pages`, and GitHub Pages serves the result at
-<https://jakaria-istauk.github.io/portfolio/> within a minute or so.
+Builds with base `/portfolio/` and pushes to the `gh-pages` branch, which holds
+build output only and is rewritten on every deploy. Never edit it by hand or
+commit source to it. Pages serves the result within a minute or so.
 
-The script refuses to run with uncommitted changes, so every deploy matches a
-commit you can point at. Commit your work first, then deploy.
+To serve a Pages build from a domain root instead, run `BASE_PATH=/ npm run
+deploy` and add the domain to `public/CNAME` as a single line with no protocol,
+so it survives each deploy.
 
-### Manual upload (jakaria.com.bd)
+### Manual upload
 
 ```bash
 npm run package
 ```
 
 Builds for a domain root and writes `jakaria-portfolio-dist.zip`. Upload its
-*contents* to the web root — the files themselves, not a `dist` folder.
+contents to the web root, the files themselves rather than a `dist` folder.
 
-Do not zip `dist/` by hand after running `npm run deploy`: that build is
-pathed for `/portfolio/` and every asset 404s when served from a root. The
-package script rebuilds for the root and refuses to zip a project-page build.
+Do not zip `dist/` by hand after `npm run deploy`: that build is pathed for
+`/portfolio/` and every asset 404s from a root. The package script rebuilds for
+the root and refuses to zip a project page build.
 
-### Custom domain
+## Contact
 
-A project page is served from `/portfolio/`, so the build is given a matching
-base path. To serve the site from the root of a domain instead:
-
-```bash
-BASE_PATH=/ npm run deploy
-```
-
-Add the domain to `public/CNAME` (one line, no protocol) so it survives each
-deploy, and point the DNS at GitHub Pages.
+- Email: [jakariamd35@gmail.com](mailto:jakariamd35@gmail.com)
+- LinkedIn: [jakariaistauk](https://www.linkedin.com/in/jakariaistauk/)
+- WordPress.org: [jakariaistauk](https://profiles.wordpress.org/jakariaistauk/)
+- GitHub: [jakaria-istauk](https://github.com/jakaria-istauk)
