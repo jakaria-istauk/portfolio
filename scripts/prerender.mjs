@@ -53,6 +53,16 @@ const swap = (html, pattern, replacement, label) => {
 const escape = (value) =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;')
 
+// The comments in index.html explain the head to whoever edits it. They mean
+// nothing to a crawler and nothing to a visitor, who downloads them anyway, so
+// they are dropped on the way out. Source keeps them; dist does not.
+//
+// Only comments written in the template are stripped. React escapes any '--'
+// inside rendered text, so this cannot reach into the page content, and it runs
+// before the markup is injected regardless.
+const stripComments = (html) =>
+  html.replace(/^[ \t]*<!--[\s\S]*?-->[ \t]*\n?/gm, '')
+
 const pageFor = (path) => {
   const head = routeHead(path)
   const markup = render(path)
@@ -61,7 +71,7 @@ const pageFor = (path) => {
     fail(`the markup for ${path} has no h1 — refusing to publish it.`)
   }
 
-  let html = template
+  let html = stripComments(template)
 
   html = swap(html, /<title>[\s\S]*?<\/title>/, `<title>${escape(head.title)}</title>`, 'title')
 
