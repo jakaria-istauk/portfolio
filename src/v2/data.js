@@ -5,6 +5,10 @@ export const EMAIL = 'jakariamd35@gmail.com'
 const asset = (path) =>
   `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
 
+// Internal links need the same treatment: the GitHub project page serves this
+// site from /portfolio/, so a hard-coded /work/strata/ would 404 there.
+export const href = (path) => asset(path)
+
 export const CV = {
   file: asset('/Jakaria_Istauk_CV.pdf'),
   filename: 'Jakaria_Istauk_CV.pdf',
@@ -47,6 +51,14 @@ export const PROJECTS = [
     title: 'Essential Addons for Elementor',
     description:
       'The most-installed Elementor addon. I work across the widget library, performance, security hardening and backward compatibility for a codebase non-technical site builders depend on daily.',
+    summary:
+      'Engineering work on Essential Addons for Elementor, the most-installed Elementor addon, running on more than two million WordPress sites.',
+    story: [
+      'Essential Addons for Elementor is the most-installed addon in the Elementor ecosystem, and the install count is the whole engineering problem. Two million sites means every widget change is a compatibility question first and a feature second: someone, somewhere, is depending on the markup a widget produced three years ago, and they are not reading a changelog before they update.',
+      'My work runs across the widget library, performance and security hardening. That means writing new widgets to the same conventions as the ones already shipped, keeping output backward compatible when the internals underneath it change, and treating every input that reaches PHP as untrusted — a plugin at this scale is a shared attack surface for every site that installs it.',
+      'The people using it are not developers. They are site builders working visually, which sets the standard for what an acceptable failure looks like: no white screens, no broken layouts after an update, and no setting that quietly stops doing what it did last week.',
+      'Performance work on a plugin this large is mostly about what not to load. A widget library is only as fast as its restraint: assets scoped to the widgets a page actually uses, queries that do not multiply with the number of elements on the canvas, and nothing enqueued globally that only one widget needed.',
+    ],
     image: asset('/screenshots/essential-addons.webp'),
     categories: ['wordpress'],
     meta: [
@@ -67,6 +79,14 @@ export const PROJECTS = [
     title: 'BookClub',
     description:
       'A shared library for a distributed team: catalogue, borrow and return flows, ratings, and title suggestions, behind domain-restricted sign-in. Built end to end — data model, REST API, and interface.',
+    summary:
+      'A shared team library built end to end — data model, REST API and interface — in Node.js, TypeScript, React and MySQL.',
+    story: [
+      'BookClub is a shared library for a distributed team: a catalogue, borrow and return flows, ratings, and a way to suggest titles worth buying. It is in production, behind sign-in restricted to verified company domains.',
+      'I built it end to end — the data model, the REST API on Node.js and TypeScript, the MySQL schema underneath, and the React interface on top. Being the only engineer on a product means the boundaries are yours to draw, so the interesting decisions were about where state belongs: what the server is authoritative over, what the client is allowed to assume, and which of the two owns the rules about who may borrow what.',
+      'Borrow and return is a small domain with sharp edges. Two people wanting the same copy at the same moment, a return that never happens, a title that leaves the catalogue while someone still holds it — the flows have to answer all of it without an administrator stepping in.',
+      'Restricting sign-in to verified company domains is doing more work than access control. It is what lets the product assume good faith internally, so the interface can stay light on confirmations and warnings and heavy on the two things people came for: finding a book and getting it back.',
+    ],
     image: asset('/screenshots/bookclub.webp'),
     note: 'Sign-in is restricted to verified company domains.',
     categories: ['full-stack'],
@@ -82,6 +102,14 @@ export const PROJECTS = [
     title: 'Strata',
     description:
       'A database admin client you host yourself. Browse data, run SQL and manage schema from a React app over a thin PHP and PDO JSON API. Credentials never leave the browser, and it ships as a zip — no Node, no Composer.',
+    summary:
+      'A self-hosted database admin client: a React and TypeScript front end over a thin PHP and PDO JSON API, shipped as a zip.',
+    story: [
+      'Strata is a database client you host yourself. It browses data, runs SQL and manages schema from a React and TypeScript interface, talking to a thin JSON API written in PHP over PDO.',
+      'The constraint that shaped it was the install: it ships as a zip, with no Node and no Composer on the far end. That rules out the usual build-on-the-server answer and pushes the whole application into files that can be dropped onto shared hosting — the kind of place where a database admin tool is most needed and least likely to be installable.',
+      'Credentials never leave the browser. The API is deliberately thin: it holds no session of its own and stores nothing, which keeps a self-hosted tool from becoming a credential store someone forgets they deployed. The current release is v1.2.2, and the source is public.',
+      'A tool that runs arbitrary SQL has to be honest about what it is about to do. So the interface treats destructive operations as a separate class of action rather than another button, and shows the statement it is going to send before it sends it — the person at the keyboard is the safeguard, and they need the information to be one.',
+    ],
     image: asset('/screenshots/strata.webp'),
     categories: ['full-stack', 'interface'],
     meta: [
@@ -99,6 +127,14 @@ export const PROJECTS = [
     title: 'Tablentor',
     description:
       'A table builder for Elementor, published on WordPress.org. Custom widget, live editor controls, responsive output and import/export — built to plugin review standards and maintained through Core updates.',
+    summary:
+      'A table builder for Elementor published on WordPress.org, with a custom widget, live editor controls and responsive output.',
+    story: [
+      'Tablentor is a table builder for Elementor, published on WordPress.org and running on more than a thousand active sites. It is a custom Elementor widget: live editor controls, responsive output, and import and export for the table data itself.',
+      'Publishing on WordPress.org sets the bar. The plugin review standards are not a style guide — they are rules about escaping output, sanitising input, prefixing everything you put in a shared namespace, and never shipping code that reaches out to somewhere the site owner did not ask for. Meeting them is a condition of being listed at all.',
+      'Maintaining it afterwards is the longer job. Elementor and WordPress Core both move, and a widget that renders correctly today has to keep rendering correctly through their updates, on sites whose owners will never look at a release note.',
+      'Tables are also a harder interface problem than they look. The same data has to survive a phone screen without becoming unreadable, which means deciding what a column is allowed to do when there is no room for it — collapse, scroll, or stack — and making that choice configurable without handing the site builder a panel of forty settings.',
+    ],
     image: asset('/screenshots/tablentor.webp'),
     categories: ['wordpress'],
     meta: [
@@ -116,6 +152,15 @@ export const PROJECTS = [
     title: 'HajjFlow',
     description:
       'A Hajj ritual planner written in Bengali. Offline-capable and mobile-first, and an exercise in setting a non-Latin script so it stays readable at every size.',
+    summary:
+      'A Bengali-language, offline-capable Hajj ritual planner, built mobile-first around typesetting a non-Latin script.',
+    story: [
+      'HajjFlow is a ritual planner for Hajj, written in Bengali. It is offline-capable and mobile-first, because it is meant to be used somewhere with a crowded network and a phone that has been out all day.',
+      'Most of the craft went into the typesetting. Bengali is not Latin: the script has taller glyph clusters, conjuncts that change shape in combination, and no reliable relationship between a font size that works for English and one that stays readable here. Line height, letter spacing and the type scale all had to be set for the script rather than inherited from a Latin default.',
+      'Offline was a correctness requirement, not a feature. A planner you cannot open when the connection drops is a planner that fails precisely when it is being relied on.',
+      'It is built in plain JavaScript, HTML and CSS, with no framework, because the whole application is small enough not to need one and every kilobyte saved is a kilobyte that does not have to arrive over a bad connection. That decision is also why it starts instantly on an old phone, which is the device most of its readers will actually be holding.',
+      'Working in Bengali on a project like this feeds directly into the translation work: the same questions about wording, register and what a term should be called in Bengali come up whether the string is in a planner or in WordPress Core.',
+    ],
     image: asset('/screenshots/hajjflow.webp'),
     categories: ['interface'],
     meta: [
@@ -133,6 +178,15 @@ export const PROJECTS = [
     title: 'Smoky Ghost Trail',
     description:
       'A WebGL cursor-trail library that attaches to any element on a page. Shader-based, no dependencies, and small enough to read in one sitting.',
+    summary:
+      'A dependency-free WebGL cursor-trail library, written in JavaScript and GLSL, that attaches to any element on a page.',
+    story: [
+      'Smoky Ghost Trail is a WebGL cursor-trail library. You point it at any element on the page and it renders a smoke-like trail that follows the pointer across it.',
+      'The effect is done in a shader rather than in JavaScript per frame, which is what keeps it cheap: the GPU does the work, and the main thread only feeds it pointer positions. It has no dependencies, and it is deliberately small enough to read start to finish in one sitting — for a decorative library, being auditable matters more than being configurable.',
+      'It is also the kind of project that exists to learn a boundary properly. Writing GLSL by hand teaches what the graphics pipeline actually costs in a way that reaching for an animation library does not.',
+      'Attaching to any element rather than owning the whole page was the constraint that made it useful to anyone else. It means the trail can be scoped to a hero section or a single card, and it means the library has to behave when the element it is bound to resizes, scrolls out of view, or is removed from the document entirely.',
+      'A decorative effect earns its place only if it degrades quietly. Where WebGL is unavailable or the visitor has asked for reduced motion, the right outcome is nothing at all rather than a broken canvas — the page must not depend on the effect to make sense.',
+    ],
     image: asset('/screenshots/smoky.webp'),
     categories: ['interface'],
     meta: [
@@ -183,3 +237,43 @@ export const HISTORY = [
 ]
 
 export const RELEASES = ['6.9', '6.4', '6.3', '6.2', '6.1']
+
+// The audit counted 61 crawlable words on the home page, and the fix for that
+// is not more markup — it is prose that says plainly what the work is, in the
+// words someone would search for. Read as a paragraph, not as keywords.
+export const ABOUT = {
+  title: 'What I actually do',
+  lede: 'Nine years of it, in two halves that keep feeding each other.',
+  body: [
+    'I am a WordPress and full-stack engineer based in Dhaka, Bangladesh, working remote and async-first. Half of my work is WordPress at scale: custom plugins, custom themes, Elementor widgets, WooCommerce extensions, third-party API integrations, and the unglamorous maintenance that keeps all of it working after Core and Elementor both move underneath it. The other half is product engineering outside WordPress, in React, Node.js, TypeScript, PHP and MySQL, where I build the data model, the API and the interface rather than one layer of the three.',
+    'The scale is the part that changed how I write code. Essential Addons for Elementor, which I work on daily, is installed on more than two million sites, and at that size backward compatibility stops being a courtesy and becomes the specification. A widget that renders differently after an update breaks pages that someone published years ago and has not looked at since. So the questions come in a fixed order: what depends on this, what happens to those sites if it changes, and can the change be made without asking anyone to migrate.',
+    'The same instinct applies to security. A plugin on two million sites is a shared attack surface, and every input reaching PHP is treated as hostile until it has been sanitised and every output as dangerous until it has been escaped. Contributions credited in five WordPress Core releases came out of working this way, as did being a Bengali translation editor for the Polyglots, Core and Photos teams.',
+    'What I am looking for is senior WordPress or full-stack work, and specifically the kind of problem that needs one person to own it end to end — the data model through to the interface, including the decisions in between about what the system should refuse to do.',
+  ],
+}
+
+// Answer-shaped, because this is what an AI search engine quotes when someone
+// asks it who to hire and what for. Kept honest: every answer restates
+// something already stated elsewhere on the site.
+export const FAQ = [
+  {
+    q: 'What does Jakaria Istauk build?',
+    a: 'Custom WordPress plugins and themes, Elementor widgets, WooCommerce extensions and third-party integrations, plus full-stack products in React, Node.js, TypeScript, PHP and MySQL. On product work he builds the data model, the REST API and the interface rather than a single layer.',
+  },
+  {
+    q: 'How much experience does he have?',
+    a: 'Nine years, since 2017. Currently a WordPress developer working on Essential Addons for Elementor, which runs on more than two million sites, after earlier full-stack roles at Codexpert, Agemark Technology and Binary Pathshala.',
+  },
+  {
+    q: 'Has he contributed to WordPress Core?',
+    a: 'Yes. His contributions are credited in five WordPress Core releases — 6.1, 6.2, 6.3, 6.4 and 6.9 — and he is a Bengali translation editor for the WordPress Polyglots, Core and Photos teams.',
+  },
+  {
+    q: 'Is he available for hire?',
+    a: 'He is open to senior WordPress and full-stack roles, working remote and async-first from Dhaka, Bangladesh. The fastest route is email; his CV is downloadable from any page of this site.',
+  },
+  {
+    q: 'What is his strongest technical area?',
+    a: 'Maintaining WordPress code at scale: shipping features into a plugin installed on millions of sites without breaking the pages already built on it, which means backward compatibility, performance and security hardening in equal measure.',
+  },
+]

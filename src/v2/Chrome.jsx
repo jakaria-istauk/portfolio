@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { CV, EMAIL, PROFILE } from './data'
+import { CV, EMAIL, PROFILE, PROJECTS, href } from './data'
+import { projectPath } from './routes'
 
 const NAV = [
-  { label: 'Work', href: '#work' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Work', hash: '#work' },
+  { label: 'About', hash: '#about' },
+  { label: 'Experience', hash: '#experience' },
+  { label: 'Contact', hash: '#contact' },
 ]
 
 const SunIcon = () => (
@@ -93,16 +95,22 @@ const ThemeControl = () => {
   )
 }
 
-export const Rail = () => (
+// On a case study the section anchors live on another page, so they have to
+// carry the home path with them — a bare #work there scrolls nowhere.
+export const Rail = ({ home = true }) => (
   <div className="rail">
     <div className="shell rail__inner">
-      <a className="rail__mark" href="#top">
+      <a className="rail__mark" href={home ? '#top' : href('/')}>
         Jakaria Istauk
       </a>
 
       <nav className="rail__nav" aria-label="Sections">
         {NAV.map((item) => (
-          <a className="rail__link" key={item.href} href={item.href}>
+          <a
+            className="rail__link"
+            key={item.hash}
+            href={home ? item.hash : `${href('/')}${item.hash}`}
+          >
             {item.label}
           </a>
         ))}
@@ -122,6 +130,21 @@ export const Rail = () => (
 
 export const Footer = () => (
   <footer className="footer">
+    <div className="shell footer__cases">
+      {/* Every page links to every case study from here. It gives the deeper
+          pages a route in from anywhere on the site rather than only from the
+          work grid on the home page. */}
+      <span className="label">Case studies</span>
+
+      <div className="footer__links">
+        {PROJECTS.map((project) => (
+          <a key={project.id} href={href(projectPath(project))}>
+            {project.title}
+          </a>
+        ))}
+      </div>
+    </div>
+
     <div className="shell footer__inner">
       {/* The year is baked in at build time and read again in the browser.
           Those disagree for anyone visiting after a new year on an old build,

@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { FILTERS, PROJECTS } from './data'
+import { FILTERS, PROJECTS, href } from './data'
+import { projectPath } from './routes'
 import useReveal from './useReveal'
 
 const Card = ({ project }) => (
   <article className="card rise">
-    <div className="card__shot">
+    <a className="card__shot" href={href(projectPath(project))}>
       <img
         src={project.image}
         alt={`${project.title} in use`}
@@ -12,10 +13,12 @@ const Card = ({ project }) => (
         width="1200"
         height="750"
       />
-    </div>
+    </a>
 
     <div className="card__body">
-      <h3 className="card__title">{project.title}</h3>
+      <h3 className="card__title">
+        <a href={href(projectPath(project))}>{project.title}</a>
+      </h3>
       <p className="card__desc">{project.description}</p>
       {project.note && <p className="card__note">{project.note}</p>}
 
@@ -33,6 +36,11 @@ const Card = ({ project }) => (
       </dl>
 
       <div className="card__actions">
+        <a className="card__action" href={href(projectPath(project))}>
+          Read the case study
+          <span aria-hidden="true">→</span>
+        </a>
+
         {project.links.map((link) => (
           <a
             className="card__action"

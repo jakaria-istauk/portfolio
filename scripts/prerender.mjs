@@ -1,21 +1,26 @@
-// Injects the server-rendered markup into the built index.html.
+// Writes one prerendered HTML file per route, plus the sitemap.
 //
 // Runs as the last step of `npm run build`, after the client bundle and the
 // SSR bundle are both on disk. The client then hydrates that markup instead of
 // rendering into an empty container, so the HTML a crawler receives already
 // contains the h1, the headings, the copy and the links.
 //
-// It rewrites dist/index.html in place and fails loudly, because a silent
-// no-op here would publish the old empty shell and look like a working deploy.
+// The route list and the per-page head tags come from the SSR bundle, which
+// means they come from the same project data the pages render — there is no
+// second list here to fall out of sync with the first.
+//
+// It fails loudly, because a silent no-op would publish the old shell and look
+// like a working deploy.
 
-import { readFile, writeFile, rm } from 'node:fs/promises'
+import { mkdir, readFile, writeFile, rm } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
+import { SITE_URL } from './site.mjs'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const SSR_DIR = resolve(root, '.ssr-build')
 const SSR_ENTRY = resolve(SSR_DIR, 'assets/index.js')
-const HTML = resolve(root, 'dist/index.html')
+const DIST = resolve(root, 'dist')
 const PLACEHOLDER = '<div id="root"></div>'
 
 const fail = (message) => {
@@ -23,32 +28,98 @@ const fail = (message) => {
   process.exit(1)
 }
 
-const { render } = await import(SSR_ENTRY).catch(() =>
+const bundle = await import(SSR_ENTRY).catch(() =>
   fail(`could not load the SSR bundle at ${SSR_ENTRY}. Run the ssr build first.`)
 )
 
-const template = await readFile(HTML, 'utf8').catch(() =>
-  fail(`no built ${HTML}. Run the client build first.`)
+const { render, ROUTES, routeHead } = bundle
+
+const template = await readFile(resolve(DIST, 'index.html'), 'utf8').catch(() =>
+  fail('no built dist/index.html. Run the client build first.')
 )
 
 if (!template.includes(PLACEHOLDER)) {
   fail(`index.html has no ${PLACEHOLDER} to fill.`)
 }
 
-const markup = render()
-
-if (!markup.includes('<h1')) {
-  fail('the rendered markup has no h1 — refusing to publish it.')
+// Swaps the value of a single head tag. Each pattern is asserted rather than
+// replaced blindly: a silently missed replacement would ship the home page's
+// title on every case study.
+const swap = (html, pattern, replacement, label) => {
+  if (!pattern.test(html)) fail(`no ${label} to replace in index.html.`)
+  return html.replace(pattern, replacement)
 }
 
-await writeFile(
-  HTML,
-  template.replace(PLACEHOLDER, `<div id="root">${markup}</div>`)
-)
+const escape = (value) =>
+  value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;')
+
+const pageFor = (path) => {
+  const head = routeHead(path)
+  const markup = render(path)
+
+  if (!markup.includes('<h1')) {
+    fail(`the markup for ${path} has no h1 — refusing to publish it.`)
+  }
+
+  let html = template
+
+  html = swap(html, /<title>[\s\S]*?<\/title>/, `<title>${escape(head.title)}</title>`, 'title')
+
+  html = swap(
+    html,
+    /<meta name="description" content="[\s\S]*?" \/>/,
+    `<meta name="description" content="${escape(head.description)}" />`,
+    'description'
+  )
+
+  html = swap(
+    html,
+    /<link rel="canonical" href="[^"]*" \/>/,
+    `<link rel="canonical" href="${SITE_URL}${head.path}" />`,
+    'canonical link'
+  )
+
+  return { html: html.replace(PLACEHOLDER, `<div id="root">${markup}</div>`), markup }
+}
+
+// '/' is dist/index.html; '/work/strata/' is dist/work/strata/index.html, so
+// a static host serves it without any rewrite rule.
+const fileFor = (path) => resolve(DIST, `.${path}index.html`)
+
+for (const path of ROUTES) {
+  const { html, markup } = pageFor(path)
+  const file = fileFor(path)
+
+  await mkdir(dirname(file), { recursive: true })
+  await writeFile(file, html)
+
+  const words = markup.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length
+  console.log(`prerender: ${path.padEnd(28)} ~${words} words`)
+}
+
+const lastmod = new Date().toISOString().slice(0, 10)
+
+const sitemap = [
+  '<?xml version="1.0" encoding="UTF-8"?>',
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+  ...ROUTES.map((path) =>
+    [
+      '  <url>',
+      `    <loc>${SITE_URL}${path}</loc>`,
+      `    <lastmod>${lastmod}</lastmod>`,
+      // The home page is the one worth recrawling most often; a case study
+      // changes only when the work does.
+      `    <priority>${path === '/' ? '1.0' : '0.8'}</priority>`,
+      '  </url>',
+    ].join('\n')
+  ),
+  '</urlset>',
+  '',
+].join('\n')
+
+await writeFile(resolve(DIST, 'sitemap.xml'), sitemap)
+console.log(`prerender: sitemap lists ${ROUTES.length} url(s)`)
 
 // The SSR bundle is a build artefact of this step alone. Leaving it behind
 // invites someone to ship it to the web root.
 await rm(SSR_DIR, { recursive: true, force: true })
-
-const words = markup.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length
-console.log(`prerender: injected ${markup.length} bytes, ~${words} words`)

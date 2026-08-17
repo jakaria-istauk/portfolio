@@ -6,8 +6,3 @@
 // are there to say.
 
 export const SITE_URL = 'https://jakaria.com.bd'
-
-// Every path the sitemap should list, canonical path first. Keep the leading
-// and trailing slashes: they have to match what the server actually serves,
-// or the sitemap advertises URLs that redirect.
-export const ROUTES = ['/']

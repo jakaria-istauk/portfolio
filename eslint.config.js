@@ -26,4 +26,15 @@ export default defineConfig([
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
   },
+  {
+    // Build-time code: it runs in Node, and none of it is ever part of a
+    // component tree the dev server hot-reloads.
+    files: ['vite.config.js', 'eslint.config.js', 'scripts/**', 'src/entry-server.jsx'],
+    languageOptions: {
+      globals: globals.node,
+    },
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    },
+  },
 ])

@@ -7,10 +7,15 @@ import App from './App.jsx'
 // #root. Nothing here may touch window or document: the components only reach
 // for them inside effects and event handlers, which never run during a render
 // on the server. Keep it that way.
-export function render() {
+export function render(path) {
   return renderToString(
     <StrictMode>
-      <App />
+      <App path={path} />
     </StrictMode>
   )
 }
+
+// The build step needs the route list and each route's head tags, and both
+// derive from the project data. Re-exported here so the SSR bundle stays the
+// only place the build reads application data from.
+export { ROUTES, routeHead } from './v2/routes'
