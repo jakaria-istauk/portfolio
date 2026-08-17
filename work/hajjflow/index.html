@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0b0b0e" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- The build rewrites the title, this description and the canonical URL
+         per page. Keep them as single-line tags: scripts/prerender.mjs matches
+         them by pattern and fails the build if a pattern stops matching. -->
+    <meta name="description" content="A Bengali-language, offline-capable Hajj ritual planner, built mobile-first around typesetting a non-Latin script." />
+    <meta name="author" content="Jakaria Istauk" />
+    <!-- Absolute, and always the canonical host: the GitHub project page and
+         the www hostname serve these same files, and this is what tells search
+         engines which address owns the content. -->
+    <link rel="canonical" href="https://jakaria.com.bd/work/hajjflow/" />
+    <title>HajjFlow — Mohammad Jakaria Istauk</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-73HVVX4XDF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+
+      gtag('config', 'G-73HVVX4XDF')
+    </script>
+    <script>
+      // Runs before first paint so a stored theme never flashes the other one.
+      // No attribute means "system": the stylesheet's prefers-color-scheme
+      // rules decide, and they keep deciding if the setting changes mid-visit.
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme')
+          if (stored === 'light' || stored === 'dark') {
+            document.documentElement.dataset.theme = stored
+          }
+        } catch (e) {}
+      })()
+    </script>
+    <script type="module" crossorigin src="/assets/index.js"></script>
+    <link rel="stylesheet" href="/assets/index.css">
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Mohammad Jakaria Istauk" />
+    <meta property="og:title" content="HajjFlow — Mohammad Jakaria Istauk" />
+    <meta property="og:description" content="A Bengali-language, offline-capable Hajj ritual planner, built mobile-first around typesetting a non-Latin script." />
+    <meta property="og:url" content="https://jakaria.com.bd/work/hajjflow/" />
+    <meta property="og:image" content="https://jakaria.com.bd/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="HajjFlow — Mohammad Jakaria Istauk" />
+    <meta name="twitter:description" content="A Bengali-language, offline-capable Hajj ritual planner, built mobile-first around typesetting a non-Latin script." />
+    <meta name="twitter:image" content="https://jakaria.com.bd/og.png" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://jakaria.com.bd/work/hajjflow/#page","url":"https://jakaria.com.bd/work/hajjflow/","name":"HajjFlow — Mohammad Jakaria Istauk","description":"A Bengali-language, offline-capable Hajj ritual planner, built mobile-first around typesetting a non-Latin script.","inLanguage":"en","isPartOf":{"@id":"https://jakaria.com.bd/#website"},"about":{"@id":"https://jakaria.com.bd/#person"}},{"@type":"WebSite","@id":"https://jakaria.com.bd/#website","url":"https://jakaria.com.bd/","name":"Mohammad Jakaria Istauk — WordPress & Full-Stack Engineer","inLanguage":"en","publisher":{"@id":"https://jakaria.com.bd/#person"}},{"@type":"Person","@id":"https://jakaria.com.bd/#person","name":"Mohammad Jakaria Istauk","alternateName":"Jakaria Istauk","jobTitle":"WordPress & Full-Stack Engineer","description":"I am a WordPress and full-stack engineer based in Dhaka, Bangladesh, working remote and async-first. Half of my work is WordPress at scale: custom plugins, custom themes, Elementor widgets, WooCommerce extensions, third-party API integrations, and the unglamorous maintenance that keeps all of it working after Core and Elementor both move underneath it. The other half is product engineering outside WordPress, in React, Node.js, TypeScript, PHP and MySQL, where I build the data model, the API and the interface rather than one layer of the three.","url":"https://jakaria.com.bd/","image":"https://jakaria.com.bd/og.png","email":"mailto:jakariamd35@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Dhaka","addressCountry":"BD"},"sameAs":["https://github.com/jakaria-istauk","https://www.linkedin.com/in/jakariaistauk/","https://profiles.wordpress.org/jakariaistauk/","https://x.com/jakaria_istauk"],"knowsAbout":["WordPress plugin development","WordPress theme development","WordPress Core contribution","Elementor widget development","WooCommerce development","PHP","React","Node.js","TypeScript","MySQL","REST API design","Web performance","Application security"],"knowsLanguage":["en","bn"],"worksFor":[{"@type":"Organization","name":"WPDeveloper, Inc"},{"@type":"Organization","name":"Codexpert, Inc"},{"@type":"Organization","name":"Agemark Technology Ltd."},{"@type":"Organization","name":"Binary Pathshala"}],"hasOccupation":{"@type":"Occupation","name":"WordPress & Full-Stack Engineer","occupationLocation":{"@type":"City","name":"Dhaka"}},"subjectOf":[{"@type":"CreativeWork","name":"WordPress 6.9","url":"https://wordpress.org/documentation/wordpress-version/version-6.9/"},{"@type":"CreativeWork","name":"WordPress 6.4","url":"https://wordpress.org/documentation/wordpress-version/version-6.4/"},{"@type":"CreativeWork","name":"WordPress 6.3","url":"https://wordpress.org/documentation/wordpress-version/version-6.3/"},{"@type":"CreativeWork","name":"WordPress 6.2","url":"https://wordpress.org/documentation/wordpress-version/version-6.2/"},{"@type":"CreativeWork","name":"WordPress 6.1","url":"https://wordpress.org/documentation/wordpress-version/version-6.1/"}]},{"@type":"CreativeWork","@id":"https://jakaria.com.bd/work/hajjflow/#work","name":"HajjFlow","description":"A Bengali-language, offline-capable Hajj ritual planner, built mobile-first around typesetting a non-Latin script.","abstract":"A Hajj ritual planner written in Bengali. Offline-capable and mobile-first, and an exercise in setting a non-Latin script so it stays readable at every size.","url":"https://jakaria.com.bd/work/hajjflow/","author":{"@id":"https://jakaria.com.bd/#person"},"keywords":"interface"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://jakaria.com.bd/"},{"@type":"ListItem","position":2,"name":"Work","item":"https://jakaria.com.bd/#work"},{"@type":"ListItem","position":3,"name":"HajjFlow"}]}]}</script>
+  </head>
+  <body>
+    <div id="root"><link rel="preload" as="image" href="/screenshots/hajjflow.webp"/><a class="skip" href="#main">Skip to <!-- -->content</a><div class="rail"><div class="shell rail__inner"><a class="rail__mark" href="/">Jakaria Istauk</a><nav class="rail__nav" aria-label="Sections"><a class="rail__link" href="/#work">Work</a><a class="rail__link" href="/#about">About</a><a class="rail__link" href="/#experience">Experience</a><a class="rail__link" href="/#contact">Contact</a></nav><div class="rail__right"><div class="themes" role="group" aria-label="Colour theme"><button type="button" class="themes__option" aria-pressed="false" aria-label="Light theme" title="Light theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="4.2"></circle><path stroke-linecap="round" d="M12 2.6v2.1M12 19.3v2.1M2.6 12h2.1M19.3 12h2.1M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M18.7 5.3l-1.5 1.5M6.8 17.2l-1.5 1.5"></path></svg></button><button type="button" class="themes__option" aria-pressed="false" aria-label="Dark theme" title="Dark theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path stroke-linejoin="round" d="M20 13.4A8.2 8.2 0 1 1 10.6 4a6.6 6.6 0 0 0 9.4 9.4Z"></path></svg></button><button type="button" class="themes__option" aria-pressed="true" aria-label="System theme" title="System theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4.5" width="18" height="12.5" rx="1.6"></rect><path stroke-linecap="round" d="M9 20.5h6"></path></svg></button></div><a class="rail__cta" href="/Jakaria_Istauk_CV.pdf" download="Jakaria_Istauk_CV.pdf">Resume<span aria-hidden="true">↓</span></a></div></div></div><main id="main"><article class="study"><div class="shell"><nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/#work">Work</a><span aria-hidden="true">/</span><span aria-current="page">HajjFlow</span></nav><header class="study__head"><h1 class="study__title">HajjFlow</h1><p class="study__lede">A Hajj ritual planner written in Bengali. Offline-capable and mobile-first, and an exercise in setting a non-Latin script so it stays readable at every size.</p><div class="study__actions"><a class="button" href="https://jakaria-istauk.github.io/hajjflow/" target="_blank" rel="noreferrer">Visit site</a><a class="button" href="https://github.com/jakaria-istauk/hajjflow" target="_blank" rel="noreferrer">Source</a></div></header><div class="study__shot rise"><img src="/screenshots/hajjflow.webp" alt="HajjFlow in use" width="1200" height="750"/></div><div class="study__body"><div class="prose rise"><h2 class="study__section-title">What the work involved</h2><p>HajjFlow is a ritual planner for Hajj, written in Bengali. It is offline-capable and mobile-first, because it is meant to be used somewhere with a crowded network and a phone that has been out all day.</p><p>Most of the craft went into the typesetting. Bengali is not Latin: the script has taller glyph clusters, conjuncts that change shape in combination, and no reliable relationship between a font size that works for English and one that stays readable here. Line height, letter spacing and the type scale all had to be set for the script rather than inherited from a Latin default.</p><p>Offline was a correctness requirement, not a feature. A planner you cannot open when the connection drops is a planner that fails precisely when it is being relied on.</p><p>It is built in plain JavaScript, HTML and CSS, with no framework, because the whole application is small enough not to need one and every kilobyte saved is a kilobyte that does not have to arrive over a bad connection. That decision is also why it starts instantly on an old phone, which is the device most of its readers will actually be holding.</p><p>Working in Bengali on a project like this feeds directly into the translation work: the same questions about wording, register and what a term should be called in Bengali come up whether the string is in a planner or in WordPress Core.</p></div><aside class="study__aside rise"><h2 class="study__aside-title">At a glance</h2><dl class="meta"><div class="meta__row"><dt class="meta__key">Language</dt><dd class="meta__value">Bengali</dd></div><div class="meta__row"><dt class="meta__key">Role</dt><dd class="meta__value">Creator</dd></div><div class="meta__row"><dt class="meta__key">Built with</dt><dd class="meta__value">JavaScript · HTML · CSS</dd></div></dl></aside></div><nav class="study__nav rise" aria-label="More work"><a class="study__step" href="/work/tablentor/"><span class="label">Previous</span><span>Tablentor</span></a><a class="study__step study__step--next" href="/work/smoky-ghost-trail/"><span class="label">Next</span><span>Smoky Ghost Trail</span></a></nav></div></article></main><footer class="footer"><div class="shell footer__cases"><span class="label">Case studies</span><div class="footer__links"><a href="/work/essential-addons/">Essential Addons for Elementor</a><a href="/work/bookclub/">BookClub</a><a href="/work/strata/">Strata</a><a href="/work/tablentor/">Tablentor</a><a href="/work/hajjflow/">HajjFlow</a><a href="/work/smoky-ghost-trail/">Smoky Ghost Trail</a></div></div><div class="shell footer__inner"><p>© <!-- -->2026<!-- --> <!-- -->Mohammad Jakaria Istauk</p><div class="footer__links"><a href="/Jakaria_Istauk_CV.pdf" download="Jakaria_Istauk_CV.pdf">Download resume</a><a href="mailto:jakariamd35@gmail.com">jakariamd35@gmail.com</a><a href="https://github.com/jakaria-istauk" target="_blank" rel="noreferrer">GitHub</a><a href="https://profiles.wordpress.org/jakariaistauk/" target="_blank" rel="noreferrer">WordPress.org</a><a href="https://www.linkedin.com/in/jakariaistauk/" target="_blank" rel="noreferrer">LinkedIn</a></div></div></footer></div>
+    
+  </body>
+</html>
