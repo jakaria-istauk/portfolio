@@ -19,3 +19,5 @@ export function render(path) {
 // derive from the project data. Re-exported here so the SSR bundle stays the
 // only place the build reads application data from.
 export { ROUTES, routeHead } from './v2/routes'
+export { routeSchema } from './v2/schema'
+export { llmsTxt } from './v2/llms'

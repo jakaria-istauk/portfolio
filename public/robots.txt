@@ -1,4 +1,35 @@
 User-agent: *
 Allow: /
 
+# Named explicitly so there is no ambiguity about the AI crawlers: the point of
+# this site is to be found and cited when someone asks an engine who to hire
+# for WordPress or full-stack work. Remove an agent from this list to opt out
+# of that engine.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
 Sitemap: https://jakaria.com.bd/sitemap.xml

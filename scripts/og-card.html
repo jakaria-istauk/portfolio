@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!--
+      Source for public/og.png, the 1200x630 card that link previews and
+      structured data both point at. Regenerate it by opening this file in a
+      browser at exactly 1200x630 and screenshotting the viewport to
+      public/og.png. Kept in the repo because a card no one can rebuild is a
+      card that goes stale the first time a figure changes.
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400..600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * { box-sizing: border-box; margin: 0; }
+      html, body { width: 1200px; height: 630px; }
+      body {
+        background: #0b0b0e;
+        color: #f2f1ef;
+        font-family: 'Geist', system-ui, sans-serif;
+        padding: 74px 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+      }
+      .glow {
+        position: absolute;
+        width: 720px; height: 720px;
+        right: -220px; top: -260px;
+        background: radial-gradient(circle, rgba(255,90,44,0.20), transparent 62%);
+      }
+      .label {
+        font-family: 'Geist Mono', monospace;
+        font-size: 17px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #86858a;
+      }
+      h1 {
+        font-size: 78px;
+        font-weight: 600;
+        line-height: 1.02;
+        letter-spacing: -0.035em;
+        max-width: 17ch;
+      }
+      h1 em { font-style: normal; color: #ff5a2c; }
+      .figures {
+        display: flex;
+        gap: 64px;
+        border-top: 1px solid #26262e;
+        padding-top: 26px;
+      }
+      .figure__value {
+        font-family: 'Geist Mono', monospace;
+        font-size: 38px;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+      }
+      .figure__value span { color: #ff5a2c; }
+      .figure__label {
+        margin-top: 6px;
+        font-size: 15px;
+        color: #a5a4a8;
+        max-width: 21ch;
+        line-height: 1.35;
+      }
+      .foot {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="glow"></div>
+
+    <div class="label">Mohammad Jakaria Istauk — WordPress &amp; Full-Stack Engineer</div>
+
+    <h1>Nine years building the parts of the web <em>other people ship on.</em></h1>
+
+    <div>
+      <div class="figures">
+        <div>
+          <div class="figure__value">2M<span>+</span></div>
+          <div class="figure__label">sites running a plugin I help build</div>
+        </div>
+        <div>
+          <div class="figure__value">5</div>
+          <div class="figure__label">WordPress Core releases with my contributions</div>
+        </div>
+        <div>
+          <div class="figure__value">9</div>
+          <div class="figure__label">years shipping WordPress and full-stack products</div>
+        </div>
+      </div>
+
+      <div class="foot" style="margin-top: 30px">
+        <div class="label">jakaria.com.bd</div>
+        <div class="label">Dhaka, Bangladesh · Remote</div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,8 +1,4 @@
-// Facts about the deployed site that more than one build step needs.
-//
-// The canonical host is jakaria.com.bd without www. Everything else that
-// serves these files — the GitHub project page, a local preview — is a
-// duplicate of it, which is exactly what the canonical tag and the sitemap
-// are there to say.
-
-export const SITE_URL = 'https://jakaria.com.bd'
+// Re-exported rather than redeclared: src/v2/site.js is plain ESM with no
+// Vite syntax, so Node can read the same file the application does and the
+// canonical origin cannot be defined twice with two different values.
+export { SITE_URL, OG_IMAGE } from '../src/v2/site.js'

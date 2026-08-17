@@ -15,7 +15,7 @@
 import { mkdir, readFile, writeFile, rm } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
-import { SITE_URL } from './site.mjs'
+import { SITE_URL, OG_IMAGE } from './site.mjs'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const SSR_DIR = resolve(root, '.ssr-build')
@@ -32,7 +32,7 @@ const bundle = await import(SSR_ENTRY).catch(() =>
   fail(`could not load the SSR bundle at ${SSR_ENTRY}. Run the ssr build first.`)
 )
 
-const { render, ROUTES, routeHead } = bundle
+const { render, ROUTES, routeHead, routeSchema, llmsTxt } = bundle
 
 const template = await readFile(resolve(DIST, 'index.html'), 'utf8').catch(() =>
   fail('no built dist/index.html. Run the client build first.')
@@ -79,12 +79,47 @@ const pageFor = (path) => {
     'canonical link'
   )
 
+  // Social cards and structured data are injected rather than templated:
+  // they are entirely derived from the route, so there is nothing for
+  // index.html to hold a placeholder for. JSON-LD carries the identity an AI
+  // search engine would otherwise have to infer from the prose.
+  const url = `${SITE_URL}${head.path}`
+
+  const social = [
+    `<meta property="og:type" content="${head.path === '/' ? 'profile' : 'article'}" />`,
+    `<meta property="og:site_name" content="${escape(PROFILE_NAME)}" />`,
+    `<meta property="og:title" content="${escape(head.title)}" />`,
+    `<meta property="og:description" content="${escape(head.description)}" />`,
+    `<meta property="og:url" content="${url}" />`,
+    `<meta property="og:image" content="${OG_IMAGE}" />`,
+    '<meta property="og:image:width" content="1200" />',
+    '<meta property="og:image:height" content="630" />',
+    `<meta property="og:locale" content="en_GB" />`,
+    '<meta name="twitter:card" content="summary_large_image" />',
+    `<meta name="twitter:title" content="${escape(head.title)}" />`,
+    `<meta name="twitter:description" content="${escape(head.description)}" />`,
+    `<meta name="twitter:image" content="${OG_IMAGE}" />`,
+    // Ends up inside a script element, so the only sequence that matters is
+    // one that could close it early.
+    `<script type="application/ld+json">${JSON.stringify(routeSchema(path)).replace(
+      /</g,
+      '\\u003c'
+    )}</script>`,
+  ]
+    .map((tag) => `    ${tag}`)
+    .join('\n')
+
+  html = swap(html, /\n?\s*<\/head>/, `\n${social}\n  </head>`, 'closing head tag')
+
   return { html: html.replace(PLACEHOLDER, `<div id="root">${markup}</div>`), markup }
 }
 
 // '/' is dist/index.html; '/work/strata/' is dist/work/strata/index.html, so
 // a static host serves it without any rewrite rule.
 const fileFor = (path) => resolve(DIST, `.${path}index.html`)
+
+// Only used in the og:site_name tag, and only the display name is wanted.
+const PROFILE_NAME = 'Mohammad Jakaria Istauk'
 
 for (const path of ROUTES) {
   const { html, markup } = pageFor(path)
@@ -119,6 +154,10 @@ const sitemap = [
 
 await writeFile(resolve(DIST, 'sitemap.xml'), sitemap)
 console.log(`prerender: sitemap lists ${ROUTES.length} url(s)`)
+
+const llms = llmsTxt()
+await writeFile(resolve(DIST, 'llms.txt'), llms)
+console.log(`prerender: llms.txt ${llms.length} bytes`)
 
 // The SSR bundle is a build artefact of this step alone. Leaving it behind
 // invites someone to ship it to the web root.
