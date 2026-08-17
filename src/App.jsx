@@ -1,12 +1,12 @@
 import React from 'react'
-import { Rail, Footer } from './v2/Chrome'
-import Hero from './v2/Hero'
-import Work from './v2/Work'
-import About from './v2/About'
-import Changelog from './v2/Changelog'
-import Contact from './v2/Contact'
-import CaseStudy from './v2/CaseStudy'
-import { resolveRoute } from './v2/routes'
+import { Rail, Footer } from './components/Chrome'
+import Hero from './components/Hero'
+import Work from './components/Work'
+import About from './components/About'
+import Changelog from './components/Changelog'
+import Contact from './components/Contact'
+import CaseStudy from './components/CaseStudy'
+import { resolveRoute } from './components/routes'
 
 // `path` comes from the URL: the prerender passes each route in turn, and the
 // browser passes window.location.pathname. Both resolve through the same

@@ -98,6 +98,29 @@ export const PROJECTS = [
     links: [{ label: 'Visit site', url: 'https://bookclub.oorol.com' }],
   },
   {
+    id: 'hisab-counter',
+    title: 'হিসাব কাউন্টার (Hisab Counter)',
+    description:
+      'A Bengali double-ledger accounting app for mobile financial service agent shops in Bangladesh. Every transaction moves the cash drawer and the wallet float at once, commission is applied per provider, and the day closes on a counted-cash variance check.',
+    summary:
+      'A Bengali double-ledger app for MFS agent shops: cash drawer and wallet float in one book, with a nightly cash variance check.',
+    story: [
+      'An agent shop in Bangladesh sells bKash, Nagad, Rocket, Upay and Tap from the same counter, and every transaction moves money in two places at once: the cash in the drawer and the wallet float in the agent account. A cash-out takes notes out of the drawer and puts balance into the wallet. A wallet recharge does the reverse. Commission lands in the wallet, never in the drawer. Get any of that backwards and the two books stop agreeing, which is only discovered at eleven at night when the cash does not add up.',
+      'The shops that run on a spreadsheet feel this most. A single wrong drag breaks a formula silently, a phone is a bad place to edit a workbook, and by the time a month is corrupted there is no way to find where it went wrong. This replaces that: one entry screen, both ledgers recomputed from scratch on every save, and a receipt tape that prints exactly what the entry did to each of them.',
+      'The rules are the product. Commission rates are versioned, so changing a provider rate today does not rewrite what yesterday earned. Transactions that cannot physically happen are refused at entry with the reason and the fix, rather than accepted and reconciled later — paying out more cash than the drawer holds is not a rounding error, it is a wrong number that will be trusted. Distributor payments are treated as buying float rather than as an expense, which is the mistake that made the original spreadsheet understate profit.',
+      'The whole interface is in Bengali, mobile-first for use at the counter, and offline-capable because shop internet is not reliable. It is in private beta with accounts created on request, built as sole engineer on a React and TypeScript front end over a Laravel API.',
+    ],
+    image: asset('/screenshots/hisab-counter.webp'),
+    note: 'Accounts are created on request, so the app itself is behind sign-in.',
+    categories: ['full-stack', 'interface'],
+    meta: [
+      { key: 'Status', value: 'Private beta', signal: true },
+      { key: 'Role', value: 'Creator, sole engineer' },
+      { key: 'Built with', value: 'React · TypeScript · Laravel' },
+    ],
+    links: [{ label: 'Visit site', url: 'https://mfs.oorol.com/' }],
+  },
+  {
     id: 'strata',
     title: 'Strata',
     description:
@@ -238,17 +261,36 @@ export const HISTORY = [
 
 export const RELEASES = ['6.9', '6.4', '6.3', '6.2', '6.1']
 
-// The audit counted 61 crawlable words on the home page, and the fix for that
-// is not more markup — it is prose that says plainly what the work is, in the
-// words someone would search for. Read as a paragraph, not as keywords.
+// The home page had 61 crawlable words, and the fix for that is prose that
+// says plainly what the work is. Broken into named pillars rather than run as
+// four long paragraphs: the same words, but scannable, and each heading is a
+// thing someone might actually be searching for.
 export const ABOUT = {
   title: 'What I actually do',
   lede: 'Nine years of it, in two halves that keep feeding each other.',
-  body: [
-    'I am a WordPress and full-stack engineer based in Dhaka, Bangladesh, working remote and async-first. Half of my work is WordPress at scale: custom plugins, custom themes, Elementor widgets, WooCommerce extensions, third-party API integrations, and the unglamorous maintenance that keeps all of it working after Core and Elementor both move underneath it. The other half is product engineering outside WordPress, in React, Node.js, TypeScript, PHP and MySQL, where I build the data model, the API and the interface rather than one layer of the three.',
-    'The scale is the part that changed how I write code. Essential Addons for Elementor, which I work on daily, is installed on more than two million sites, and at that size backward compatibility stops being a courtesy and becomes the specification. A widget that renders differently after an update breaks pages that someone published years ago and has not looked at since. So the questions come in a fixed order: what depends on this, what happens to those sites if it changes, and can the change be made without asking anyone to migrate.',
-    'The same instinct applies to security. A plugin on two million sites is a shared attack surface, and every input reaching PHP is treated as hostile until it has been sanitised and every output as dangerous until it has been escaped. Contributions credited in five WordPress Core releases came out of working this way, as did being a Bengali translation editor for the Polyglots, Core and Photos teams.',
-    'What I am looking for is senior WordPress or full-stack work, and specifically the kind of problem that needs one person to own it end to end — the data model through to the interface, including the decisions in between about what the system should refuse to do.',
+  intro:
+    'I am a WordPress and full-stack engineer based in Dhaka, Bangladesh, working remote and async-first. Half the work is WordPress at scale; the other half is product engineering outside it. What follows is the honest version of both.',
+  pillars: [
+    {
+      title: 'WordPress at scale',
+      body: 'Custom plugins and themes, Elementor widgets, WooCommerce extensions, third-party API integrations, and the unglamorous maintenance that keeps all of it working after Core and Elementor both move underneath it.',
+    },
+    {
+      title: 'Products end to end',
+      body: 'React, Node.js, TypeScript, PHP, Laravel and MySQL. On product work I build the data model, the API and the interface rather than one layer of the three, which is also where the interesting decisions live.',
+    },
+    {
+      title: 'Compatibility as the specification',
+      body: 'Essential Addons for Elementor is installed on more than two million sites. At that size a widget that renders differently after an update breaks pages published years ago, so the questions come in a fixed order: what depends on this, what happens to those sites if it changes, and can it change without asking anyone to migrate.',
+    },
+    {
+      title: 'Security as a default, not a pass',
+      body: 'A plugin on two million sites is a shared attack surface. Every input reaching PHP is hostile until sanitised and every output dangerous until escaped. Contributions credited in five WordPress Core releases came out of working this way, as did editing Bengali translations for the Polyglots, Core and Photos teams.',
+    },
+    {
+      title: 'What I am looking for',
+      body: 'Senior WordPress or full-stack work, and specifically the kind of problem that needs one person to own it end to end — the data model through to the interface, including the decisions in between about what the system should refuse to do.',
+    },
   ],
 }
 
@@ -258,7 +300,7 @@ export const ABOUT = {
 export const FAQ = [
   {
     q: 'What does Jakaria Istauk build?',
-    a: 'Custom WordPress plugins and themes, Elementor widgets, WooCommerce extensions and third-party integrations, plus full-stack products in React, Node.js, TypeScript, PHP and MySQL. On product work he builds the data model, the REST API and the interface rather than a single layer.',
+    a: 'Custom WordPress plugins and themes, Elementor widgets, WooCommerce extensions and third-party integrations, plus full-stack products in React, Node.js, TypeScript, PHP, Laravel and MySQL. On product work he builds the data model, the REST API and the interface rather than a single layer.',
   },
   {
     q: 'How much experience does he have?',

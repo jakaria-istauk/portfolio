@@ -13,9 +13,20 @@ const About = () => {
           <p className="section__note">{ABOUT.lede}</p>
         </div>
 
-        <div className="prose rise">
-          {ABOUT.body.map((paragraph) => (
-            <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+        <p className="about__intro rise">{ABOUT.intro}</p>
+
+        {/* Each pillar is a heading and one paragraph. The same material read as
+            a wall of text when it was four long paragraphs in a single column
+            against an empty half of the page. */}
+        <div className="about__grid">
+          {ABOUT.pillars.map((pillar, index) => (
+            <div className="pillar rise" key={pillar.title}>
+              <span className="pillar__index" aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <h3 className="pillar__title">{pillar.title}</h3>
+              <p className="pillar__body">{pillar.body}</p>
+            </div>
           ))}
         </div>
 

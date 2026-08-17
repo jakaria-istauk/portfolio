@@ -1,8 +1,8 @@
 # Portfolio - Mohammad Jakaria Istauk
 
-Personal portfolio site for a WordPress and full-stack engineer. A React single
-page application built with Vite and deployed as static files, with no backend
-of its own.
+Personal portfolio site for a WordPress and full-stack engineer. A React app
+built with Vite, prerendered to static HTML at build time and deployed as
+static files, with no backend of its own.
 
 - Live: [jakaria.com.bd](https://jakaria.com.bd)
 - Mirror: [jakaria-istauk.github.io/portfolio](https://jakaria-istauk.github.io/portfolio/)
@@ -13,7 +13,7 @@ of its own.
 | --- | --- |
 | UI | React 19 |
 | Build | Vite 4 |
-| Styling | Tailwind CSS 3 with a hand written stylesheet in `src/styles/v2.css` |
+| Styling | Tailwind CSS 3 with a hand written stylesheet in `src/styles/main.css` |
 | Linting | ESLint 9 with the React Hooks and Refresh plugins |
 
 ## Requirements
@@ -48,25 +48,51 @@ The dev server prints a local URL, by default <http://localhost:5173>.
 
 ```
 src/
-├── main.jsx             Entry point
-├── App.jsx              Section composition
-├── styles/v2.css        Global styles and Tailwind layers
-└── v2/
-    ├── Chrome.jsx       Side rail navigation and footer
+├── main.jsx             Browser entry: hydrates the prerendered markup
+├── entry-server.jsx     Build entry: renders each route to HTML
+├── App.jsx              Route resolution and page composition
+├── styles/main.css      Global styles and Tailwind layers
+└── components/
+    ├── Chrome.jsx       Rail navigation and footer
     ├── Hero.jsx         Intro, figures, CV download
-    ├── Work.jsx         Selected projects
+    ├── Work.jsx         Project grid, links to the case studies
+    ├── About.jsx        What the work is, plus the questions block
     ├── Changelog.jsx    Contribution timeline
     ├── Contact.jsx      Contact form, composes a mailto message
+    ├── CaseStudy.jsx    One project's own page
     ├── data.js          All site content: profile, projects, figures, links
+    ├── routes.js        The route list and each page's head tags
+    ├── schema.js        JSON-LD for each page
+    ├── llms.js          The /llms.txt brief
+    ├── site.js          Canonical origin, shared with the build scripts
     └── useReveal.js     Intersection observer hook for scroll reveals
 
 public/                  Static files copied verbatim into the build
-scripts/                 Deployment scripts
+scripts/                 Prerender and deployment scripts
 .github/workflows/       FTP upload workflow
 ```
 
-Site content lives in [src/v2/data.js](src/v2/data.js). Edit that file rather
-than the components when updating projects, figures, or links.
+Site content lives in [src/components/data.js](src/components/data.js). Edit
+that file rather than the components when updating projects, figures, or links.
+Adding a project to `PROJECTS` is all it takes to get a case study page, a
+sitemap entry, an internal link from the grid and the footer, and a JSON-LD
+node — the route list is derived from that array.
+
+## Prerendering
+
+`npm run build` runs three steps: the client bundle, an SSR bundle from
+[src/entry-server.jsx](src/entry-server.jsx), and
+[scripts/prerender.mjs](scripts/prerender.mjs), which renders every route to
+its own `index.html` and writes `sitemap.xml` and `llms.txt`.
+
+The point is that a crawler receives the real page. Before this, search engines
+saw an empty `<div id="root">`: no h1, no headings, no links, 61 words. The
+prerender step fails the build if a rendered page has no h1, or if a head tag
+it needs to rewrite has stopped matching, so a regression cannot ship quietly.
+
+`/work/<id>/` becomes `dist/work/<id>/index.html`, which a static host serves
+with no rewrite rule. Navigation between pages is a plain anchor and a full
+page load — there is no client-side router.
 
 ## Base path
 
@@ -76,12 +102,14 @@ defaults to `/`. The deploy scripts set it as needed, so you rarely set it by
 hand.
 
 Asset URLs written as JavaScript strings are not rewritten by Vite. Use the
-`asset()` helper in [src/v2/data.js](src/v2/data.js) so they stay correct under
-any base path.
+`asset()` helper in [src/components/data.js](src/components/data.js) so they
+stay correct under any base path. Internal links use the `href()` helper in the
+same file, for the same reason.
 
 ## Contact form
 
-There is no server behind the form. [src/v2/Contact.jsx](src/v2/Contact.jsx)
+There is no server behind the form.
+[src/components/Contact.jsx](src/components/Contact.jsx)
 assembles the fields into a `mailto:` message and hands it to the visitor's own
 mail client, so they keep a copy of what they sent and replies land in a thread
 they already have. The site stays fully static, with no endpoint to secure or
@@ -146,6 +174,23 @@ contents to the web root, the files themselves rather than a `dist` folder.
 Do not zip `dist/` by hand after `npm run deploy`: that build is pathed for
 `/portfolio/` and every asset 404s from a root. The package script rebuilds for
 the root and refuses to zip a project page build.
+
+## SEO and structured data
+
+- `public/.htaccess` sends http, https and www variants to
+  `https://jakaria.com.bd` in one hop, and declares the UTF-8 charset the host
+  omits from its Content-Type header.
+- Every page carries its own title, meta description and canonical URL, written
+  by the prerender step.
+- Every page carries a JSON-LD graph from
+  [src/components/schema.js](src/components/schema.js): a Person with `sameAs`
+  profiles, the WebSite, the page itself, the case studies as CreativeWork, an
+  FAQPage on the home page and breadcrumbs elsewhere.
+- Open Graph and Twitter cards point at `public/og.png`. Its source is
+  [scripts/og-card.html](scripts/og-card.html) — open it at exactly 1200x630 and
+  screenshot the viewport to regenerate.
+- `robots.txt` names the AI crawlers explicitly, and `/llms.txt` is generated
+  from the same content the pages render.
 
 ## Contact
 

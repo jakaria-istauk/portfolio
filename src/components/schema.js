@@ -35,7 +35,7 @@ const person = () => ({
   name: PROFILE.name,
   alternateName: 'Jakaria Istauk',
   jobTitle: PROFILE.role,
-  description: ABOUT.body[0],
+  description: ABOUT.intro,
   url: `${SITE_URL}/`,
   image: OG_IMAGE,
   email: `mailto:${EMAIL}`,

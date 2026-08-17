@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
-import './styles/v2.css'
+import './styles/main.css'
 import App from './App.jsx'
 
 const container = document.getElementById('root')
