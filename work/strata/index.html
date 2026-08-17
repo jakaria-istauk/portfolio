@@ -8,6 +8,11 @@
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0b0b0e" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- The typeface is pulled in by an @import inside the stylesheet, so the
+         browser only discovers these hosts after the CSS has arrived. Opening
+         the connections up front takes that handshake off the critical path. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- The build rewrites the title, this description and the canonical URL
          per page. Keep them as single-line tags: scripts/prerender.mjs matches
          them by pattern and fails the build if a pattern stops matching. -->
