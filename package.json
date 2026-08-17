@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npm run build:ssr && node scripts/prerender.mjs",
+    "build:ssr": "vite build --ssr src/entry-server.jsx --outDir .ssr-build",
     "lint": "eslint .",
     "preview": "vite preview",
     "deploy": "bash scripts/deploy.sh",

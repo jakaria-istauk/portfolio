@@ -123,7 +123,12 @@ export const Rail = () => (
 export const Footer = () => (
   <footer className="footer">
     <div className="shell footer__inner">
-      <p>© {new Date().getFullYear()} {PROFILE.name}</p>
+      {/* The year is baked in at build time and read again in the browser.
+          Those disagree for anyone visiting after a new year on an old build,
+          which is a stale copyright line, not a hydration bug worth an error. */}
+      <p suppressHydrationWarning>
+        © {new Date().getFullYear()} {PROFILE.name}
+      </p>
 
       <div className="footer__links">
         <a href={CV.file} download={CV.filename}>
