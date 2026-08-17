@@ -1,0 +1,72 @@
+# Server rules for jakaria.com.bd (LiteSpeed, so mod_rewrite syntax applies).
+#
+# Shipped from public/, which means it lands in the web root on deploy. Editing
+# it on the server instead would be overwritten by the next upload.
+
+# The audit found http:// and https://www. both answering 200, which is the
+# same page at four addresses and splits its ranking signals. One rule sends
+# all of them to https://jakaria.com.bd in a single hop — a redirect chain
+# costs crawl budget and gets flagged on its own.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteRule ^ https://jakaria.com.bd%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# The host serves `content-type: text/html` with no charset, so browsers fall
+# back to guessing. The meta tag in the HTML says UTF-8; this makes the header
+# agree with it.
+AddDefaultCharset UTF-8
+
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+  AddType image/webp .webp
+  AddType image/svg+xml .svg
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE application/manifest+json image/svg+xml
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Images, fonts and the CV are replaced under a new name when they change.
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType application/pdf "access plus 1 week"
+</IfModule>
+
+# The bundle filenames are fixed — assets/index.js, assets/index.css — so a
+# long max-age here would serve last week's JavaScript after a deploy. Let the
+# browser revalidate instead: unchanged files still come back as a cheap 304.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|js|css)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+
+  <FilesMatch "\.(webp|png|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000"
+  </FilesMatch>
+
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Without this the host answers unknown addresses with its own error page,
+# which is a dead end for a reader and for a crawler both. The build generates
+# 404.html, styled like the rest of the site and carrying the real page list.
+ErrorDocument 404 /404.html
+
+# Directory listings are not content, and neither is a stray dotfile.
+Options -Indexes
+
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
