@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CV, EMAIL, PROFILE, PROJECTS, href } from './data'
-import { projectPath } from './routes'
+import { CV, EMAIL, PROFILE, href } from './data'
 
 const NAV = [
   { label: 'Work', hash: '#work' },
@@ -130,21 +129,6 @@ export const Rail = ({ home = true }) => (
 
 export const Footer = () => (
   <footer className="footer">
-    <div className="shell footer__cases">
-      {/* Every page links to every case study from here. It gives the deeper
-          pages a route in from anywhere on the site rather than only from the
-          work grid on the home page. */}
-      <span className="label">Case studies</span>
-
-      <div className="footer__links">
-        {PROJECTS.map((project) => (
-          <a key={project.id} href={href(projectPath(project))}>
-            {project.title}
-          </a>
-        ))}
-      </div>
-    </div>
-
     <div className="shell footer__inner">
       {/* The year is baked in at build time and read again in the browser.
           Those disagree for anyone visiting after a new year on an old build,
@@ -158,13 +142,16 @@ export const Footer = () => (
           Download resume
         </a>
         <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-        <a href={PROFILE.github} target="_blank" rel="noreferrer">
+        {/* rel="me" states that these profiles are the same person as this
+            page. It is the machine-readable half of the sameAs list in the
+            JSON-LD, and the half a crawler sees without parsing scripts. */}
+        <a href={PROFILE.github} target="_blank" rel="me noreferrer">
           GitHub
         </a>
-        <a href={PROFILE.wordpress} target="_blank" rel="noreferrer">
+        <a href={PROFILE.wordpress} target="_blank" rel="me noreferrer">
           WordPress.org
         </a>
-        <a href={PROFILE.linkedin} target="_blank" rel="noreferrer">
+        <a href={PROFILE.linkedin} target="_blank" rel="me noreferrer">
           LinkedIn
         </a>
       </div>

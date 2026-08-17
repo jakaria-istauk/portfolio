@@ -96,7 +96,7 @@ const Contact = () => {
                   key={channel.key}
                   href={channel.url}
                   target={channel.url.startsWith('mailto') ? undefined : '_blank'}
-                  rel="noreferrer"
+                  rel={channel.url.startsWith('mailto') ? undefined : 'me noreferrer'}
                 >
                   <span>{channel.key}</span>
                   <span>{channel.value}</span>

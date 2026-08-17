@@ -59,6 +59,11 @@ AddDefaultCharset UTF-8
   Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
 
+# Without this the host answers unknown addresses with its own error page,
+# which is a dead end for a reader and for a crawler both. The build generates
+# 404.html, styled like the rest of the site and carrying the real page list.
+ErrorDocument 404 /404.html
+
 # Directory listings are not content, and neither is a stray dotfile.
 Options -Indexes
 

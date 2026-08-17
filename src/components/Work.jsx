@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { FILTERS, PROJECTS, href } from './data'
 import { projectPath } from './routes'
+import ProjectTitle from './ProjectTitle'
 import useReveal from './useReveal'
 
 const Card = ({ project }) => (
@@ -17,7 +18,9 @@ const Card = ({ project }) => (
 
     <div className="card__body">
       <h3 className="card__title">
-        <a href={href(projectPath(project))}>{project.title}</a>
+        <a href={href(projectPath(project))}>
+          <ProjectTitle project={project} />
+        </a>
       </h3>
       <p className="card__desc">{project.description}</p>
       {project.note && <p className="card__note">{project.note}</p>}

@@ -100,6 +100,8 @@ export const PROJECTS = [
   {
     id: 'hisab-counter',
     title: 'হিসাব কাউন্টার (Hisab Counter)',
+    // Only the first half of that title is Bengali. See ProjectTitle.jsx.
+    titleLang: 'bn',
     description:
       'A Bengali double-ledger accounting app for mobile financial service agent shops in Bangladesh. Every transaction moves the cash drawer and the wallet float at once, commission is applied per provider, and the day closes on a counted-cash variance check.',
     summary:

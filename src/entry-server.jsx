@@ -18,6 +18,6 @@ export function render(path) {
 // The build step needs the route list and each route's head tags, and both
 // derive from the project data. Re-exported here so the SSR bundle stays the
 // only place the build reads application data from.
-export { ROUTES, routeHead } from './components/routes'
+export { ROUTES, NOT_FOUND, routeHead } from './components/routes'
 export { routeSchema } from './components/schema'
 export { llmsTxt } from './components/llms'

@@ -1,6 +1,7 @@
 import React from 'react'
 import { PROJECTS, href } from './data'
 import { projectPath } from './routes'
+import ProjectTitle from './ProjectTitle'
 import useReveal from './useReveal'
 
 // The neighbours in the list, so every case study links to two others. A page
@@ -26,11 +27,15 @@ const CaseStudy = ({ project }) => {
           <span aria-hidden="true">/</span>
           <a href={`${href('/')}#work`}>Work</a>
           <span aria-hidden="true">/</span>
-          <span aria-current="page">{project.title}</span>
+          <span aria-current="page">
+            <ProjectTitle project={project} />
+          </span>
         </nav>
 
         <header className="study__head">
-          <h1 className="study__title">{project.title}</h1>
+          <h1 className="study__title">
+            <ProjectTitle project={project} />
+          </h1>
           <p className="study__lede">{project.description}</p>
 
           <div className="study__actions">
@@ -54,6 +59,7 @@ const CaseStudy = ({ project }) => {
             alt={`${project.title} in use`}
             width="1200"
             height="750"
+            fetchPriority="high"
           />
         </div>
 
@@ -92,11 +98,15 @@ const CaseStudy = ({ project }) => {
           <nav className="study__nav rise" aria-label="More work">
             <a className="study__step" href={href(projectPath(previous))}>
               <span className="label">Previous</span>
-              <span>{previous.title}</span>
+              <span>
+                <ProjectTitle project={previous} />
+              </span>
             </a>
             <a className="study__step study__step--next" href={href(projectPath(next))}>
               <span className="label">Next</span>
-              <span>{next.title}</span>
+              <span>
+                <ProjectTitle project={next} />
+              </span>
             </a>
           </nav>
         )}

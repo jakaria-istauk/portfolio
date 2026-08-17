@@ -6,6 +6,7 @@ import About from './components/About'
 import Changelog from './components/Changelog'
 import Contact from './components/Contact'
 import CaseStudy from './components/CaseStudy'
+import NotFound from './components/NotFound'
 import { resolveRoute } from './components/routes'
 
 // `path` comes from the URL: the prerender passes each route in turn, and the
@@ -30,8 +31,10 @@ function App({ path = '/' }) {
             <Changelog />
             <Contact />
           </>
-        ) : (
+        ) : route.name === 'project' ? (
           <CaseStudy project={route.project} />
+        ) : (
+          <NotFound />
         )}
       </main>
       <Footer />

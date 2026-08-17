@@ -8,11 +8,21 @@
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0b0b0e" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- The typeface is pulled in by an @import inside the stylesheet, so the
-         browser only discovers these hosts after the CSS has arrived. Opening
-         the connections up front takes that handshake off the critical path. -->
+    <!-- The typeface is requested here rather than by an @import inside the
+         stylesheet. An @import cannot start until the CSS that contains it has
+         downloaded and parsed, which puts the font behind a chain of three
+         requests; a link in the head is discovered with the document itself. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400..600&display=swap"
+    />
+
+    <!-- max-image-preview:large opts the case study screenshots into full-size
+         thumbnails in search results and Discover, rather than the small
+         default. index,follow is the default, stated so it is deliberate. -->
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <!-- The build rewrites the title, this description and the canonical URL
          per page. Keep them as single-line tags: scripts/prerender.mjs matches
          them by pattern and fails the build if a pattern stops matching. -->

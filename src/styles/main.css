@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400..600&display=swap');
-
 /* ---------------------------------------------------------------
    Tokens
 
@@ -42,7 +40,9 @@
   --line-soft: #ecebe6;
   --text: #14141a;
   --text-soft: #56565e;
-  --text-faint: #75747c;
+  /* 4.83:1 on the light surface. #75747c, the obvious pick, measures 4.43
+     and fails WCAG AA for the 11px label text this role is used on. */
+  --text-faint: #6f6e76;
   --signal: #d13c12;
   --shadow: 0 24px 60px -44px rgb(20 20 26 / 0.35);
 }
@@ -55,7 +55,8 @@
     --line-soft: #ecebe6;
     --text: #14141a;
     --text-soft: #56565e;
-    --text-faint: #75747c;
+    /* Kept in step with the [data-theme='light'] block above. */
+    --text-faint: #6f6e76;
     --signal: #d13c12;
     --shadow: 0 24px 60px -44px rgb(20 20 26 / 0.35);
   }
@@ -1239,7 +1240,39 @@ button {
 }
 
 /* ---------------------------------------------------------------
-   Card and footer links to the case studies
+   Not found
+   --------------------------------------------------------------- */
+
+.notfound__list {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--line);
+}
+
+.notfound__list ul {
+  margin-top: 1.1rem;
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: 0.75rem 2rem;
+}
+
+.notfound__list a {
+  font-size: var(--step-1);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+
+.notfound__list a:hover {
+  color: var(--signal);
+}
+
+/* ---------------------------------------------------------------
+   Card links to the case studies
    --------------------------------------------------------------- */
 
 .card__title a {
@@ -1253,16 +1286,6 @@ button {
 
 .card__shot {
   display: block;
-}
-
-.footer__cases {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.9rem 1.5rem;
-  padding-bottom: 1.75rem;
-  margin-bottom: 1.75rem;
-  border-bottom: 1px solid var(--line-soft);
 }
 
 /* ---------------------------------------------------------------

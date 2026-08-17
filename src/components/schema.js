@@ -116,6 +116,10 @@ export const routeSchema = (path) => {
   const route = resolveRoute(path)
   const head = routeHead(path)
 
+  // Nothing to describe: the page is an error message, and marking it up as a
+  // real page of the site would contradict its own noindex.
+  if (route.name === 'notfound') return null
+
   const page = {
     '@id': `${SITE_URL}${head.path}#page`,
     url: `${SITE_URL}${head.path}`,

@@ -32,7 +32,7 @@ const bundle = await import(SSR_ENTRY).catch(() =>
   fail(`could not load the SSR bundle at ${SSR_ENTRY}. Run the ssr build first.`)
 )
 
-const { render, ROUTES, routeHead, routeSchema, llmsTxt } = bundle
+const { render, ROUTES, NOT_FOUND, routeHead, routeSchema, llmsTxt } = bundle
 
 const template = await readFile(resolve(DIST, 'index.html'), 'utf8').catch(() =>
   fail('no built dist/index.html. Run the client build first.')
@@ -72,18 +72,34 @@ const pageFor = (path) => {
     'description'
   )
 
+  // The not-found page answers for every address that does not exist, so it
+  // has no canonical URL to claim and no business being indexed. Its canonical
+  // tag is replaced by the noindex rule rather than pointed somewhere false.
   html = swap(
     html,
     /<link rel="canonical" href="[^"]*" \/>/,
-    `<link rel="canonical" href="${SITE_URL}${head.path}" />`,
+    head.noindex
+      ? '<meta name="robots" content="noindex, follow" />'
+      : `<link rel="canonical" href="${SITE_URL}${head.path}" />`,
     'canonical link'
   )
+
+  if (head.noindex) {
+    html = swap(
+      html,
+      /<meta name="robots" content="index[^"]*" \/>\n\s*/,
+      '',
+      'indexable robots meta'
+    )
+  }
 
   // Social cards and structured data are injected rather than templated:
   // they are entirely derived from the route, so there is nothing for
   // index.html to hold a placeholder for. JSON-LD carries the identity an AI
   // search engine would otherwise have to infer from the prose.
   const url = `${SITE_URL}${head.path}`
+
+  const schema = routeSchema(path)
 
   const social = [
     `<meta property="og:type" content="${head.path === '/' ? 'profile' : 'article'}" />`,
@@ -99,13 +115,19 @@ const pageFor = (path) => {
     `<meta name="twitter:title" content="${escape(head.title)}" />`,
     `<meta name="twitter:description" content="${escape(head.description)}" />`,
     `<meta name="twitter:image" content="${OG_IMAGE}" />`,
-    // Ends up inside a script element, so the only sequence that matters is
-    // one that could close it early.
-    `<script type="application/ld+json">${JSON.stringify(routeSchema(path)).replace(
-      /</g,
-      '\\u003c'
-    )}</script>`,
   ]
+    .concat(
+      // Ends up inside a script element, so the only sequence that matters is
+      // one that could close it early. The not-found page has no schema.
+      schema
+        ? [
+            `<script type="application/ld+json">${JSON.stringify(schema).replace(
+              /</g,
+              '\\u003c'
+            )}</script>`,
+          ]
+        : []
+    )
     .map((tag) => `    ${tag}`)
     .join('\n')
 
@@ -116,12 +138,17 @@ const pageFor = (path) => {
 
 // '/' is dist/index.html; '/work/strata/' is dist/work/strata/index.html, so
 // a static host serves it without any rewrite rule.
-const fileFor = (path) => resolve(DIST, `.${path}index.html`)
+const fileFor = (path) =>
+  path.endsWith('.html')
+    ? resolve(DIST, `.${path}`)
+    : resolve(DIST, `.${path}index.html`)
 
 // Only used in the og:site_name tag, and only the display name is wanted.
 const PROFILE_NAME = 'Mohammad Jakaria Istauk'
 
-for (const path of ROUTES) {
+// The 404 page is built like any other page but deliberately left out of
+// ROUTES, so it never reaches the sitemap.
+for (const path of [...ROUTES, NOT_FOUND]) {
   const { html, markup } = pageFor(path)
   const file = fileFor(path)
 

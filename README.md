@@ -191,6 +191,12 @@ the root and refuses to zip a project page build.
   screenshot the viewport to regenerate.
 - `robots.txt` names the AI crawlers explicitly, and `/llms.txt` is generated
   from the same content the pages render.
+- `dist/404.html` is prerendered like any other page and wired up with
+  `ErrorDocument`, so an unknown address gets the site's own page with the real
+  page list on it. It carries `noindex` and no canonical URL, and it is
+  deliberately absent from the sitemap.
+- The typeface is requested from a `<link>` in the head rather than an `@import`
+  inside the stylesheet, which took a request chain out of the critical path.
 
 ## Contact
 
