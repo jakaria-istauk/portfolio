@@ -195,30 +195,27 @@ export const PROJECTS = [
     ],
   },
   {
-    id: 'hajjflow',
-    title: 'HajjFlow',
+    id: 'muhtamim',
+    title: 'Muhtamim',
     description:
-      'A Hajj ritual planner written in Bengali. Offline-capable and mobile-first, and an exercise in setting a non-Latin script so it stays readable at every size.',
+      'An ERP for madrasas, in Bengali and English. Admissions, attendance, exams and results, fees and expenses, and hifz progress, in one tenant-isolated workspace with a role for the administrator, the teacher, the parent and the student.',
     summary:
-      'A Bengali-language, offline-capable Hajj ritual planner, built mobile-first around typesetting a non-Latin script.',
+      'A bilingual madrasa ERP on Laravel: admissions, attendance, exams, fees and hifz progress in one tenant-isolated workspace.',
     story: [
-      'HajjFlow is a ritual planner for Hajj, written in Bengali. It is offline-capable and mobile-first, because it is meant to be used somewhere with a crowded network and a phone that has been out all day.',
-      'Most of the craft went into the typesetting. Bengali is not Latin: the script has taller glyph clusters, conjuncts that change shape in combination, and no reliable relationship between a font size that works for English and one that stays readable here. Line height, letter spacing and the type scale all had to be set for the script rather than inherited from a Latin default.',
-      'Offline was a correctness requirement, not a feature. A planner you cannot open when the connection drops is a planner that fails precisely when it is being relied on.',
-      'It is built in plain JavaScript, HTML and CSS, with no framework, because the whole application is small enough not to need one and every kilobyte saved is a kilobyte that does not have to arrive over a bad connection. That decision is also why it starts instantly on an old phone, which is the device most of its readers will actually be holding.',
-      'Working in Bengali on a project like this feeds directly into the translation work: the same questions about wording, register and what a term should be called in Bengali come up whether the string is in a planner or in WordPress Core.',
+      'Muhtamim is an ERP for madrasas. Admissions and student records, teacher and student attendance, classes and subjects, exams and results, fees and expenses, notices to parents, and hifz progress against the thirty juz, all in one workspace rather than the register, the ledger and the phone call that usually carry them.',
+      'Hifz tracking is the part no general school system has, and it is the reason a madrasa cannot simply adopt one. Memorisation progress is not a grade: it accumulates, it is revised, and it is assessed on recitation quality rather than a mark out of a hundred. Modelling it as its own thing, alongside tajweed assessment, is what makes the rest of the system worth adopting.',
+      'Four roles read the same data and need four different products from it. An administrator wants the institution at a glance, a teacher wants one class at a time, a parent wants one child, and a student wants their own record. Permissions are enforced per action rather than per screen, because a role that cannot see a page but can still call what the page calls is not a role.',
+      'Every institution is a separate tenant, and keeping that boundary intact is the whole trust proposition: a madrasa handing over its student roll is handing over the records of children, and the answer to who else can see them has to be nobody. It is built on Laravel with Tailwind CSS, and it ships in Bengali and English from one string catalogue, so switching language changes the interface rather than the version of the product you are using.',
     ],
-    image: asset('/screenshots/hajjflow.webp'),
-    categories: ['interface'],
+    image: asset('/screenshots/muhtamim.webp'),
+    note: 'The workspace itself is behind sign-in; the public site is the marketing page.',
+    categories: ['full-stack', 'interface'],
     meta: [
-      { key: 'Language', value: 'Bengali' },
+      { key: 'Languages', value: 'Bengali · English' },
       { key: 'Role', value: 'Creator' },
-      { key: 'Built with', value: 'JavaScript · HTML · CSS' },
+      { key: 'Built with', value: 'Laravel · PHP · Tailwind CSS' },
     ],
-    links: [
-      { label: 'Visit site', url: 'https://jakaria-istauk.github.io/hajjflow/' },
-      { label: 'Source', url: 'https://github.com/jakaria-istauk/hajjflow' },
-    ],
+    links: [{ label: 'Visit site', url: 'https://muhtamim.oorol.com/' }],
   },
 ]
 
