@@ -75,6 +75,58 @@ export const PROJECTS = [
     ],
   },
   {
+    id: 'tablentor',
+    title: 'Tablentor',
+    description:
+      'A table builder for Elementor, published on WordPress.org. Custom widget, live editor controls, responsive output and import/export — built to plugin review standards and maintained through Core updates.',
+    summary:
+      'A table builder for Elementor published on WordPress.org, with a custom widget, live editor controls and responsive output.',
+    story: [
+      'Tablentor is a table builder for Elementor, published on WordPress.org and running on more than a thousand active sites. It is a custom Elementor widget: live editor controls, responsive output, and import and export for the table data itself.',
+      'Publishing on WordPress.org sets the bar. The plugin review standards are not a style guide — they are rules about escaping output, sanitising input, prefixing everything you put in a shared namespace, and never shipping code that reaches out to somewhere the site owner did not ask for. Meeting them is a condition of being listed at all.',
+      'Maintaining it afterwards is the longer job. Elementor and WordPress Core both move, and a widget that renders correctly today has to keep rendering correctly through their updates, on sites whose owners will never look at a release note.',
+      'Tables are also a harder interface problem than they look. The same data has to survive a phone screen without becoming unreadable, which means deciding what a column is allowed to do when there is no room for it — collapse, scroll, or stack — and making that choice configurable without handing the site builder a panel of forty settings.',
+    ],
+    image: asset('/screenshots/tablentor.webp'),
+    categories: ['wordpress'],
+    meta: [
+      { key: 'Active installs', value: '1,000+', signal: true },
+      { key: 'Role', value: 'Creator' },
+      { key: 'Built with', value: 'PHP · Elementor · JavaScript' },
+    ],
+    links: [
+      { label: 'WordPress.org', url: 'https://wordpress.org/plugins/tablentor/' },
+      { label: 'Source', url: 'https://github.com/jakaria-istauk/tablentor' },
+    ],
+  },
+  {
+    id: 'restrict-elementor-widgets',
+    title: 'Restrict Elementor Widgets',
+    description:
+      'Per-role access control for the Elementor editor, published on WordPress.org. An administrator decides which widgets, columns and sections each role may use, and the editor stops offering the rest.',
+    summary:
+      'A WordPress.org plugin giving per-role control over which Elementor widgets, columns and sections a user may use in the editor.',
+    story: [
+      'Restrict Elementor Widgets is per-role access control for the Elementor editor. An administrator picks which widgets, columns and sections each role is allowed, and everyone else opens a canvas that simply does not offer the rest.',
+      'The problem it solves is an agency problem. A site handed to a client comes with a page builder that can undo the design it was built to protect: a client editing their own copy is welcome, a client dropping an unstyled widget into a carefully built template is a support ticket. Narrowing the palette is what makes handing over the keys safe.',
+      'Doing that correctly means the restriction has to hold in the editor rather than only in the interface. A widget hidden from a panel but still reachable is not access control, so the rules are enforced where Elementor asks what a user may insert, not where the list is drawn.',
+      'It is published on WordPress.org, which sets the same bar every listed plugin meets: escaped output, sanitised input, a prefixed namespace, and no traffic to anywhere the site owner did not ask for. Roles and capabilities come from WordPress itself rather than a parallel permissions system, because a plugin that invents its own idea of who an editor is will disagree with the site around it.',
+    ],
+    image: asset('/screenshots/restrict-elementor-widgets.webp'),
+    categories: ['wordpress'],
+    meta: [
+      { key: 'Active installs', value: '400+', signal: true },
+      { key: 'Role', value: 'Plugin engineer' },
+      { key: 'Built with', value: 'PHP · Elementor · JavaScript' },
+    ],
+    links: [
+      {
+        label: 'WordPress.org',
+        url: 'https://wordpress.org/plugins/restrict-elementor-widgets/',
+      },
+    ],
+  },
+  {
     id: 'bookclub',
     title: 'BookClub',
     description:
@@ -148,31 +200,6 @@ export const PROJECTS = [
     ],
   },
   {
-    id: 'tablentor',
-    title: 'Tablentor',
-    description:
-      'A table builder for Elementor, published on WordPress.org. Custom widget, live editor controls, responsive output and import/export — built to plugin review standards and maintained through Core updates.',
-    summary:
-      'A table builder for Elementor published on WordPress.org, with a custom widget, live editor controls and responsive output.',
-    story: [
-      'Tablentor is a table builder for Elementor, published on WordPress.org and running on more than a thousand active sites. It is a custom Elementor widget: live editor controls, responsive output, and import and export for the table data itself.',
-      'Publishing on WordPress.org sets the bar. The plugin review standards are not a style guide — they are rules about escaping output, sanitising input, prefixing everything you put in a shared namespace, and never shipping code that reaches out to somewhere the site owner did not ask for. Meeting them is a condition of being listed at all.',
-      'Maintaining it afterwards is the longer job. Elementor and WordPress Core both move, and a widget that renders correctly today has to keep rendering correctly through their updates, on sites whose owners will never look at a release note.',
-      'Tables are also a harder interface problem than they look. The same data has to survive a phone screen without becoming unreadable, which means deciding what a column is allowed to do when there is no room for it — collapse, scroll, or stack — and making that choice configurable without handing the site builder a panel of forty settings.',
-    ],
-    image: asset('/screenshots/tablentor.webp'),
-    categories: ['wordpress'],
-    meta: [
-      { key: 'Active installs', value: '1,000+', signal: true },
-      { key: 'Role', value: 'Creator' },
-      { key: 'Built with', value: 'PHP · Elementor · JavaScript' },
-    ],
-    links: [
-      { label: 'WordPress.org', url: 'https://wordpress.org/plugins/tablentor/' },
-      { label: 'Source', url: 'https://github.com/jakaria-istauk/tablentor' },
-    ],
-  },
-  {
     id: 'hajjflow',
     title: 'HajjFlow',
     description:
@@ -196,33 +223,6 @@ export const PROJECTS = [
     links: [
       { label: 'Visit site', url: 'https://jakaria-istauk.github.io/hajjflow/' },
       { label: 'Source', url: 'https://github.com/jakaria-istauk/hajjflow' },
-    ],
-  },
-  {
-    id: 'restrict-elementor-widgets',
-    title: 'Restrict Elementor Widgets',
-    description:
-      'Per-role access control for the Elementor editor, published on WordPress.org. An administrator decides which widgets, columns and sections each role may use, and the editor stops offering the rest.',
-    summary:
-      'A WordPress.org plugin giving per-role control over which Elementor widgets, columns and sections a user may use in the editor.',
-    story: [
-      'Restrict Elementor Widgets is per-role access control for the Elementor editor. An administrator picks which widgets, columns and sections each role is allowed, and everyone else opens a canvas that simply does not offer the rest.',
-      'The problem it solves is an agency problem. A site handed to a client comes with a page builder that can undo the design it was built to protect: a client editing their own copy is welcome, a client dropping an unstyled widget into a carefully built template is a support ticket. Narrowing the palette is what makes handing over the keys safe.',
-      'Doing that correctly means the restriction has to hold in the editor rather than only in the interface. A widget hidden from a panel but still reachable is not access control, so the rules are enforced where Elementor asks what a user may insert, not where the list is drawn.',
-      'It is published on WordPress.org, which sets the same bar every listed plugin meets: escaped output, sanitised input, a prefixed namespace, and no traffic to anywhere the site owner did not ask for. Roles and capabilities come from WordPress itself rather than a parallel permissions system, because a plugin that invents its own idea of who an editor is will disagree with the site around it.',
-    ],
-    image: asset('/screenshots/restrict-elementor-widgets.webp'),
-    categories: ['wordpress'],
-    meta: [
-      { key: 'Active installs', value: '400+', signal: true },
-      { key: 'Role', value: 'Plugin engineer' },
-      { key: 'Built with', value: 'PHP · Elementor · JavaScript' },
-    ],
-    links: [
-      {
-        label: 'WordPress.org',
-        url: 'https://wordpress.org/plugins/restrict-elementor-widgets/',
-      },
     ],
   },
 ]
