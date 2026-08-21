@@ -1,4 +1,14 @@
-import { ABOUT, EMAIL, FAQ, HISTORY, PROFILE, PROJECTS, RELEASES } from './data'
+import {
+  ABOUT,
+  COMMUNITY,
+  EDUCATION,
+  EMAIL,
+  FAQ,
+  HISTORY,
+  PROFILE,
+  PROJECTS,
+  RELEASES,
+} from './data'
 import { SITE_URL } from './site'
 import { projectPath } from './routes'
 
@@ -40,6 +50,17 @@ export const llmsTxt = () => {
     '',
     `Contributions credited in ${RELEASES.length} releases: ${RELEASES.join(', ')}.`,
     'Bengali translation editor for the WordPress Polyglots, Core and Photos teams.',
+    '',
+    '## Community',
+    '',
+    ...COMMUNITY.contributions.map(
+      (item) => `- ${item.role} — ${item.event}${item.year ? ` ${item.year}` : ''}.`
+    ),
+    `- Attended: ${COMMUNITY.attended.join(', ')}.`,
+    '',
+    '## Education',
+    '',
+    ...EDUCATION.map((item) => `- ${item.degree} — ${item.where}, ${item.year}.`),
     '',
     '## Questions',
     '',

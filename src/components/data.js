@@ -257,6 +257,34 @@ export const HISTORY = [
 
 export const RELEASES = ['6.9', '6.4', '6.3', '6.2', '6.1']
 
+// Degree and institution only. A dated qualification stated plainly is worth
+// more than a paragraph explaining it, and it is the one fact on the site a
+// reader cannot infer from the work.
+export const EDUCATION = [
+  {
+    degree: 'MSc, Computer Science',
+    where: 'Daffodil International University',
+    year: '2021',
+  },
+  {
+    degree: 'BSc, Computer Science',
+    where: 'Daffodil International University',
+    year: '2018',
+  },
+]
+
+// Organising and speaking, kept separate from attendance: the first two are
+// work done for the community, the last is showing up, and conflating them
+// would overstate both.
+export const COMMUNITY = {
+  contributions: [
+    { role: 'Table Lead', event: 'WordCamp Rajshahi', year: '2026' },
+    { role: 'Table Lead', event: 'WordCamp Kolkata', year: '2022' },
+    { role: 'Speaker', event: 'Elementor Bangladesh Meetup' },
+  ],
+  attended: ['WordCamp Asia 2023', 'WordCamp Dhaka 2025'],
+}
+
 // The home page had 61 crawlable words, and the fix for that is prose that
 // says plainly what the work is. Broken into named pillars rather than run as
 // four long paragraphs: the same words, but scannable, and each heading is a

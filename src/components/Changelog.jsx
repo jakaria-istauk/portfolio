@@ -1,5 +1,5 @@
 import React from 'react'
-import { HISTORY, RELEASES } from './data'
+import { COMMUNITY, EDUCATION, HISTORY, RELEASES } from './data'
 import useReveal from './useReveal'
 
 const Changelog = () => {
@@ -51,6 +51,49 @@ const Changelog = () => {
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Organising and speaking first, attendance second and visibly
+            separate: the two are not the same claim. */}
+        <div className="releases rise">
+          <h3 className="releases__title">In the community</h3>
+
+          <div>
+            <ul className="credentials">
+              {COMMUNITY.contributions.map((item) => (
+                <li className="credential" key={item.role + item.event}>
+                  <span className="credential__title">{item.role}</span>
+                  <span className="credential__where">
+                    {item.event}
+                    {item.year ? ` ${item.year}` : ''}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="tags">
+              {COMMUNITY.attended.map((event) => (
+                <span className="tag" key={event}>
+                  Attended · {event}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="releases rise">
+          <h3 className="releases__title">Education</h3>
+
+          <ul className="credentials">
+            {EDUCATION.map((item) => (
+              <li className="credential" key={item.degree}>
+                <span className="credential__title">{item.degree}</span>
+                <span className="credential__where">
+                  {item.where} · {item.year}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

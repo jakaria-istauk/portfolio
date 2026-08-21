@@ -1,4 +1,14 @@
-import { ABOUT, EMAIL, FAQ, HISTORY, PROFILE, PROJECTS, RELEASES } from './data'
+import {
+  ABOUT,
+  COMMUNITY,
+  EDUCATION,
+  EMAIL,
+  FAQ,
+  HISTORY,
+  PROFILE,
+  PROJECTS,
+  RELEASES,
+} from './data'
 import { SITE_URL, OG_IMAGE } from './site'
 import { projectPath, resolveRoute, routeHead } from './routes'
 
@@ -61,11 +71,37 @@ const person = () => ({
     'REST API design',
     'Web performance',
     'Application security',
+    'Gutenberg blocks and patterns',
+    'WordPress Block API',
+    'WP-CLI',
+    'Internationalisation (i18n)',
+    'Laravel',
   ],
   knowsLanguage: ['en', 'bn'],
   worksFor: HISTORY.map((entry) => ({
     '@type': 'Organization',
     name: entry.where,
+  })),
+  // Stated as CollegeOrUniversity rather than a bare string: it is the form
+  // that lets an engine resolve the institution instead of reading a name.
+  // Deduplicated: two degrees from one university is one alma mater, and
+  // listing it twice reads as two different institutions with the same name.
+  alumniOf: [...new Set(EDUCATION.map((item) => item.where))].map((name) => ({
+    '@type': 'CollegeOrUniversity',
+    name,
+  })),
+  hasCredential: EDUCATION.map((item) => ({
+    '@type': 'EducationalOccupationalCredential',
+    name: item.degree,
+    credentialCategory: 'degree',
+    dateCreated: item.year,
+    recognizedBy: { '@type': 'CollegeOrUniversity', name: item.where },
+  })),
+  // Only the events with a role attached. Attending a conference is not a
+  // credential, and marking it up as performerIn would say it was.
+  performerIn: COMMUNITY.contributions.map((item) => ({
+    '@type': 'Event',
+    name: item.year ? `${item.event} ${item.year}` : item.event,
   })),
   hasOccupation: {
     '@type': 'Occupation',

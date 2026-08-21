@@ -757,6 +757,39 @@ button {
   color: var(--text);
 }
 
+/* Education and community: the same two-column block as the releases above,
+   with a list instead of a paragraph. A qualification and an organising role
+   are both a title and a place, so they get the same shape. */
+
+.credentials {
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+}
+
+.credential {
+  display: grid;
+  gap: 0.2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.credential:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.credential__title {
+  font-weight: 600;
+}
+
+.credential__where {
+  font-family: var(--meta);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+}
+
 /* ---------------------------------------------------------------
    Contact
    --------------------------------------------------------------- */
