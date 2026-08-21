@@ -62,7 +62,6 @@ export const PROJECTS = [
     image: asset('/screenshots/essential-addons.webp'),
     categories: ['wordpress'],
     meta: [
-      { key: 'Active installs', value: '2 million+', signal: true },
       { key: 'Role', value: 'Plugin engineer' },
       { key: 'Built with', value: 'PHP · Elementor · JS · SCSS' },
     ],
@@ -90,7 +89,6 @@ export const PROJECTS = [
     image: asset('/screenshots/tablentor.webp'),
     categories: ['wordpress'],
     meta: [
-      { key: 'Active installs', value: '1,000+', signal: true },
       { key: 'Role', value: 'Creator' },
       { key: 'Built with', value: 'PHP · Elementor · JavaScript' },
     ],
@@ -115,7 +113,6 @@ export const PROJECTS = [
     image: asset('/screenshots/restrict-elementor-widgets.webp'),
     categories: ['wordpress'],
     meta: [
-      { key: 'Active installs', value: '400+', signal: true },
       { key: 'Role', value: 'Plugin engineer' },
       { key: 'Built with', value: 'PHP · Elementor · JavaScript' },
     ],
@@ -143,7 +140,6 @@ export const PROJECTS = [
     note: 'Sign-in is restricted to verified company domains.',
     categories: ['full-stack'],
     meta: [
-      { key: 'Status', value: 'In production', signal: true },
       { key: 'Role', value: 'Sole engineer' },
       { key: 'Built with', value: 'Node.js · TypeScript · React · MySQL' },
     ],
@@ -168,7 +164,6 @@ export const PROJECTS = [
     note: 'Accounts are created on request, so the app itself is behind sign-in.',
     categories: ['full-stack', 'interface'],
     meta: [
-      { key: 'Status', value: 'Private beta', signal: true },
       { key: 'Role', value: 'Creator, sole engineer' },
       { key: 'Built with', value: 'React · TypeScript · Laravel' },
     ],
