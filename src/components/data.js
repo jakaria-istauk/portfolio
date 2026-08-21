@@ -239,7 +239,7 @@ export const HISTORY = [
     when: 'Mar 2022 — Jul 2026',
     role: 'WordPress Developer',
     where: 'WPDeveloper, Inc',
-    what: 'Features, performance and security work on Essential Addons for Elementor, holding backward compatibility across a plugin installed on more than two million sites. Also built internal Node.js and TypeScript products: a book management platform, and a service that converts Figma designs into Elementor templates, including AI-assisted widget generation.',
+    what: 'Features, performance and security work on Essential Addons for Elementor, holding backward compatibility across a plugin installed on more than two million sites. Also built internal Node.js and TypeScript products: a book management platform, and FigWP, a service that converts Figma designs into Elementor templates, including the sales, user-credit and import systems and AI-assisted widget generation.',
   },
   {
     when: 'Aug 2019 — Feb 2022',
