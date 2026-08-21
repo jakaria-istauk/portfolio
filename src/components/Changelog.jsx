@@ -11,7 +11,7 @@ const Changelog = () => {
         <div className="section__head">
           <h2 className="section__title">Experience</h2>
           <p className="section__note">
-            Where the nine years went.
+            Where the seven years went.
           </p>
         </div>
 

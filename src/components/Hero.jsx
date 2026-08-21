@@ -18,7 +18,7 @@ const Hero = () => {
       </span>
 
       <h1 className="hero__claim settle" style={{ animationDelay: '0.15s' }}>
-        Nine years building the parts of the web <em>other people ship on.</em>
+        Seven years building the parts of the web <em>other people ship on.</em>
       </h1>
 
       <p className="hero__lede settle" style={{ animationDelay: '0.3s' }}>

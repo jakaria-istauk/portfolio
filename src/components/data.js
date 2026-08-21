@@ -31,7 +31,7 @@ export const FIGURES = [
     label: 'sites running a plugin I help build',
   },
   {
-    value: '9',
+    value: '7',
     label: 'years shipping WordPress and full-stack products',
   },
   {
@@ -253,12 +253,6 @@ export const HISTORY = [
     where: 'Agemark Technology Ltd.',
     what: 'Application architecture, data models and backend services.',
   },
-  {
-    when: 'Jan 2017 — May 2019',
-    role: 'Web Developer & Trainer',
-    where: 'Binary Pathshala',
-    what: 'Built sites and templates from design files, and taught web development — writing the curriculum students learned from.',
-  },
 ]
 
 export const RELEASES = ['6.9', '6.4', '6.3', '6.2', '6.1']
@@ -269,7 +263,7 @@ export const RELEASES = ['6.9', '6.4', '6.3', '6.2', '6.1']
 // thing someone might actually be searching for.
 export const ABOUT = {
   title: 'What I actually do',
-  lede: 'Nine years of it, in two halves that keep feeding each other.',
+  lede: 'Seven years of it, in two halves that keep feeding each other.',
   intro:
     'I am a WordPress and full-stack engineer based in Dhaka, Bangladesh, working remote and async-first. Half the work is WordPress at scale; the other half is product engineering outside it. What follows is the honest version of both.',
   pillars: [
@@ -306,7 +300,7 @@ export const FAQ = [
   },
   {
     q: 'How much experience does he have?',
-    a: 'Nine years, since 2017. Currently a WordPress developer working on Essential Addons for Elementor, which runs on more than two million sites, after earlier full-stack roles at Codexpert, Agemark Technology and Binary Pathshala.',
+    a: 'Seven years, since 2019. Currently a WordPress developer working on Essential Addons for Elementor, which runs on more than two million sites, after earlier full-stack roles at Codexpert and Agemark Technology.',
   },
   {
     q: 'Has he contributed to WordPress Core?',

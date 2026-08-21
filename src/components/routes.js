@@ -79,7 +79,7 @@ export const routeHead = (path) => {
     // Held near 155 characters: the audit flagged the old one for overflowing
     // the width Google renders a description in, which truncates the tail.
     description:
-      'WordPress and full-stack engineer, nine years in. Custom plugins, themes and Elementor widgets, React and Node.js products, code running on 2M+ sites.',
+      'WordPress and full-stack engineer, seven years in. Custom plugins, themes and Elementor widgets, React and Node.js products, code running on 2M+ sites.',
     path: HOME,
     image: null,
   }
