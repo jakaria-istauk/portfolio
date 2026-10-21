@@ -5,7 +5,7 @@ import useReveal from './useReveal'
 const FACTS = [
   'Dhaka, Bangladesh',
   'Remote, async-first',
-  'Open to senior roles',
+  'Software Engineer at ThemeXpert',
 ]
 
 const Hero = () => {

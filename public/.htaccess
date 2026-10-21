@@ -13,6 +13,11 @@
   RewriteCond %{HTTPS} !=on [OR]
   RewriteCond %{HTTP_HOST} ^www\. [NC]
   RewriteRule ^ https://jakaria.com.bd%{REQUEST_URI} [R=301,L]
+
+  # Case studies taken off the site in October 2026. 410 rather than 404 tells
+  # crawlers the removal is deliberate, so the pages drop out of the index
+  # sooner, and it wins over any copy an FTP upload left behind on the server.
+  RewriteRule ^work/(hisab-counter|bookclub)/?$ - [G,L]
 </IfModule>
 
 # The host serves `content-type: text/html` with no charset, so browsers fall

@@ -47,6 +47,30 @@ export const FIGURES = [
 
 export const PROJECTS = [
   {
+    id: 'wpsubscription',
+    title: 'WPSubscription',
+    description:
+      'Subscriptions and recurring payments for WooCommerce, published on WordPress.org. Billing cycles, free trials, installment plans and a customer self-service area, renewed in the background through Stripe, PayPal and further gateways.',
+    summary:
+      'A WordPress.org plugin that turns any WooCommerce product into a subscription, with automated recurring billing across several payment gateways.',
+    story: [
+      'WPSubscription turns any WooCommerce product into a subscription. A store owner sets a billing cycle — daily, weekly, monthly or yearly — adds a free trial or a sign-up fee if they want one, and the plugin takes it from there: renewals are charged automatically at the start of each cycle, and the customer never has to come back to the checkout.',
+      'Recurring billing is a lifecycle, not a payment. A subscription is created, renewed, paused, switched to another plan, cancelled, or left to expire, and every one of those transitions has to be reflected in WooCommerce orders, in the email a customer receives, and in the activity log a store owner reads when something looks wrong. Most of the engineering is in keeping those three in agreement.',
+      'Payment gateways are where that gets hard. Stripe and PayPal renew subscriptions in the free plugin, with further gateways in Pro, and each one has its own idea of what a recurring charge is, when it failed, and how a customer replaces an expired card. The plugin has to present one consistent subscription on top of all of them.',
+      'I contribute to the plugin as part of the team that builds it, working on its core architecture, feature development and payment gateway integrations. I also built Doel, an AI agent for the product that answers user questions on Telegram and Discord, validates reported issues, opens GitHub issues, drafts candidate pull requests, and writes the release changelogs.',
+    ],
+    image: asset('/screenshots/wpsubscription.webp'),
+    categories: ['wordpress'],
+    meta: [
+      { key: 'Role', value: 'Contributor' },
+      { key: 'Built with', value: 'PHP · WooCommerce · JavaScript' },
+    ],
+    links: [
+      { label: 'WordPress.org', url: 'https://wordpress.org/plugins/subscription/' },
+      { label: 'Visit site', url: 'https://wpsubscription.co/' },
+    ],
+  },
+  {
     id: 'essential-addons',
     title: 'Essential Addons for Elementor',
     description:
@@ -124,52 +148,6 @@ export const PROJECTS = [
     ],
   },
   {
-    id: 'bookclub',
-    title: 'BookClub',
-    description:
-      'A shared library for a distributed team: catalogue, borrow and return flows, ratings, and title suggestions, behind domain-restricted sign-in. Built end to end — data model, REST API, and interface.',
-    summary:
-      'A shared team library built end to end — data model, REST API and interface — in Node.js, TypeScript, React and MySQL.',
-    story: [
-      'BookClub is a shared library for a distributed team: a catalogue, borrow and return flows, ratings, and a way to suggest titles worth buying. It is in production, behind sign-in restricted to verified company domains.',
-      'I built it end to end — the data model, the REST API on Node.js and TypeScript, the MySQL schema underneath, and the React interface on top. Being the only engineer on a product means the boundaries are yours to draw, so the interesting decisions were about where state belongs: what the server is authoritative over, what the client is allowed to assume, and which of the two owns the rules about who may borrow what.',
-      'Borrow and return is a small domain with sharp edges. Two people wanting the same copy at the same moment, a return that never happens, a title that leaves the catalogue while someone still holds it — the flows have to answer all of it without an administrator stepping in.',
-      'Restricting sign-in to verified company domains is doing more work than access control. It is what lets the product assume good faith internally, so the interface can stay light on confirmations and warnings and heavy on the two things people came for: finding a book and getting it back.',
-    ],
-    image: asset('/screenshots/bookclub.webp'),
-    note: 'Sign-in is restricted to verified company domains.',
-    categories: ['full-stack'],
-    meta: [
-      { key: 'Role', value: 'Sole engineer' },
-      { key: 'Built with', value: 'Node.js · TypeScript · React · MySQL' },
-    ],
-    links: [{ label: 'Visit site', url: 'https://bookclub.oorol.com' }],
-  },
-  {
-    id: 'hisab-counter',
-    title: 'হিসাব কাউন্টার (Hisab Counter)',
-    // Only the first half of that title is Bengali. See ProjectTitle.jsx.
-    titleLang: 'bn',
-    description:
-      'A Bengali double-ledger accounting app for mobile financial service agent shops in Bangladesh. Every transaction moves the cash drawer and the wallet float at once, commission is applied per provider, and the day closes on a counted-cash variance check.',
-    summary:
-      'A Bengali double-ledger app for MFS agent shops: cash drawer and wallet float in one book, with a nightly cash variance check.',
-    story: [
-      'An agent shop in Bangladesh sells bKash, Nagad, Rocket, Upay and Tap from the same counter, and every transaction moves money in two places at once: the cash in the drawer and the wallet float in the agent account. A cash-out takes notes out of the drawer and puts balance into the wallet. A wallet recharge does the reverse. Commission lands in the wallet, never in the drawer. Get any of that backwards and the two books stop agreeing, which is only discovered at eleven at night when the cash does not add up.',
-      'The shops that run on a spreadsheet feel this most. A single wrong drag breaks a formula silently, a phone is a bad place to edit a workbook, and by the time a month is corrupted there is no way to find where it went wrong. This replaces that: one entry screen, both ledgers recomputed from scratch on every save, and a receipt tape that prints exactly what the entry did to each of them.',
-      'The rules are the product. Commission rates are versioned, so changing a provider rate today does not rewrite what yesterday earned. Transactions that cannot physically happen are refused at entry with the reason and the fix, rather than accepted and reconciled later — paying out more cash than the drawer holds is not a rounding error, it is a wrong number that will be trusted. Distributor payments are treated as buying float rather than as an expense, which is the mistake that made the original spreadsheet understate profit.',
-      'The whole interface is in Bengali, mobile-first for use at the counter, and offline-capable because shop internet is not reliable. It is in private beta with accounts created on request, built as sole engineer on a React and TypeScript front end over a Laravel API.',
-    ],
-    image: asset('/screenshots/hisab-counter.webp'),
-    note: 'Accounts are created on request, so the app itself is behind sign-in.',
-    categories: ['full-stack', 'interface'],
-    meta: [
-      { key: 'Role', value: 'Creator, sole engineer' },
-      { key: 'Built with', value: 'React · TypeScript · Laravel' },
-    ],
-    links: [{ label: 'Visit site', url: 'https://mfs.oorol.com/' }],
-  },
-  {
     id: 'strata',
     title: 'Strata',
     description:
@@ -244,6 +222,12 @@ export const PROJECTS = [
 export const FILTERS = ['everything', 'wordpress', 'full-stack', 'interface']
 
 export const HISTORY = [
+  {
+    when: 'Sep 2026 — Present',
+    role: 'Software Engineer',
+    where: 'ThemeXpert',
+    what: 'Leads core architecture and feature development for WPSubscription, a WordPress.org subscription plugin: subscription management, recurring billing lifecycles and payment gateway integrations. Also built Doel, an autonomous AI agent for the product that works across Telegram and Discord to answer client queries, validate reported issues, open GitHub issues, draft candidate pull requests, and write the release changelogs and newsletters.',
+  },
   {
     when: 'Mar 2022 — Jul 2026',
     role: 'WordPress Developer',
@@ -321,8 +305,12 @@ export const ABOUT = {
       body: 'A plugin on two million sites is a shared attack surface. Every input reaching PHP is hostile until sanitised and every output dangerous until escaped. Contributions credited in five WordPress Core releases came out of working this way, as did editing Bengali translations for the Polyglots, Core and Photos teams.',
     },
     {
-      title: 'What I am looking for',
-      body: 'Senior WordPress or full-stack work, and specifically the kind of problem that needs one person to own it end to end — the data model through to the interface, including the decisions in between about what the system should refuse to do.',
+      title: 'Agents that do real work',
+      body: 'Autonomous AI workflows built on the Claude Agent SDK and LLM function calling, aimed at the work around a product rather than a demo: triaging support questions, reproducing reported issues, opening GitHub issues, drafting candidate pull requests, and writing release changelogs and newsletters.',
+    },
+    {
+      title: 'The work I like best',
+      body: 'The kind of problem that needs one person to own it end to end — the data model through to the interface, including the decisions in between about what the system should refuse to do.',
     },
   ],
 }
@@ -333,19 +321,19 @@ export const ABOUT = {
 export const FAQ = [
   {
     q: 'What does Jakaria Istauk build?',
-    a: 'Custom WordPress plugins and themes, Elementor widgets, WooCommerce extensions and third-party integrations, plus full-stack products in React, Node.js, TypeScript, PHP, Laravel and MySQL. On product work he builds the data model, the REST API and the interface rather than a single layer.',
+    a: 'Custom WordPress plugins and themes, Elementor widgets, WooCommerce extensions and third-party integrations, plus full-stack products in React, Node.js, TypeScript, PHP, Laravel and MySQL, and autonomous AI agents built on the Claude Agent SDK. On product work he builds the data model, the REST API and the interface rather than a single layer.',
   },
   {
     q: 'How much experience does he have?',
-    a: 'Seven years, since 2019. Currently a WordPress developer working on Essential Addons for Elementor, which runs on more than two million sites, after earlier full-stack roles at Codexpert and Agemark Technology.',
+    a: 'Seven years, since 2019. Currently a software engineer at ThemeXpert, leading development of the WPSubscription plugin. Before that he spent four years on Essential Addons for Elementor, which runs on more than two million sites, after earlier full-stack roles at Codexpert and Agemark Technology.',
   },
   {
     q: 'Has he contributed to WordPress Core?',
     a: 'Yes. His contributions are credited in five WordPress Core releases — 6.1, 6.2, 6.3, 6.4 and 6.9 — and he is a Bengali translation editor for the WordPress Polyglots, Core and Photos teams.',
   },
   {
-    q: 'Is he available for hire?',
-    a: 'He is open to senior WordPress and full-stack roles, working remote and async-first from Dhaka, Bangladesh. The fastest route is email; his CV is downloadable from any page of this site.',
+    q: 'How can I get in touch with him?',
+    a: 'He works remote and async-first from Dhaka, Bangladesh. The fastest route is email; his CV is downloadable from any page of this site.',
   },
   {
     q: 'What is his strongest technical area?',

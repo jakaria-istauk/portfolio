@@ -76,12 +76,16 @@ const person = () => ({
     'WP-CLI',
     'Internationalisation (i18n)',
     'Laravel',
+    'AI agents',
+    'Claude Agent SDK',
+    'LLM function calling',
   ],
   knowsLanguage: ['en', 'bn'],
-  worksFor: HISTORY.map((entry) => ({
+  // The current employer only; the earlier ones are history, not worksFor.
+  worksFor: {
     '@type': 'Organization',
-    name: entry.where,
-  })),
+    name: HISTORY[0].where,
+  },
   // Stated as CollegeOrUniversity rather than a bare string: it is the form
   // that lets an engine resolve the institution instead of reading a name.
   // Deduplicated: two degrees from one university is one alma mater, and
