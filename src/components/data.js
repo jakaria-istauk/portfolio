@@ -217,6 +217,28 @@ export const PROJECTS = [
     ],
     links: [{ label: 'Visit site', url: 'https://muhtamim.oorol.com/' }],
   },
+  {
+    id: 'doel',
+    title: 'Doel',
+    description:
+      'A support-to-release agent for WordPress product teams. It reads every customer ticket, finds the cause in the product code and carries it to a tested fix, with the pull requests ready for review.',
+    summary:
+      'A support-to-release agent: reads customer tickets, reproduces them on a bench store, files the issue, opens tested pull requests and prepares the release.',
+    story: [
+      'Doel is a support-to-release agent for WordPress products. Every ticket that arrives is read in full, traced into the product code and the knowledge base, and answered with a draft reply — then carried the rest of the way: reproduced on a real store, filed as a GitHub issue, fixed on a branch cut from dev, and handed back as a pull request with the release draft attached. The distance between a support ticket and a release is normally weeks of context-switching; the point of the agent is to walk it every time, the same way, without dropping anything.',
+      'Reading a ticket is the easy part; believing it is the test. The steps a customer describes are run on a bench store in a real browser, so a report becomes a reproduction before anyone writes a line of fix code — which is also what catches the tickets that are not bugs at all, before they cost an engineer an afternoon. What the reproduction shows becomes the issue on the board: the cause, the steps, and where it started, rather than a complaint pasted into a tracker.',
+      'No single model is good at every step. Triage wants a fast reader, a customer reply wants a careful writer, and the fix itself wants the strongest coder available. Doel hands each job to the model that does it best, and when one is busy or cannot finish, the next one in line takes over — the run keeps moving instead of waiting on a single provider.',
+      'The panel is the trust surface, not a dashboard. Every step that reaches the outside world — a reply to a customer, an issue on the board, a pull request, a release — waits there for a yes, with what the agent read and ran on the record beside it. Steps that have earned trust are allowed to run on their own, so the guardrail moves with the confidence rather than holding the whole pipeline hostage to it.',
+    ],
+    image: asset('/screenshots/doel.webp'),
+    note: 'The panel is behind team sign-in; the public site is the product page.',
+    categories: ['full-stack', 'interface'],
+    meta: [
+      { key: 'Role', value: 'Creator, engineer' },
+      { key: 'Built with', value: 'Python · JavaScript · LLM APIs' },
+    ],
+    links: [{ label: 'Visit site', url: 'https://doel.oorol.com/' }],
+  },
 ]
 
 export const FILTERS = ['everything', 'wordpress', 'full-stack', 'interface']
